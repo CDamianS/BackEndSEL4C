@@ -1,0 +1,27 @@
+#+title: SEL4C Back end
+
+** Introduccion
+Como parte de la iniciativa del Instituto para el futuro de la educación del Tecnológico de Monterrey, y con el fin
+de promover y llevar a cabo el emprendimiento social, se ha creado la metodología SEL4C (Social Entrepreneurship Learning
+4 Complexity), la cual busca hacer accesible el proceso de ideación de emprendimiento social de manera sencilla y para
+el alcance de todos. Para poder dar a conocer esta metodología a más usuarios, la organización ha decidido valerse
+de distintos medios y herramientas, tales como los celulares, para poder implementar de manera más fácil y cómoda
+los procesos de dicha metodología. Por lo tanto, será necesario el diseño, creación y puesta en marcha de una app,
+que en este caso operará en los dispositivos Apple con IOS, para poder llevar a cabo las actividades y procedimientos
+necesarios para poder impartir la metodología SEL4C de manera rápida sencilla y eficiente.
+
+** Miembros
+Adrián Aguilar Sánchez
+Carlos Damián Suárez Bernal
+Humberto Iván Ulloa Cardona
+Jorge Diego Martell Fernández
+Luis Gerardo Magaña Yáñez
+Pablo Ceballos Gutiérrez
+
+** Profesores
+Olga Patricia Escamilla Escalante
+Christian Rolando Vallejo Villamil
+Iván Santiago Méndez
+Irvin Antonio Mendiola Castillo
+Antonio Castañeda Solis
+José Martín Molina Espinosa
