@@ -11,17 +11,17 @@ que en este caso operará en los dispositivos Apple con IOS, para poder llevar a
 necesarios para poder impartir la metodología SEL4C de manera rápida sencilla y eficiente.
 
 ** Miembros
-Adrián Aguilar Sánchez
-Carlos Damián Suárez Bernal
-Humberto Iván Ulloa Cardona
-Jorge Diego Martell Fernández
-Luis Gerardo Magaña Yáñez
-Pablo Ceballos Gutiérrez
+- Adrián Aguilar Sánchez
+- Carlos Damián Suárez Bernal
+- Humberto Iván Ulloa Cardona
+- Jorge Diego Martell Fernández
+- Luis Gerardo Magaña Yáñez
+- Pablo Ceballos Gutiérrez
 
 ** Profesores
-Olga Patricia Escamilla Escalante
-Christian Rolando Vallejo Villamil
-Iván Santiago Méndez
-Irvin Antonio Mendiola Castillo
-Antonio Castañeda Solis
-José Martín Molina Espinosa
+- Olga Patricia Escamilla Escalante
+- Christian Rolando Vallejo Villamil
+- Iván Santiago Méndez
+- Irvin Antonio Mendiola Castillo
+- Antonio Castañeda Solis
+- José Martín Molina Espinosa
