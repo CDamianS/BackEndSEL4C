@@ -110,3 +110,18 @@ Version: '11.1.2-MariaDB'  socket: ''  port: 3306  mariadb.org binary distributi
 Version: '11.1.2-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
 2023-09-20 14:37:06 0 [Note] InnoDB: Buffer pool(s) load completed at 230920 14:37:06
 2023-09-20 14:41:30 4 [Warning] Access denied for user 'root'@'localhost' (using password: NO)
+2023-09-22  0:04:28 6 [Warning] Aborted connection 6 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  0:08:18 7 [Warning] Aborted connection 7 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  0:15:01 9 [Warning] Aborted connection 9 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  0:28:34 12 [Warning] Aborted connection 12 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  0:32:38 13 [Warning] Aborted connection 13 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  1:07:49 14 [Warning] Aborted connection 14 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  1:13:23 15 [Warning] Aborted connection 15 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  1:13:37 17 [Warning] Aborted connection 17 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  1:19:16 21 [Warning] Aborted connection 21 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  1:27:10 24 [Warning] Aborted connection 24 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  1:27:49 26 [Warning] Aborted connection 26 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  1:50:48 28 [Warning] Aborted connection 28 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  1:51:22 30 [Warning] Aborted connection 30 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  1:54:50 32 [Warning] Aborted connection 32 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
+2023-09-22  3:01:03 37 [Warning] Aborted connection 37 to db: 'data' user: 'datauser' host: 'localhost' (Got an error reading communication packets)
