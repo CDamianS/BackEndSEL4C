@@ -10,6 +10,51 @@ los procesos de dicha metodología. Por lo tanto, será necesario el diseño, cr
 que en este caso operará en los dispositivos Apple con IOS, para poder llevar a cabo las actividades y procedimientos
 necesarios para poder impartir la metodología SEL4C de manera rápida sencilla y eficiente.
 
+** Setup
+*** Clonar el proyecto
+#+begin_src shell
+git clone https://github.com/Dev-Society-CCM/Cyber-Prepa.git
+cd Cyber-Prepa
+#+end_src
+
+*** Virtualenv
+**** Windows
+#+begin_src shell
+py -m venv .venv
+.venv\Scripts\activate.ps1
+pip install -r requirements.txt
+#+end_src
+
+**** Mac y Linux
+#+begin_src shell
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+#+end_src
+
+*** Creación de base de datos necesarios
+
+**** MariaDB o MySQL
+dentro de MySQL o MariaDB
+#+begin_src sql
+CREATE USER 'datauser'@'localhost' IDENTIFIED BY 'SEL4C';
+#+end_src
+
+#+begin_src sql
+GRANT ALL PRIVILEGES ON *.* TO 'datauser'@'localhost';
+#+end_src
+
+#+begin_src sql
+CREATE DATABASE data;
+#+end_src
+
+**** Migrations
+#+begin_src shell
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py runserver
+#+end_src
+
 ** Miembros
 - Adrián Aguilar Sánchez
 - Carlos Damián Suárez Bernal

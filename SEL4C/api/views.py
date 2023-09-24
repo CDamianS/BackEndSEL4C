@@ -48,6 +48,7 @@ def validar_usario(request):
         password = request.POST.get('password')
         try:
             usuario = Usuario.objects.get(usuarioID=userid)
+            # TODO: actual authentication
             if password == usuario.password():
                 return JsonResponse({'status': 'success',
                                      'message': 'Usuario validado'})
