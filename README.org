@@ -13,8 +13,9 @@ necesarios para poder impartir la metodología SEL4C de manera rápida sencilla 
 ** Setup
 *** Clonar el proyecto
 #+begin_src shell
-git clone https://github.com/Dev-Society-CCM/Cyber-Prepa.git
-cd Cyber-Prepa
+git clone https://github.com/CDamianS/BackEndSEL4C.git
+cd BackEndSEL4C
+cd SEL4C
 #+end_src
 
 *** Virtualenv

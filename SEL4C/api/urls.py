@@ -6,9 +6,10 @@ from api import views
 from .views import *
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+router.register(r"users", views.UserViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('cuestionario_inicial', cuestionario_inicial),
+    path("", include(router.urls)),
+    path("users/exists", existe_usuario),
+    path("cuestionario_inicial", cuestionario_inicial),
 ]
