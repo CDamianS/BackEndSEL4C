@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("SEL4C_Dashboard.urls")),
+    path('api/', include('api.urls'))
 ]

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'SEL4C_Dashboard',
     'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
