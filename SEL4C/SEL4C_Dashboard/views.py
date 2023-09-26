@@ -46,7 +46,7 @@ def admin_auth(request):
         
 
 @csrf_exempt
-def crar_Admin(request):
+def crear_Admin(request):
     if request.method == 'POST':
         form = AdminForm(request.POST)
         if form.is_valid():

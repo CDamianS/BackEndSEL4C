@@ -12,6 +12,6 @@ urlpatterns = [
     path('',views.index, name='index'), 
     path('admin_auth', views.admin_auth, name='admin_auth'),
     path('admin_login', views.admin_login, name='admin_login'),
-    path('crar_Admin', views.crar_Admin, name='crar_Admin'),
+    path('crear_Admin', views.crear_Admin, name='crear_Admin'),
 
 ]

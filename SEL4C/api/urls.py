@@ -10,6 +10,7 @@ router.register(r"users", views.UserViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("users/exists", existe_usuario),
+    path("existe_usuario", views.existe_usuario, name='existe_usuario'),
     path("cuestionario_inicial", cuestionario_inicial),
+    path('user_login', views.user_login, name='user_login')
 ]
