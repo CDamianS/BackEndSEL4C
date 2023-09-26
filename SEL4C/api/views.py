@@ -2,6 +2,8 @@
 from django.http import JsonResponse
 from rest_framework import viewsets
 from .serializer import UserSerializer
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
 from SEL4C_Dashboard.models import (
     Usuario,
     Admin,
@@ -17,16 +19,33 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UserSerializer
 
+def validar_user(name, password):
+    try:
+        user = Usuario.objects.get(nombre = name, contrasenia = password)
+        user_ID = user.userID
+    except:
+        user_ID = None
+    return user_ID
 
+
+@csrf_exempt
 def existe_usuario(request):
     """Revisa si el usuario existe en la base de datos."""
+    
     if request.method == "POST":
-        try:
-            usuarioID = request.POST.get("UsuarioID")
-            user = Usuario.objects.get(usuarioID=usuarioID)
-            return JsonResponse({"status": "existe"})
-        except user.DoesNotExist:
-            return JsonResponse({"status": "no existe"})
+            name = request.POST['username']
+            password = request.POST['password']
+            User_ID = validar_user(name, password)
+            print(User_ID)
+            if User_ID is None:
+                return JsonResponse({"status": "no existe"})
+            else:
+                return JsonResponse({"status": "existe"})
+
+@csrf_exempt
+def user_login(request):
+    """End point para validar el usuario"""
+    return render(request, 'user_login.html')
 
 
 def cuestionario_inicial(request):
