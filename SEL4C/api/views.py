@@ -19,9 +19,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UserSerializer
 
+
 def validar_user(name, password):
     try:
-        user = Usuario.objects.get(nombre = name, contrasenia = password)
+        user = Usuario.objects.get(nombre=name, contrasenia=password)
         user_ID = user.userID
     except:
         user_ID = None
@@ -31,21 +32,22 @@ def validar_user(name, password):
 @csrf_exempt
 def existe_usuario(request):
     """Revisa si el usuario existe en la base de datos."""
-    
+
     if request.method == "POST":
-            name = request.POST['username']
-            password = request.POST['password']
-            User_ID = validar_user(name, password)
-            print(User_ID)
-            if User_ID is None:
-                return JsonResponse({"status": "no existe"})
-            else:
-                return JsonResponse({"status": "existe"})
+        name = request.POST["username"]
+        password = request.POST["password"]
+        User_ID = validar_user(name, password)
+        print(User_ID)
+        if User_ID is None:
+            return JsonResponse({"status": "no existe"})
+        else:
+            return JsonResponse({"status": "existe"})
+
 
 @csrf_exempt
 def user_login(request):
     """End point para validar el usuario"""
-    return render(request, 'user_login.html')
+    return render(request, "user_login.html")
 
 
 def cuestionario_inicial(request):
@@ -140,6 +142,113 @@ def cuestionario_inicial(request):
         {
             "id": 24,
             "text": " Conozco estrategias para desarrollar un proyecto, aún con escasez de recursos.",
+        },
+    ]
+    return JsonResponse(questions, safe=False)
+
+
+def cuestionario_PC(request):
+    """Send the initial questions."""
+    questions = [
+        {
+            "id": 1,
+            "text": " Creo que el cometer errores nos ofrece nuevas oportunidades de aprendizaje.",
+        },
+        {
+            "id": 2,
+            "text": "Identifico datos de mi disciplina y de otras áreas que contribuyen a resolver problemas.",
+        },
+        {
+            "id": 3,
+            "text": "Participo en proyectos que se tienen que resolver utilizando perspectivas Inter/multidisciplinarias.",
+        },
+        {
+            "id": 4,
+            "text": "Organizo información para resolver problemas.",
+        },
+        {
+            "id": 5,
+            "text": "Me agrada conocer perspectivas diferentes de un problema.",
+        },
+        {
+            "id": 6,
+            "text": "Me inclino por estrategias para comprender las partes y el todo de un problema.",
+        },
+        {
+            "id": 7,
+            "text": "Tengo la capacidad de Identificar los componentes esenciales de un problema para formular una pregunta de investigación.",
+        },
+        {
+            "id": 8,
+            "text": "Conozco la estructura y los formatos para elaborar reportes de investigación que se utilizan en mi área o disciplina.",
+        },
+        {
+            "id": 9,
+            "text": "Identifico la estructura de un artículo de investigación que se maneja en mi área o disciplina.",
+        },
+        {
+            "id": 10,
+            "text": "Identifico los elementos para formular una pregunta de investigación.",
+        },
+        {
+            "id": 11,
+            "text": "Diseño instrumentos de investigación coherentes con el método de investigación utilizado.",
+        },
+        {
+            "id": 12,
+            "text": "Formulo y pruebo hipótesis de investigación.",
+        },
+        {
+            "id": 13,
+            "text": "Me inclino a usar datos científicos para analizar problemas de investigación.",
+        },
+        {
+            "id": 14,
+            "text": "Tengo la capacidad para analizar críticamente problemas desde diferentes perspectivas.",
+        },
+        {
+            "id": 15,
+            "text": "Identifico la fundamentación de juicios propios y ajenos para reconocer argumentos falsos.",
+        },
+        {
+            "id": 16,
+            "text": "Autoevalúo  el nivel de avance y logro de mis metas para hacer los ajustes necesarios.",
+        },
+        {
+            "id": 17,
+            "text": "Utilizo razonamientos basados en el conocimiento científico para emitir juicios ante un problema.",
+        },
+        {
+            "id": 18,
+            "text": "Me aseguro de revisar los lineamientos éticos de los proyectos en los que participo.",
+        },
+        {
+            "id": 19,
+            "text": "Me aseguro de revisar los lineamientos éticos de los proyectos en los que participo.",
+        },
+        {
+            "id": 20,
+            "text": "Aprecio críticas en el desarrollo de proyectos para mejorarlos.",
+        },
+        {
+            "id": 21,
+            "text": "Conozco los criterios para determinar un problema.",
+        },
+        {
+            "id": 22,
+            "text": "Tengo la capacidad de identificar las variables, de diversas disciplinas, que pueden ayudar a responder preguntas.",
+        },
+        {
+            "id": 23,
+            "text": "Aplico soluciones innovadoras a diversas problemáticas.",
+        },
+        {
+            "id": 24,
+            "text": "Soluciono problemas interpretando datos de diferentes disciplinas.",
+        },
+        {
+            "id": 25,
+            "text": "Analizo problemas de investigación contemplando el contexto para crear soluciones.",
         },
     ]
     return JsonResponse(questions, safe=False)
