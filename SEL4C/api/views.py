@@ -1,25 +1,48 @@
 """Views (Logic) for API calls."""
 from django.http import JsonResponse
 from rest_framework import viewsets
-from .serializer import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
-from SEL4C_Dashboard.models import (
+from django.http import HttpResponse
+from json import loads, dumps
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets
+import requests
+from .models import (
     Usuario,
     Admin,
     Actividad,
     CuestionarioInicial,
     CuestionarioFinal,
 )
+from .serializer import (
+    AdminSerialiizer, 
+    UsuarioSerializer,
+    ActividadSerializer,
+    CuestionarioISerializer,
+    CuestionarioFSerializer,
+)
+from .forms import (
+    AdminForm,
+    UsuarioForm,
+    ActividadForm,
+    CuestionarioIForm,
+    CuestionarioFForm,
+)
 
+class AdminViewSet(viewsets.ModelViewSet):
+    """Creación de admins dentro de la base de datos."""
+
+    queryset = Admin.objects.all()
+    serializer_class = AdminSerialiizer
 
 class UserViewSet(viewsets.ModelViewSet):
     """Creación de usuarios dentro de la base de datos."""
 
     queryset = Usuario.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UsuarioSerializer
 
-
+@csrf_exempt
 def validar_user(name, password):
     try:
         user = Usuario.objects.get(nombre=name, contrasenia=password)
@@ -28,6 +51,27 @@ def validar_user(name, password):
         user_ID = None
     return user_ID
 
+@csrf_exempt
+def validar_admin(name, password):
+    try:
+        admin = Admin.objects.get(nombre = name, contrasenia = password)
+        admin_id = admin.adminID
+    except:
+        admin_id = None
+    return admin_id
+
+@csrf_exempt
+def existe_admin(request):
+    """Revisa si el usuario existe en la base de datos."""
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        admin_id = validar_admin(username, password)
+        if admin_id is not None:
+            return HttpResponse("Logeado!!")
+        else:
+            return HttpResponse("No existes como usuario :(")
 
 @csrf_exempt
 def existe_usuario(request):
@@ -43,13 +87,37 @@ def existe_usuario(request):
         else:
             return JsonResponse({"status": "existe"})
 
+@csrf_exempt
+def crear_Admin(request):
+    if request.method == 'POST':
+        form = AdminForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Ok!!!")
+        else:
+            
+            error_message = form.errors.values()
+            for error in error_message:
+                print(error)
+            
+            return HttpResponse("erorr :(")
+    else:
+        form = AdminForm()
+    return render(request, 'admin_creacion(prueb).html', {'form': form})
+
+
+@csrf_exempt
+def admin_login(request):
+    """End point para validar el admin"""
+    return render(request, 'admin_login.html')
+
 
 @csrf_exempt
 def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
 
-
+@csrf_exempt
 def cuestionario_inicial(request):
     """Send the initial questions."""
     questions = [
