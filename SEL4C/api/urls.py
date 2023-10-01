@@ -20,4 +20,5 @@ urlpatterns = [
     path('user_login', views.user_login, name='user_login'),
     path("cuestionario_inicial", views.cuestionario_inicial, name='cuestionario_inicial'),
     path("cuestionario_PC", views.cuestionario_PC, name='cuestionario_PC'),
+    path("upload", views.upload, name='upload'),
 ]

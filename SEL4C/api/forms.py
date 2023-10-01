@@ -15,6 +15,12 @@ class ActividadForm(forms.ModelForm):
     class Meta:
         model = Actividad
         fields = ['nombre', 'estatus', 'usuarioID', 'entregable']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+
+
 
 class CuestionarioIForm(forms.ModelForm):
     class Meta:

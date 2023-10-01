@@ -19,6 +19,7 @@ from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     path("", include("SEL4C_Dashboard.urls")),
+    path("", include("api.urls")),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("docs", include_docs_urls(title="Api Documentation")),

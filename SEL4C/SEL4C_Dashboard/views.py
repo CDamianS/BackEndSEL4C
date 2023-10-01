@@ -13,5 +13,7 @@ import requests
 
 #endpoints
 def index(request):
-    return HttpResponse("Dashboard")
+    return render(request, "Pagina_principal/index.html")
 
+def descargar_app(request):
+    return render(request, "Pagina_principal/descargar.html")

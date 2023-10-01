@@ -1,13 +1,17 @@
 """Views (Logic) for API calls."""
-from django.http import JsonResponse
+from django.http import JsonResponse 
 from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from json import loads, dumps
+from json import loads, dumps, JSONDecodeError, JSONDecoder, load
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 import requests
+from django.core.files.storage import FileSystemStorage
+import os
+import re
+
 from .models import (
     Usuario,
     Admin,
@@ -42,6 +46,21 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
+class ActividadViewSet(viewsets.ModelViewSet):
+    """Creación de actividades dentro de la base de datos."""
+
+    queryset = Actividad.objects.all()
+    serializer_class = ActividadSerializer
+
+def crearActividad(actividad):
+    actividad_serializer = ActividadSerializer(actividad)
+
+#Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
+def acrchivo_subido(f):
+    with open('static/upload/'+ f.name, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
 @csrf_exempt
 def validar_user(name, password):
     try:
@@ -61,6 +80,16 @@ def validar_admin(name, password):
     return admin_id
 
 @csrf_exempt
+def selecionar_actividad(idAct, idUser):
+    try:
+        actividad = Actividad.objects.get(actividadID = idAct, usuarioID = idUser)
+        actividad_id = actividad.usuarioID
+    except:
+        actividad_id = None
+    return actividad_id
+
+
+@csrf_exempt
 def existe_admin(request):
     """Revisa si el usuario existe en la base de datos."""
 
@@ -69,6 +98,7 @@ def existe_admin(request):
         password = request.POST['password']
         admin_id = validar_admin(username, password)
         if admin_id is not None:
+            print("si?")
             return HttpResponse("Logeado!!")
         else:
             return HttpResponse("No existes como usuario :(")
@@ -81,7 +111,7 @@ def existe_usuario(request):
         name = request.POST["username"]
         password = request.POST["password"]
         User_ID = validar_user(name, password)
-        print(User_ID)
+        
         if User_ID is None:
             return JsonResponse({"status": "no existe"})
         else:
@@ -109,13 +139,35 @@ def crear_Admin(request):
 @csrf_exempt
 def admin_login(request):
     """End point para validar el admin"""
-    return render(request, 'admin_login.html')
+    return render(request, 'Pagina_principal/iniciar_sesion.html')
 
 
 @csrf_exempt
 def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
+
+
+@csrf_exempt
+def upload(request):
+    try:
+        if request.method == 'POST':     
+            data = request.POST
+            file = request.FILES
+            
+            nombre = data['nombre']
+            estatus = data['estatus']
+            usuarioID = data['usuarioID']
+            entregable = file['entregable']
+
+            elUsuario = Usuario.objects.get(usuarioID = usuarioID)
+
+            actividad = Actividad.objects.create(nombre = nombre, estatus = estatus, usuarioID = elUsuario, entregable = entregable)
+            crearActividad(actividad)
+
+        return JsonResponse({'message': 'La actividad se entrgo correctamente!!!'})
+    except:
+        return JsonResponse({'error': 'Ha ocurrido un errror :()'}, status=400)
 
 @csrf_exempt
 def cuestionario_inicial(request):
@@ -320,3 +372,4 @@ def cuestionario_PC(request):
         },
     ]
     return JsonResponse(questions, safe=False)
+

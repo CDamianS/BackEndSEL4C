@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/a2dd6045c4.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav>
+        <div id="logo">
+            <a href="{% url 'index' %}"><img src="{% static 'img/IFT.png' %}" alt="Logo"></a>
+        </div>
+        <div id="opciones">
+            <a href="{% url 'descargar_app' %}">Descargar</a>
+            <a href="{% url 'admin_login' %}">Iniciar Sesión</a>
+        </div>
+    </nav>
+
+    <!-- Log In -->
+    <section class="section">
+        <div class="contenedor">
+            <div class="formulario">
+                <form action="{% url 'existe_admin' %}" method="post">
+                    {% csrf_token %}
+                    <h2> Iniciar Sesión </h2>
+                    <div class="input-contenedor">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="text" required name="username">
+                        <label for="#"> Usuario </label>
+                    </div>
+                    <div class="input-contenedor">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" required name="password">
+                        <label for="#"> Contraseña </label>
+                    </div>
+                    <div>
+                        <button type="submit"> Ingresar </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

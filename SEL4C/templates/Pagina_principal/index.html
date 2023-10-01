@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav>
+        <div id="logo">
+            <a href="{% url 'index' %}"><img src="{% static 'img/IFT.png' %}" alt="Logo"></a>
+        </div>
+        <div id="opciones">
+            <a href="{% url 'descargar_app' %}">Descargar</a>
+            <a href="{% url 'admin_login' %}">Iniciar Sesión</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero">
+        <div class="hero-text">
+            <h1>SEL4C iOS App</h1>
+            <p> Social Entrepreneurship Learning 4 Complexity </p>
+            <a href="{% url 'descargar_app' %}" class="btn">Descargar</a>
+        </div>
+    </section>
+
+    <!-- Sección de Texto e Imagen -->
+    <section id="texto-imagen">
+        <div class="texto">
+            <h2> Sobre la Metodología SEL4C </h2>
+            <br>
+            <p>
+                SEL4C es una metodología que se desarrolla a partir de una caja de herramientas educativas 
+                (EduToolKit) que tiene el objetivo de apoyar a estudiantes en la adquisición y escalamiento 
+                del nivel de percepción de logro de las competencias de emprendimiento social y pensamiento 
+                complejo. <br> <br> Este proyecto, surge motivado por el reconocimiento de que no todas las instituciones 
+                cuentan con recursos académicos y humanos especializados para el desarrollo de estas competencias, 
+                por lo que, con el objetivo de hacer asequible el emprendimiento social para todo estudiante con 
+                deseo de emprender, el presente proyecto propone la implementación de una metodología que, mediante 
+                un proceso de aprendizaje adaptativo, consiga el escalamiento de las competencias de emprendimiento 
+                social y pensamiento complejo de manera autodirigida.
+            </p>
+        </div>
+        <img src="{% static 'img/Foto_Acompañada.jpeg' %}" alt="Imagen con fondo transparente">
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
+

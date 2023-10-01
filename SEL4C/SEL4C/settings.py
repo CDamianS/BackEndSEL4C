@@ -138,3 +138,8 @@ REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSc
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+DJANGO_JSONFORM = {
+    'FILE_HANDLER': '/upload/'
+}
