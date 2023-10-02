@@ -145,8 +145,8 @@ def user_login(request):
 
 @csrf_exempt
 def creacion_usuario(request):
-    try:
-        if request.method == 'POST':
+    if request.method == 'POST':
+        try:
             form = UsuarioForm(request.POST)
             if form.is_valid():
                 form.save()
@@ -158,13 +158,16 @@ def creacion_usuario(request):
                     print(error)
                 
                 return JsonResponse({'message': 'Erorr en los datos de registro'})      
-    except:
-        return JsonResponse({'message': 'Erorr en el metodo de request'}) 
+        except:
+            return JsonResponse({'message': 'Erorr en los datos de registro'})
+    else:
+        return HttpResponse('Error en el metodo de requets')
+    
 
 @csrf_exempt
 def upload(request):
-    try:
-        if request.method == 'POST':     
+    if request.method == 'POST': 
+        try:
             data = request.POST
             file = request.FILES
             
@@ -174,13 +177,26 @@ def upload(request):
             entregable = file['entregable']
 
             elUsuario = Usuario.objects.get(usuarioID = usuarioID)
+            elUsuario.avance = 1
+            elUsuario.save()
 
             actividad = Actividad.objects.create(nombre = nombre, estatus = estatus, usuarioID = elUsuario, entregable = entregable)
             crearActividad(actividad)
 
-        return JsonResponse({'message': 'La actividad se entrgo correctamente!!!'})
-    except:
-        return JsonResponse({'error': 'Ha ocurrido un errror :('}, status=400)
+            return JsonResponse({'message': 'La actividad se entrgo correctamente!!!'})
+        except:
+            return JsonResponse({'error': 'Ha ocurrido un errror :('}, status=400)
+    else:
+        return HttpResponse('Error en el metodo de requet')
+    
+def download(request, file_id):
+        try:
+            file = Actividad.objects.get(pk = file_id)
+            response = HttpResponse(file.entregable, content_type='application/force-download')
+            response['Content-Disposition'] = f'attachment; filename="{file.entregable.name}"'
+            return response
+        except:
+            return HttpResponse("Este archivo no existe en la base de datos")
 
 @csrf_exempt
 def cuestionario_inicial(request):
