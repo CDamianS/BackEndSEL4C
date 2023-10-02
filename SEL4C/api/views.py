@@ -10,7 +10,6 @@ from rest_framework import viewsets
 import requests
 from django.core.files.storage import FileSystemStorage
 import os
-import re
 
 from .models import (
     Usuario,
@@ -88,7 +87,6 @@ def selecionar_actividad(idAct, idUser):
         actividad_id = None
     return actividad_id
 
-
 @csrf_exempt
 def existe_admin(request):
     """Revisa si el usuario existe en la base de datos."""
@@ -111,7 +109,7 @@ def existe_usuario(request):
         name = request.POST["username"]
         password = request.POST["password"]
         User_ID = validar_user(name, password)
-        
+
         if User_ID is None:
             return JsonResponse({"status": "no existe"})
         else:
@@ -135,18 +133,33 @@ def crear_Admin(request):
         form = AdminForm()
     return render(request, 'admin_creacion(prueb).html', {'form': form})
 
-
 @csrf_exempt
 def admin_login(request):
     """End point para validar el admin"""
     return render(request, 'Pagina_principal/iniciar_sesion.html')
-
 
 @csrf_exempt
 def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
 
+@csrf_exempt
+def creacion_usuario(request):
+    try:
+        if request.method == 'POST':
+            form = UsuarioForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'message': 'Registro Exitoso'}) 
+            else:
+                
+                error_message = form.errors.values()
+                for error in error_message:
+                    print(error)
+                
+                return JsonResponse({'message': 'Erorr en los datos de registro'})      
+    except:
+        return JsonResponse({'message': 'Erorr en el metodo de request'}) 
 
 @csrf_exempt
 def upload(request):
@@ -167,7 +180,7 @@ def upload(request):
 
         return JsonResponse({'message': 'La actividad se entrgo correctamente!!!'})
     except:
-        return JsonResponse({'error': 'Ha ocurrido un errror :()'}, status=400)
+        return JsonResponse({'error': 'Ha ocurrido un errror :('}, status=400)
 
 @csrf_exempt
 def cuestionario_inicial(request):
