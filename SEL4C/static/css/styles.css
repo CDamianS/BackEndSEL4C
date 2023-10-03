@@ -325,3 +325,98 @@ button:hover {
         background-image: url(../img/Fondo_LogIn_Vert.jpeg);
     }
 }
+
+/* Dashboard */
+
+.dashboard {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: rgb(4, 30, 66);
+    color: white;
+    position: fixed;
+}
+
+.logo_ds img {
+    width: 100%;
+}
+
+.menu {
+    list-style-type: none;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.menu-item {
+    padding: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.menu-item.active {
+    background-color: #34495e;
+}
+
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+
+.navbar {
+    height: 90px;
+    background-color: #34495e;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    position: fixed;
+    width: calc(100% - 250px);
+    z-index: 1000;
+}
+
+.logout-button {
+    background-color: #2565ce;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.content {
+    padding: 70px 20px 20px 20px;
+    background-color: #ecf0f1;
+}
+
+.submenu {
+    display: none; /* Oculta el submenú por defecto */
+    list-style-type: none;
+    background-color: #34495e; 
+    margin-top: 10px;
+}
+
+.menu-item.active .submenu {
+    display: block; /* Muestra el submenú cuando el menu-item esté activo */
+}
+
+.submenu-item {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: normal;
+    cursor: pointer;
+    background-color: #34495e; /* Un color más oscuro para distinguir del fondo del menú */
+}
+
+.submenu-item.active {
+    background-color: #2c3e50; /* Un color aún más oscuro para resaltar el submenú activo */
+    color: white;
+}
+
+.submenu-item:hover {
+    background-color: #2c3e50;
+}

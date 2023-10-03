@@ -25,4 +25,5 @@ urlpatterns = [
     path("upload", views.upload, name='upload'),
     path("download/<int:file_id>", views.download, name='download'),
     path("creacion_usuario", views.creacion_usuario, name='creacion_usuario'),
+    path("repuestas_cuestionario", views.repuestas_cuestionario, name='repuestas_cuestionario'),
 ]

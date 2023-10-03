@@ -113,9 +113,9 @@ def existe_admin(request):
         admin_id = validar_admin(username, password)
         if admin_id is not None:
             print("si?")
-            return HttpResponse("Logeado!!")
+            return render(request, 'dashboard_base.html')
         else:
-            return HttpResponse("No existes como usuario :(")
+            return render(request, 'Pagina_principal/iniciar_sesion.html')
 
 @csrf_exempt
 def existe_usuario(request):
@@ -205,6 +205,7 @@ def upload(request):
     else:
         return HttpResponse('Error en el metodo de requet')
     
+@csrf_exempt
 def download(request, file_id):
         try:
             file = Actividad.objects.get(pk = file_id)
@@ -213,6 +214,26 @@ def download(request, file_id):
             return response
         except:
             return HttpResponse("Este archivo no existe en la base de datos")
+
+@csrf_exempt
+def repuestas_cuestionario(request):
+    if request.method == 'POST': 
+            data = request.POST
+
+            usuarioID = data['usuarioID']
+
+            print(usuarioID)
+
+            return HttpResponse("si")
+
+    return HttpResponse("??")
+        
+
+
+
+
+
+
 
 @csrf_exempt
 def cuestionario_inicial(request):
