@@ -62,19 +62,19 @@ class Actividad(models.Model):
     
 class CuestionarioInicial(models.Model):
     preguntaID = models.AutoField(primary_key=True)
-    pregunta = models.CharField(max_length=100)
+    numero = models.IntegerField(default = 0)
     respuesta = models.CharField(max_length= 50)
     usuarioID = models.ForeignKey('Usuario', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Pregunra {self.preguntaID}: {self.pregunta} - Respuesta: {self.respuesta} - Usuario: {self.usuarioID}'
+        return f'Pregunra {self.numero} - Respuesta: {self.respuesta} - Usuario: {self.usuarioID}'
     
 class CuestionarioFinal(models.Model):
     preguntaID = models.AutoField(primary_key=True)
-    pregunta = models.CharField(max_length=100)
+    numero = models.IntegerField(default = 0)
     respuesta = models.CharField(max_length= 50)
     usuarioID = models.ForeignKey('Usuario', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Pregunra {self.preguntaID}: {self.pregunta} - Respuesta: {self.respuesta} - Usuario: {self.usuarioID}'
+        return f'Pregunra {self.numero} - Respuesta: {self.respuesta} - Usuario: {self.usuarioID}'
     

@@ -17,3 +17,6 @@ def index(request):
 
 def descargar_app(request):
     return render(request, "Pagina_principal/descargar.html")
+
+def error_404(request, not_found):
+    return render(request, 'Pagina_principal/404.html')

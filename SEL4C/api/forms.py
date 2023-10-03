@@ -25,9 +25,9 @@ class ActividadForm(forms.ModelForm):
 class CuestionarioIForm(forms.ModelForm):
     class Meta:
         model = CuestionarioInicial
-        fields = ['pregunta', 'respuesta', 'usuarioID']   
+        fields = ['numero', 'respuesta', 'usuarioID']  
 
 class CuestionarioFForm(forms.ModelForm):
     class Meta:
         model = CuestionarioFinal
-        fields = ['pregunta', 'respuesta', 'usuarioID']       
+        fields = ['numero', 'respuesta', 'usuarioID']        

@@ -54,6 +54,9 @@ class ActividadViewSet(viewsets.ModelViewSet):
 def crearActividad(actividad):
     actividad_serializer = ActividadSerializer(actividad)
 
+def crearUsuario(usuario):
+    usuario_serializer = UsuarioSerializer(usuario)
+
 #Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
 def acrchivo_subido(f):
     with open('static/upload/'+ f.name, 'wb+') as destination:
@@ -87,6 +90,19 @@ def selecionar_actividad(idAct, idUser):
         actividad_id = None
     return actividad_id
 
+@csrf_exempt
+def index(request):
+    return render(request, "Pagina_principal/index.html")
+
+@csrf_exempt
+def descargar_app(request):
+    return render(request, "Pagina_principal/descargar.html")
+
+"""
+@csrf_exempt
+def error_404(request, not_found):
+    return render(request, 'Pagina_principal/404.html')
+"""
 @csrf_exempt
 def existe_admin(request):
     """Revisa si el usuario existe en la base de datos."""
@@ -177,7 +193,7 @@ def upload(request):
             entregable = file['entregable']
 
             elUsuario = Usuario.objects.get(usuarioID = usuarioID)
-            elUsuario.avance = 1
+            elUsuario.avance += 1
             elUsuario.save()
 
             actividad = Actividad.objects.create(nombre = nombre, estatus = estatus, usuarioID = elUsuario, entregable = entregable)

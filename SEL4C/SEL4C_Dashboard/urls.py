@@ -7,9 +7,4 @@ router = routers.DefaultRouter()
 #router.register(r'admins', views.AdminViewSet)
 
 
-urlpatterns = [
-    path('',views.index, name='index'), 
-    
-    path('descargar_app', views.descargar_app, name='descargar_app'),
-
-]
+urlpatterns = []

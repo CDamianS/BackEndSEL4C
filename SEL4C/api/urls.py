@@ -12,7 +12,9 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     
-    path("", include(router.urls)),
+    path('',views.index, name='index'), 
+    path('descargar_app', views.descargar_app, name='descargar_app'),
+    #path('<path:not_found>', views.error_404, name='error_404'),
     path('existe_admin', views.existe_admin, name='existe_admin'),
     path('admin_login', views.admin_login, name='admin_login'),
     path('crear_Admin', views.crear_Admin, name='crear_Admin'),
