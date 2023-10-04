@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -11,11 +11,11 @@
 <body>
     <div class="dashboard">
         {% include 'sidebar.html' %}
-        {% block hola %}
-        {% endblock %}
         {% include 'topbar.html' %}
     </div>
+        {% block hola %}
+        {% endblock %}
     <script src="{% static 'script.js' %}"></script>
+    {% block graphs %}{% endblock %}
 </body>
 </html>
-
