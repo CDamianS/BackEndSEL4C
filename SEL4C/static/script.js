@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submenuItems = document.querySelectorAll('.submenu-item');
     const document = document.querySelectorAll('submenu-item');
 
+
     menuItems.forEach(item => {
         item.addEventListener('click', (e) => {
             // Evita que el evento se propague al hacer clic en el submenú

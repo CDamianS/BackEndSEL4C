@@ -51,6 +51,12 @@ class ActividadViewSet(viewsets.ModelViewSet):
     queryset = Actividad.objects.all()
     serializer_class = ActividadSerializer
 
+class CuestionarioIViewSet(viewsets.ModelViewSet):
+    """Creación de cuestionarios iniciales dentro de la base de datos."""
+
+    queryset = CuestionarioInicial.objects.all()
+    serializer_class = CuestionarioISerializer
+
 def crearActividad(actividad):
     actividad_serializer = ActividadSerializer(actividad)
 
@@ -214,6 +220,8 @@ def download(request, file_id):
             return response
         except:
             return HttpResponse("Este archivo no existe en la base de datos")
+        
+
 
 @csrf_exempt
 def repuestas_cuestionario(request):
