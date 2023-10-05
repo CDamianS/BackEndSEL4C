@@ -1,5 +1,5 @@
 """Views (Logic) for API calls."""
-from django.http import JsonResponse
+from django.http import JsonResponse 
 from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
@@ -19,7 +19,7 @@ from .models import (
     CuestionarioFinal,
 )
 from .serializer import (
-    AdminSerialiizer,
+    AdminSerialiizer, 
     UsuarioSerializer,
     ActividadSerializer,
     CuestionarioISerializer,
@@ -33,13 +33,11 @@ from .forms import (
     CuestionarioFForm,
 )
 
-
 class AdminViewSet(viewsets.ModelViewSet):
     """Creación de admins dentro de la base de datos."""
 
     queryset = Admin.objects.all()
     serializer_class = AdminSerialiizer
-
 
 class UserViewSet(viewsets.ModelViewSet):
     """Creación de usuarios dentro de la base de datos."""
@@ -47,13 +45,11 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
-
 class ActividadViewSet(viewsets.ModelViewSet):
     """Creación de actividades dentro de la base de datos."""
 
     queryset = Actividad.objects.all()
     serializer_class = ActividadSerializer
-
 
 class CuestionarioIViewSet(viewsets.ModelViewSet):
     """Creación de cuestionarios iniciales dentro de la base de datos."""
@@ -61,21 +57,17 @@ class CuestionarioIViewSet(viewsets.ModelViewSet):
     queryset = CuestionarioInicial.objects.all()
     serializer_class = CuestionarioISerializer
 
-
 def crearActividad(actividad):
     actividad_serializer = ActividadSerializer(actividad)
-
 
 def crearUsuario(usuario):
     usuario_serializer = UsuarioSerializer(usuario)
 
-
-# Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
+#Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
 def acrchivo_subido(f):
-    with open("static/upload/" + f.name, "wb+") as destination:
+    with open('static/upload/'+ f.name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-
 
 @csrf_exempt
 def validar_user(name, password):
@@ -86,59 +78,50 @@ def validar_user(name, password):
         user_ID = None
     return user_ID
 
-
 @csrf_exempt
 def validar_admin(name, password):
     try:
-        admin = Admin.objects.get(nombre=name, contrasenia=password)
+        admin = Admin.objects.get(nombre = name, contrasenia = password)
         admin_id = admin.adminID
     except:
         admin_id = None
     return admin_id
 
-
 @csrf_exempt
 def selecionar_actividad(idAct, idUser):
     try:
-        actividad = Actividad.objects.get(actividadID=idAct, usuarioID=idUser)
+        actividad = Actividad.objects.get(actividadID = idAct, usuarioID = idUser)
         actividad_id = actividad.usuarioID
     except:
         actividad_id = None
     return actividad_id
 
-
 @csrf_exempt
 def index(request):
     return render(request, "Pagina_principal/index.html")
 
-
 @csrf_exempt
 def descargar_app(request):
     return render(request, "Pagina_principal/descargar.html")
-
 
 """
 @csrf_exempt
 def error_404(request, not_found):
     return render(request, 'Pagina_principal/404.html')
 """
-
-
 @csrf_exempt
 def existe_admin(request):
     """Revisa si el usuario existe en la base de datos."""
 
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
         admin_id = validar_admin(username, password)
         if admin_id is not None:
             print("si?")
-            return render(request, "dashboard_base.html")
+            return render(request, 'dashboard_base.html')
         else:
-            return HttpResponseRedirect("//url1/")
-            # return render(request, "Pagina_principal/iniciar_sesion.html")
-
+            return render(request, 'Pagina_principal/iniciar_sesion.html')
 
 @csrf_exempt
 def existe_usuario(request):
@@ -154,117 +137,110 @@ def existe_usuario(request):
         else:
             return JsonResponse({"status": "existe"})
 
-
 @csrf_exempt
 def crear_Admin(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = AdminForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponse("Ok!!!")
         else:
-
+            
             error_message = form.errors.values()
             for error in error_message:
                 print(error)
-
+            
             return HttpResponse("erorr :(")
     else:
         form = AdminForm()
-    return render(request, "admin_creacion(prueb).html", {"form": form})
-
+    return render(request, 'admin_creacion(prueb).html', {'form': form})
 
 @csrf_exempt
 def admin_login(request):
     """End point para validar el admin"""
-    return render(request, "Pagina_principal/iniciar_sesion.html")
-
+    return render(request, 'Pagina_principal/iniciar_sesion.html')
 
 @csrf_exempt
 def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
 
-
 @csrf_exempt
 def creacion_usuario(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         try:
             form = UsuarioForm(request.POST)
             if form.is_valid():
                 form.save()
-                return JsonResponse({"message": "Registro Exitoso"})
+                return JsonResponse({'message': 'Registro Exitoso'}) 
             else:
-
+                
                 error_message = form.errors.values()
                 for error in error_message:
                     print(error)
-
-                return JsonResponse({"message": "Erorr en los datos de registro"})
+                
+                return JsonResponse({'message': 'Erorr en los datos de registro'})      
         except:
-            return JsonResponse({"message": "Erorr en los datos de registro"})
+            return JsonResponse({'message': 'Erorr en los datos de registro'})
     else:
-        return HttpResponse("Error en el metodo de requets")
-
+        return HttpResponse('Error en el metodo de requets')
+    
 
 @csrf_exempt
 def upload(request):
-    if request.method == "POST":
+    if request.method == 'POST': 
         try:
             data = request.POST
             file = request.FILES
+            
+            nombre = data['nombre']
+            estatus = data['estatus']
+            usuarioID = data['usuarioID']
+            entregable = file['entregable']
 
-            nombre = data["nombre"]
-            estatus = data["estatus"]
-            usuarioID = data["usuarioID"]
-            entregable = file["entregable"]
-
-            elUsuario = Usuario.objects.get(usuarioID=usuarioID)
+            elUsuario = Usuario.objects.get(usuarioID = usuarioID)
             elUsuario.avance += 1
             elUsuario.save()
 
-            actividad = Actividad.objects.create(
-                nombre=nombre,
-                estatus=estatus,
-                usuarioID=elUsuario,
-                entregable=entregable,
-            )
+            actividad = Actividad.objects.create(nombre = nombre, estatus = estatus, usuarioID = elUsuario, entregable = entregable)
             crearActividad(actividad)
 
-            return JsonResponse({"message": "La actividad se entrgo correctamente!!!"})
+            return JsonResponse({'message': 'La actividad se entrgo correctamente!!!'})
         except:
-            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
+            return JsonResponse({'error': 'Ha ocurrido un errror :('}, status=400)
     else:
-        return HttpResponse("Error en el metodo de requet")
-
-
+        return HttpResponse('Error en el metodo de requet')
+    
 @csrf_exempt
 def download(request, file_id):
-    try:
-        file = Actividad.objects.get(pk=file_id)
-        response = HttpResponse(
-            file.entregable, content_type="application/force-download"
-        )
-        response[
-            "Content-Disposition"
-        ] = f'attachment; filename="{file.entregable.name}"'
-        return response
-    except:
-        return HttpResponse("Este archivo no existe en la base de datos")
+        try:
+            file = Actividad.objects.get(pk = file_id)
+            response = HttpResponse(file.entregable, content_type='application/force-download')
+            response['Content-Disposition'] = f'attachment; filename="{file.entregable.name}"'
+            return response
+        except:
+            return HttpResponse("Este archivo no existe en la base de datos")
+        
 
 
 @csrf_exempt
 def repuestas_cuestionario(request):
-    if request.method == "POST":
-        data = request.POST
+    if request.method == 'POST': 
+            data = request.POST
 
-        usuarioID = data["usuarioID"]
+            usuarioID = data['usuarioID']
 
-        print(usuarioID)
+            print(usuarioID)
 
-        return HttpResponse("si")
+            return HttpResponse("si")
 
     return HttpResponse("??")
+        
+
+
+
+
+
 
 
 @csrf_exempt
@@ -470,3 +446,4 @@ def cuestionario_PC(request):
         },
     ]
     return JsonResponse(questions, safe=False)
+
