@@ -3,22 +3,8 @@ from django.http import JsonResponse
 from rest_framework import viewsets
 from .serializer import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
-<<<<<<< Updated upstream
 from django.shortcuts import render, redirect
 from SEL4C_Dashboard.models import (
-=======
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from django.db.models import Q
-from json import loads, dumps, JSONDecodeError, JSONDecoder, load
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework import viewsets
-import requests
-from django.core.files.storage import FileSystemStorage
-import os
-
-from .models import (
->>>>>>> Stashed changes
     Usuario,
     Admin,
     Actividad,
@@ -34,38 +20,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-<<<<<<< Updated upstream
-=======
-    queryset = Actividad.objects.all()
-    serializer_class = ActividadSerializer
-
-class CuestionarioIViewSet(viewsets.ModelViewSet):
-    """Creación de cuestionarios iniciales dentro de la base de datos."""
-
-    queryset = CuestionarioInicial.objects.all()
-    serializer_class = CuestionarioISerializer
-
-class CuestionarioFViewSet(viewsets.ModelViewSet):
-    """Creación de cuestionarios finales dentro de la base de datos."""
-
-    queryset = CuestionarioFinal.objects.all()
-    serializer_class = CuestionarioFSerializer
-
-def crearActividad(actividad):
-    actividad_serializer = ActividadSerializer(actividad)
-
-def crearUsuario(usuario):
-    usuario_serializer = UsuarioSerializer(usuario)
-
-#Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
-def acrchivo_subido(f):
-    with open('static/upload/'+ f.name, 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-
-#Funciones
-@csrf_exempt
->>>>>>> Stashed changes
 def validar_user(name, password):
     try:
         user = Usuario.objects.get(nombre=name, contrasenia=password)
@@ -74,56 +28,6 @@ def validar_user(name, password):
         user_ID = None
     return user_ID
 
-<<<<<<< Updated upstream
-=======
-@csrf_exempt
-def validar_admin(name, password):
-    try:
-        admin = Admin.objects.get(nombre = name, contrasenia = password)
-        admin_id = admin.adminID
-    except:
-        admin_id = None
-    return admin_id
-
-@csrf_exempt
-def selecionar_actividad(idAct, idUser):
-    try:
-        actividad = Actividad.objects.get(actividadID = idAct, usuarioID = idUser)
-        actividad_id = actividad.usuarioID
-    except:
-        actividad_id = None
-    return actividad_id
-
-## End points ##
-@csrf_exempt
-def index(request):
-    return render(request, "Pagina_principal/index.html")
-
-@csrf_exempt
-def descargar_app(request):
-    return render(request, "Pagina_principal/descargar.html")
-
-"""
-@csrf_exempt
-def error_404(request, not_found):
-    return render(request, 'Pagina_principal/404.html')
-"""
-
-#Validacion
-@csrf_exempt
-def existe_admin(request):
-    """Revisa si el administrador existe en la base de datos."""
-
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        admin_id = validar_admin(username, password)
-        if admin_id is not None:
-            print("si?")
-            return render(request, 'dashboard_base.html')
-        else:
-            return render(request, 'Pagina_principal/iniciar_sesion.html')
->>>>>>> Stashed changes
 
 @csrf_exempt
 def existe_usuario(request):
@@ -139,108 +43,13 @@ def existe_usuario(request):
         else:
             return JsonResponse({"status": "existe"})
 
-<<<<<<< Updated upstream
-=======
-#Tentativo
-
-
-#Logins
-@csrf_exempt
-def admin_login(request):
-    """End point para validar el admin"""
-    return render(request, 'Pagina_principal/iniciar_sesion.html')
->>>>>>> Stashed changes
 
 @csrf_exempt
 def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
 
-<<<<<<< Updated upstream
 
-=======
-#Tentativo
-@csrf_exempt
-def creacion_usuario(request):
-    if request.method == 'POST':
-        try:
-            form = UsuarioForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return JsonResponse({'message': 'Registro Exitoso'}) 
-            else:
-                
-                error_message = form.errors.values()
-                for error in error_message:
-                    print(error)
-                
-                return JsonResponse({'message': 'Erorr en los datos de registro'})      
-        except:
-            return JsonResponse({'message': 'Erorr en los datos de registro'})
-    else:
-        return HttpResponse('Error en el metodo de requets')
-    
-#Manejo de archivos
-@csrf_exempt
-def upload(request):
-    if request.method == 'POST': 
-        try:
-            data = request.POST
-            file = request.FILES
-            
-            nombre = data['nombre']
-            estatus = data['estatus']
-            usuarioID = data['usuarioID']
-            entregable = file['entregable']
-
-            elUsuario = Usuario.objects.get(usuarioID = usuarioID)
-            elUsuario.avance += 1
-            elUsuario.save()
-
-            actividad = Actividad.objects.create(nombre = nombre, estatus = estatus, usuarioID = elUsuario, entregable = entregable)
-            crearActividad(actividad)
-
-            return JsonResponse({'message': 'La actividad se entrgo correctamente!!!'})
-        except:
-            return JsonResponse({'error': 'Ha ocurrido un errror :('}, status=400)
-    else:
-        return HttpResponse('Error en el metodo de requet')
-    
-@csrf_exempt
-def download(request, file_id):
-        try:
-            file = Actividad.objects.get(pk = file_id)
-            response = HttpResponse(file.entregable, content_type='application/force-download')
-            response['Content-Disposition'] = f'attachment; filename="{file.entregable.name}"'
-            return response
-        except:
-            return HttpResponse("Este archivo no existe en la base de datos")
-    
-#Respuestas
-@csrf_exempt
-def mandar_respuestas(request):
-    if request.method == 'POST':
-        try:
-            usuarioID = request.POST['usuarioID']
-            data = []
-
-            elUsuario = Usuario.objects.get(usuarioID = usuarioID)
-            resultados = CuestionarioInicial.objects.filter(usuarioID = elUsuario).values()
-
-            for resultado in resultados:
-                usuario = resultado['usuarioID_id']
-                pregunta = resultado['numero']
-                respuesta = resultado['respuesta']
-                data.append({'pregunta': pregunta, 'respuesta': respuesta})
-            return JsonResponse(data, safe=False)
-        except:
-            return HttpResponse('Credenciales invalidas')
-    else:
-        return HttpResponse('metdodo invalido')
-
-#Pregntas para cuestionario
-@csrf_exempt
->>>>>>> Stashed changes
 def cuestionario_inicial(request):
     """Send the initial questions."""
     questions = [
@@ -443,120 +252,3 @@ def cuestionario_PC(request):
         },
     ]
     return JsonResponse(questions, safe=False)
-<<<<<<< Updated upstream
-=======
-
-## CRUD general ##
-#CRUD admins
-
-@csrf_exempt
-def ver_admins(request):
-   
-    query = request.GET.get('busueda')
-    if query:
-        admins = Admin.objects.filter(Q(nombre__icontains = query) | Q(contrasenia__icontains = query)).order_by('nombre', 'contrasenia')
-        filtro = True
-    else:
-        admins = Admin.objects.all().order_by('nombre')
-        filtro = False
-
-    """ ver si se usaran sesiones o cookies
-    exito = request.session.pop('exito', None)
-
-    error = request.session.pop('error', None)
-    """
-
-    return render(request, 'CRUD_Admin/ver_admins.html', {'admins': admins, 'filtro': filtro})
-
-@csrf_exempt
-def actulizar_admins(request, pk):
-    admin = get_object_or_404(Admin, pk=pk)
-
-    if request.method == 'POST':
-        form = AdminForm(request.POST, instance=admin)
-        if form.is_valid():
-            form.save()
-            print('Exito')
-            return redirect('ver_admins')
-        else:
-            error_messages = form.errors.values()
-            for error in error_messages:
-                print(error)
-                return redirect('ver_admins')
-    else:
-        form = AdminForm(instance=admin)
-        return render(request, 'CRUD_Admin/editar_admins.html', {'form': form})
-    
-@csrf_exempt
-def borrar_admins(request, adminID):
-    admin = get_object_or_404(Admin, pk=adminID)
-    admin.delete()
-    print('Exito')
-    return redirect('ver_admins')
-
-@csrf_exempt
-def crear_Admin(request):
-    if request.method == 'POST':
-        form = AdminForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('ver_admins')
-        else:
-            
-            error_message = form.errors.values()
-            for error in error_message:
-                print(error)
-            
-            return redirect('crear_Admin')
-    else:
-        form = AdminForm()
-    return render(request, 'CRUD_Admin/crear_admins.html', {'form': form})
-
-#CRUD usuarios
-@csrf_exempt
-def ver_usuarios(request):
-   
-    query = request.GET.get('busueda')
-    if query:
-        usuarios = Usuario.objects.filter(Q(nombre__icontains = query) |
-                                          Q(contrasenia__icontains = query) |
-                                          Q(email__icontains = query) |
-                                          Q(avance__icontains = query) |
-                                          Q(genero__icontains = query) |
-                                          Q(edad__icontains = query) |
-                                          Q(pais__icontains = query) |
-                                          Q(institucion__icontains = query) |
-                                          Q(grado__icontains = query) |
-                                          Q(diciplina__icontains = query)).order_by('nombre', 'contrasenia')
-        filtro = True
-    else:
-        usuarios = Usuario.objects.all().order_by('nombre')
-        filtro = False
-
-    """ ver si se usaran sesiones o cookies
-    exito = request.session.pop('exito', None)
-
-    error = request.session.pop('error', None)
-    """
-
-    return render(request, 'CRUD_Usuarios/ver_usuarios.html', {'usuarios': usuarios, 'filtro': filtro})
-
-@csrf_exempt
-def actualizar_usuario(request, pk):
-    usuario = get_object_or_404(Usuario, pk=pk)
-
-    if request.method == 'POST':
-        form = UsuarioForm(request.POST, instance=usuario)
-        if form.is_valid():
-            form.save()
-            print('Exito')
-            return redirect('ver_usuarios')
-        else:
-            error_messages = form.errors.values()
-            for error in error_messages:
-                print(error)
-                return redirect('ver_usuarios')
-    else:
-        form = UsuarioForm(instance=usuario)
-        return render(request, 'CRUD_Usuarios/editar_usuarios.html', {'form': form})
->>>>>>> Stashed changes
