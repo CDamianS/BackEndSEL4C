@@ -1,7 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Administradores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/styles2.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <form method="post">
@@ -16,7 +21,7 @@
                     </div>
             
                     <div class="form-group">
-                        <label class="small mb-1" for="{{ form.nombre.id_for_label }}">Password</label>       
+                        <label class="small mb-1" for="{{ form.contrasenia.id_for_label }}">Password</label>       
                         {{ form.contrasenia }}
                     </div>
                     <button type="submit"> Crear </button>                   
@@ -25,5 +30,6 @@
         </div>
 
     </form>
+    <script src="{% static 'script.js' %}"></script>
 </body>
 </html>

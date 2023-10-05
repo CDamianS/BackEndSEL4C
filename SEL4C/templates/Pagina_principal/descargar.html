@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav>
+        <div id="logo">
+            <a href="{% url 'index' %}"><img src="{% static 'img/IFT.png' %}" alt="Logo"></a>
+        </div>
+        <div id="opciones">
+            <a href="{% url 'descargar_app' %}">Descargar</a>
+            <a href="{% url 'admin_login' %}">Iniciar Sesión</a>
+        </div>
+    </nav>
+
+    <!-- Hero2 -->
+    <section id="hero2">
+        <div class="hero-text">
+            <h1>Descarga nuestra asombrosa app desde la App Store</h1>
+            <img src="{% static 'img/App_store.png' %}" alt="Imagen de app store" width="500" height="200">
+        </div>
+    </section>    
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
