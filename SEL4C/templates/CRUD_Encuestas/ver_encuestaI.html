@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuestas Iniciales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/styles2.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="dashboard">
+
+        <!--Busqueda-->
+        <form method="GET">
+            <div>
+                <input type="text" name="busueda" placeholder="Buscar">
+                <div>
+                    <button type="submit">Buscar</button>
+                </div>
+                {% if filtro %}
+                <a href="{% url 'ver_encuestasI' %}"><i>Deshacer</i></a>
+                {% endif %}
+            </div>
+        </form>
+
+        <!--Lista de admins-->
+        <div>
+            <h1>Resultados de la encuesta Inicial</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Alumno </th>
+                        <th>Pregunta</th>
+                        <th>Respuesta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for encuesta in encuestasI %}
+                    <tr>
+                        <td>{{ encuesta.usuarioID_id  }}</td>
+                        <td>{{ encuesta.numero }}</td>
+                        <td>{{ encuesta.respuesta }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+        
+            </table>
+        
+        </div>
+
+</body>
+</html>

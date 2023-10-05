@@ -2,7 +2,8 @@
 from django.http import JsonResponse 
 from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 from django.http import HttpResponse
 from json import loads, dumps, JSONDecodeError, JSONDecoder, load
 from django.views.decorators.csrf import csrf_exempt
@@ -56,6 +57,12 @@ class CuestionarioIViewSet(viewsets.ModelViewSet):
 
     queryset = CuestionarioInicial.objects.all()
     serializer_class = CuestionarioISerializer
+
+class CuestionarioFViewSet(viewsets.ModelViewSet):
+    """Creación de cuestionarios finales dentro de la base de datos."""
+
+    queryset = CuestionarioFinal.objects.all()
+    serializer_class = CuestionarioFSerializer
 
 def crearActividad(actividad):
     actividad_serializer = ActividadSerializer(actividad)
@@ -220,8 +227,6 @@ def download(request, file_id):
             return response
         except:
             return HttpResponse("Este archivo no existe en la base de datos")
-        
-
 
 @csrf_exempt
 def repuestas_cuestionario(request):
@@ -236,13 +241,6 @@ def repuestas_cuestionario(request):
 
     return HttpResponse("??")
         
-
-
-
-
-
-
-
 @csrf_exempt
 def cuestionario_inicial(request):
     """Send the initial questions."""
@@ -446,4 +444,186 @@ def cuestionario_PC(request):
         },
     ]
     return JsonResponse(questions, safe=False)
+
+## CRUD general ##
+#CRUD admins
+
+@csrf_exempt
+def ver_admins(request):
+   
+    query = request.GET.get('busueda')
+    if query:
+        admins = Admin.objects.filter(Q(nombre__icontains = query) | Q(contrasenia__icontains = query)).order_by('nombre', 'contrasenia')
+        filtro = True
+    else:
+        admins = Admin.objects.all().order_by('nombre')
+        filtro = False
+
+    """ ver si se usaran sesiones o cookies
+    exito = request.session.pop('exito', None)
+
+    error = request.session.pop('error', None)
+    """
+
+    return render(request, 'CRUD_Admin/ver_admins.html', {'admins': admins, 'filtro': filtro})
+
+@csrf_exempt
+def actulizar_admins(request, pk):
+    admin = get_object_or_404(Admin, pk=pk)
+
+    if request.method == 'POST':
+        form = AdminForm(request.POST, instance=admin)
+        if form.is_valid():
+            form.save()
+            print('Exito')
+            return redirect('ver_admins')
+        else:
+            error_messages = form.errors.values()
+            for error in error_messages:
+                print(error)
+                return redirect('ver_admins')
+    else:
+        form = AdminForm(instance=admin)
+        return render(request, 'CRUD_Admin/editar_admins.html', {'form': form})
+    
+@csrf_exempt
+def borrar_admins(request, adminID):
+    admin = get_object_or_404(Admin, pk=adminID)
+    admin.delete()
+    print('Exito')
+    return redirect('ver_admins')
+
+@csrf_exempt
+def crear_Admin(request):
+    if request.method == 'POST':
+        form = AdminForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('ver_admins')
+        else:
+            
+            error_message = form.errors.values()
+            for error in error_message:
+                print(error)
+            
+            return redirect('crear_Admin')
+    else:
+        form = AdminForm()
+    return render(request, 'CRUD_Admin/crear_admins.html', {'form': form})
+
+#CRUD usuarios
+@csrf_exempt
+def ver_usuarios(request):
+   
+    query = request.GET.get('busueda')
+    if query:
+        usuarios = Usuario.objects.filter(Q(nombre__icontains = query) |
+                                          Q(contrasenia__icontains = query) |
+                                          Q(email__icontains = query) |
+                                          Q(avance__icontains = query) |
+                                          Q(genero__icontains = query) |
+                                          Q(edad__icontains = query) |
+                                          Q(pais__icontains = query) |
+                                          Q(institucion__icontains = query) |
+                                          Q(grado__icontains = query) |
+                                          Q(diciplina__icontains = query)).order_by('nombre', 'contrasenia')
+        filtro = True
+    else:
+        usuarios = Usuario.objects.all().order_by('nombre')
+        filtro = False
+
+    """ ver si se usaran sesiones o cookies
+    exito = request.session.pop('exito', None)
+
+    error = request.session.pop('error', None)
+    """
+
+    return render(request, 'CRUD_Usuarios/ver_usuarios.html', {'usuarios': usuarios, 'filtro': filtro})
+
+@csrf_exempt
+def actualizar_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            print('Exito')
+            return redirect('ver_usuarios')
+        else:
+            error_messages = form.errors.values()
+            for error in error_messages:
+                print(error)
+                return redirect('ver_usuarios')
+    else:
+        form = UsuarioForm(instance=usuario)
+        return render(request, 'CRUD_Usuarios/editar_usuarios.html', {'form': form})
+    
+@csrf_exempt
+def borrar_usuarios(request, usuarioID):
+    usuario = get_object_or_404(Usuario, pk=usuarioID)
+    usuario.delete()
+    print('Exito')
+    return redirect('ver_usuarios')
+
+@csrf_exempt
+def crear_Usuario(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('ver_usuarios')
+        else:
+            error_message = form.errors.values()
+            for error in error_message:
+                print(error)
+            
+            return redirect('ver_usuarios')
+    else:
+        form = UsuarioForm()
+    return render(request, 'CRUD_Usuarios/crear_usuarios.html', {'form': form})
+
+#CRUD actividades
+def ver_actividades(request):
+   
+    query = request.GET.get('busueda')
+    if query:
+        actividades = Actividad.objects.filter(Q(nombre__icontains = query) | Q(usuarioID_id__icontains = query)).order_by('nombre', 'usuarioID_id_')
+        filtro = True
+    else:
+        actividades = Actividad.objects.all().order_by('nombre')
+        filtro = False
+
+    """ ver si se usaran sesiones o cookies
+    exito = request.session.pop('exito', None)
+
+    error = request.session.pop('error', None)
+    """
+
+    return render(request, 'CRUD_Actividades/ver_actividades.html', {'actividades': actividades, 'filtro': filtro})
+
+# CRUD encuestas
+
+def ver_ecnuestasI(request):
+    query = request.GET.get('busqueda')
+    if query:
+        encuestasI = CuestionarioInicial.objects.filter(Q(numero__icontains = query) | Q(respuesta__icontains = query) | Q(usuarioID_id__icontains = query)).order_by('numero', 'respuesta')
+        filtro = True
+    else:
+        encuestasI = CuestionarioInicial.objects.all().order_by('numero')
+        filtro = False
+
+    return render(request, 'CRUD_Encuestas/ver_encuestaI.html', {'encuestasI': encuestasI, 'filtro': filtro})
+
+def ver_ecnuestasF(request):
+    query = request.GET.get('busqueda')
+    if query:
+        encuestasF = CuestionarioFinal.objects.filter(Q(numero__icontains = query) | Q(respuesta__icontains = query) | Q(usuarioID_id__icontains = query)).order_by('numero', 'respuesta')
+        filtro = True
+    else:
+        encuestasF = CuestionarioFinal.objects.all().order_by('numero')
+        filtro = False
+
+    return render(request, 'CRUD_Encuestas/ver_encuestosF.html', {'encuestasf': encuestasF, 'filtro': filtro})
+
 

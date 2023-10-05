@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administradores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/styles2.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    
+    <div class="dashboard">
+        <!--Manejo de errores (inactvio)-->
+        {% if exito %}
+        <div role="alert">
+            <strong>¡Éxito!</strong> {{ exito }}
+            <button type="button" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div role="alert">
+            <strong>Error:</strong> 
+            {% for error_ in error %}
+            {{ error_ }}
+            {% endfor %}
+            <button type="button" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}        
+
+        <!--Busqueda-->
+        <form method="GET">
+            <div>
+                <input type="text" name="busueda" placeholder="Buscar">
+                <div>
+                    <button type="submit">Buscar</button>
+                </div>
+                {% if filtro %}
+                <a href="{% url 'ver_admins' %}"><i>Deshacer</i></a>
+                {% endif %}
+            </div>
+        </form>
+
+        <!--Lista de admins-->
+        <div>
+            <h1> Lista de Administradores</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Contraseña</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for admin in admins %}
+                    <tr>
+                        <td>{{ admin.nombre }}</td>
+                        <td>{{ admin.contrasenia }}</td>
+                        <td>
+                            <a href="{% url 'actulizar_admins' pk=admin.adminID %}">Editar</a>
+                            <a href="{% url 'borrar_admins' admin.adminID %}">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+        
+            </table>
+        
+        </div>
+
+        <!--Creación de usuario-->
+        <div>
+            <form action="{% url 'crear_Admin' %}" method="get">
+                <button type="submit"> Agregar usuario</button>
+            </form>
+        </div>
+
+
+    </div>
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
+
+
+
+

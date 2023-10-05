@@ -19,9 +19,6 @@ class ActividadForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-
-
-
 class CuestionarioIForm(forms.ModelForm):
     class Meta:
         model = CuestionarioInicial

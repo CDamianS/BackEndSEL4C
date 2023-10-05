@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/styles2.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    
+    <div class="dashboard">
+
+        <!--Busqueda-->
+        <form method="GET">
+            <div>
+                <input type="text" name="busueda" placeholder="Buscar">
+                <div>
+                    <button type="submit">Buscar</button>
+                </div>
+                {% if filtro %}
+                <a href="{% url 'ver_actividades' %}"><i>Deshacer</i></a>
+                {% endif %}
+            </div>
+        </form>
+
+        <!--Lista de admins-->
+        <div>
+            <h1> Lista de Actividades</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Estatus</th>
+                        <th>Entregado por:</th>
+                        <th>Entregable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for actividad in actividades %}
+                    <tr>
+                        <td>{{ actividad.nombre }}</td>
+                        <td>{{ actividad.estatus }}</td>
+                        <td>{{ actividad.usuarioID }}</td>
+                        <td>
+                            <a href="{% url 'download' file_id=actividad.actividadID %}">Descargar Archivo</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+        
+            </table>
+        
+        </div>
+
+
+
+
+    </div>
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

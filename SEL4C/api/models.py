@@ -4,15 +4,15 @@ from django.db import models
 
 # Parametos para el model de Actividades
 estatus_status = [
-    (1, 'Completado'),
-    (2, 'No completado')
+    'Completado',
+    'No completado'
 ]
 nombre_status = [
-    (1, '1.- Identificación'),
-    (2, '2.- Investigación'),
-    (3, '3.- Ideación'),
-    (4, '4.- Socialización'),
-    (5, 'Entregable final')
+    '1.- Identificación',
+    '2.- Investigación',
+    '3.- Ideación',
+    '4.- Socialización',
+    'Entregable final'
 ]
 
 class Usuario(models.Model):
@@ -45,14 +45,12 @@ class Admin(models.Model):
 class Actividad(models.Model):
     actividadID = models.AutoField(primary_key=True)
     nombre = models.CharField(
-        max_length=100,
-        choices=nombre_status
+        max_length=100
         )
-    estatus = models.IntegerField(
+    estatus = models.CharField(
+        max_length=100,
         null= False,
         blank= False,
-        choices= estatus_status,
-        default=2,
     )
     usuarioID = models.ForeignKey('Usuario', on_delete=models.CASCADE)
     entregable = models.FileField(default = None)
