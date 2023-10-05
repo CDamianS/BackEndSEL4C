@@ -1,0 +1,25 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% block graphs %}
+<div class="graphs">
+    <div>
+        <canvas id="gender"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class= "gender">
+    {% block first %}
+    <script src="{% static 'js/gender.js' %}"></script>
+    {% endblock %}
+    </div>
+
+    <div>
+        <canvas id="age"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class= "age">
+    {% block second %}
+    <script src="{% static 'js/age.js' %}"></script>
+    {% endblock %}
+    </div>
+</div>
+{% endblock %}
