@@ -67,7 +67,6 @@ python3 manage.py runserver
 ** Profesores
 - Olga Patricia Escamilla Escalante
 - Christian Rolando Vallejo Villamil
-- Iván Santiago Méndez
 - Irvin Antonio Mendiola Castillo
 - Antonio Castañeda Solis
 - José Martín Molina Espinosa
