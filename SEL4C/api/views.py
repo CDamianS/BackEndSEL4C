@@ -172,6 +172,7 @@ def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
 
+"""
 @csrf_exempt
 def creacion_usuario(request):
     if request.method == 'POST':
@@ -191,7 +192,8 @@ def creacion_usuario(request):
             return JsonResponse({'message': 'Erorr en los datos de registro'})
     else:
         return HttpResponse('Error en el metodo de requets')
-    
+"""
+
 
 @csrf_exempt
 def upload(request):
