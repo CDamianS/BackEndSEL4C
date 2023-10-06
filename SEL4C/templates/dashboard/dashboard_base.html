@@ -13,14 +13,13 @@
         {% include 'sidebar.html' %}
         {% include 'topbar.html' %}
     </div>
-        {% block graphs %}
-        {% block first %}{% endblock %}
-        {% block second %}{% endblock %}
-        {% block third %}{% endblock %}
-        {% block fourth %}{% endblock %}
-        {% block fifth %}{% endblock %}
-        {% block sixth %}{% endblock %}
-        {% endblock %}
+    {% block title %}{% endblock %}
+    {% block graphs %}
+    {% block first %}{% endblock %}
+    {% block second %}{% endblock %}
+    {% block third %}{% endblock %}
+    {% block fourth %}{% endblock %}
+    {% endblock %}
     <script src="{% static 'script.js' %}"></script>
 </body>
 </html>

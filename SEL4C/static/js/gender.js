@@ -6,6 +6,7 @@ fetch('/api/users/')
     let maleCount = 0;
     let femaleCount = 0;
     let otherCount = 0;
+    let noCount = 0;
 
     // Loop para contar genero
     data.forEach(user => {
@@ -13,18 +14,19 @@ fetch('/api/users/')
             maleCount++;
         } else if (user.genero === "Femenino") {
             femaleCount++;
-        } else {
+        } else if (user.genero === "Otro"){
             otherCount++;
+        } else {
+            noCount++;
         }
     });
-    console.log("algo bien")
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Masculino', 'Femenino', 'Otro'],
+            labels: ['Masculino', 'Femenino', 'Otro', 'No data'],
             datasets: [{
                 label: 'Género',
-                data: [maleCount, femaleCount, otherCount],
+                data: [maleCount, femaleCount, otherCount, noCount],
                 borderWidth: 2
                 // borderColor: ['blue', 'pink', 'green']
             }]
