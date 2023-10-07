@@ -136,9 +136,9 @@ def existe_admin(request):
     """Revisa si el usuario existe en la base de datos."""
 
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        admin_id = validar_admin(username, password)
+        nombre = request.POST["nombre"]
+        contrasenia = request.POST["contrasenia"]
+        admin_id = validar_admin(nombre, contrasenia)
         if admin_id is not None:
             print("si?")
             return HttpResponseRedirect("/dashboard/general")

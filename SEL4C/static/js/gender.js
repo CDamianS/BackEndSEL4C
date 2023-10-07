@@ -20,23 +20,33 @@ fetch('/api/users/')
             noCount++;
         }
     });
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Masculino', 'Femenino', 'Otro', 'No data'],
-            datasets: [{
-                label: 'Género',
-                data: [maleCount, femaleCount, otherCount, noCount],
-                borderWidth: 2
-                // borderColor: ['blue', 'pink', 'green']
-            }]
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Masculino', 'Femenino', 'Otro', 'No data'],
+        datasets: [{
+            data: [maleCount, femaleCount, otherCount, noCount],
+            backgroundColor: ['#50FA7B80', '#6DB0E480', '#FF555580', '#F1FA8C80'],
+            borderWidth: 2,
+            borderColor: ['green', 'blue', 'red', 'yellow']
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+        plugins: {
+            title: {
+                display: true,
+                text: 'Género'
+            },
+            legend: {
+                display: false
             }
         }
-    });
+    }
+});
 });
