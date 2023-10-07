@@ -87,8 +87,8 @@ def acrchivo_subido(f):
 @csrf_exempt
 def validar_user(name, password):
     try:
-        user = Usuario.objects.get(nombre=name, contrasenia=password)
-        user_ID = user.usuarioID
+        usuario = Usuario.objects.get(nombre=name, contrasenia=password)
+        usuarioID = usuario.usuarioID
     except:
         user_ID = None
     return user_ID
@@ -149,19 +149,21 @@ def existe_admin(request):
 @csrf_exempt
 def existe_usuario(request):
     """Revisa si el usuario existe en la base de datos."""
-
     if request.method == "POST":
-        name = request.POST["username"]
-        password = request.POST["password"]
-        User_ID = validar_user(name, password)
+        try:
+            data = loads(request.body)
 
-        elUsuario = Usuario.objects.get(usuarioID=User_ID)
-        avance = elUsuario.avance
+            nombre = data["nombre"]
+            contrasenia = data["contrasenia"]
 
-        if User_ID is None:
+            usuario = Usuario.objects.get(nombre=nombre, contrasenia=contrasenia)
+            usuarioID = usuario.usuarioID
+            avance = usuario.avance
+        
+            return JsonResponse({"status": "existe", "nombre": nombre, "contrsenia": contrasenia, "usuarioID": usuarioID, "avance": avance})
+        except:
             return JsonResponse({"status": "no existe"})
-        else:
-            return JsonResponse({"status": "existe", "usuarioID": User_ID, "nombre": name, "avance": avance})
+
 
 
 @csrf_exempt
