@@ -153,11 +153,12 @@ def existe_usuario(request):
         try:
             data = loads(request.body)
 
-            nombre = data["nombre"]
+            email = data["email"]
             contrasenia = data["contrasenia"]
 
-            usuario = Usuario.objects.get(nombre=nombre, contrasenia=contrasenia)
+            usuario = Usuario.objects.get(email=email, contrasenia=contrasenia)
             usuarioID = usuario.usuarioID
+            nombre = usuario.nombre
             avance = usuario.avance
 
             return JsonResponse(
@@ -167,6 +168,7 @@ def existe_usuario(request):
                     "contrsenia": contrasenia,
                     "usuarioID": usuarioID,
                     "avance": avance,
+                    "email": email,
                 }
             )
         except:
