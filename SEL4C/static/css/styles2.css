@@ -46,6 +46,8 @@
 .navbar {
     height: 90px;
     background-color: #34495e;
+    filter: drop-shadow(20px 20px 10px rgb(142, 143, 142));
+
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -104,4 +106,23 @@
     padding: 20px 20px;
     display: flex; /* Use flexbox to create a horizontal layout */
     flex: 1; /* Make both chart containers take up equal space */
+}
+
+.tablas_main {
+    margin-left: 250px;
+    margin-top: 100px;
+    padding: 20px 20px;
+    display: flex; /* Use flexbox to create a horizontal layout */
+    flex: 1; /* Make both chart containers take up equal space */
+}
+
+.fondo_tablas{
+
+    background-color: #34495e;
+    border: 1px solid rgb(3, 3, 3);
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-right: auto;    
+
+    z-index: 1000;
 }
