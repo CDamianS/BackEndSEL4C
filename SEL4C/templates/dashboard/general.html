@@ -1,25 +1,63 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
+
+{% block title %}
+<h1>General</h1>
+{% endblock %}
+
 {% block graphs %}
+<h2 style="padding: 10px; margin-left:250px;">
+    Estadisticas de usuarios
+</h2>
 <div class="graphs">
-    <div>
+    <div class = "graph">
         <canvas id="gender"></canvas>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <div class= "gender">
-    {% block first %}
-    <script src="{% static 'js/gender.js' %}"></script>
-    {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        {% block first %}
+        <script src="{% static 'js/gender.js' %}"></script>
+        {% endblock %}
     </div>
 
-    <div>
+    <div class = "graph">
         <canvas id="age"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        {% block second %}
+        <script src="{% static 'js/age.js' %}"></script>
+        {% endblock %}
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <div class= "age">
-    {% block second %}
-    <script src="{% static 'js/age.js' %}"></script>
-    {% endblock %}
+
+    <div class = "graph">
+        <canvas id="avance"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        {% block third %}
+        <script src="{% static 'js/avance.js' %}"></script>
+        {% endblock %}
+    </div>
+</div>
+
+<h2 style="padding: 10px; margin-left:250px;">
+    Encuesta inicial
+</h2>
+<div class = "stats">
+    <div class="general-graph">
+        <div class = "graph">
+            <canvas id="general"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            {% block fourth %}
+            <script src="{% static 'js/general.js' %}"></script>
+            {% endblock %}
+        </div>
+    </div>
+    <div class= "general-data">
+        <div class = "data-block">
+            <h3>hola</h3>
+        </div>
+        <div class = "data-block">
+            <h3>hola</h3>
+        </div>
+        <div class = "data-block">
+            <h3>hola</h3>
+        </div>
     </div>
 </div>
 {% endblock %}

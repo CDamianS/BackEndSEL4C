@@ -136,9 +136,9 @@ def existe_admin(request):
     """Revisa si el usuario existe en la base de datos."""
 
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        admin_id = validar_admin(username, password)
+        nombre = request.POST["nombre"]
+        contrasenia = request.POST["contrasenia"]
+        admin_id = validar_admin(nombre, contrasenia)
         if admin_id is not None:
             print("si?")
             return HttpResponseRedirect("/dashboard/general")
@@ -160,11 +160,19 @@ def existe_usuario(request):
             usuarioID = usuario.usuarioID
             nombre = usuario.nombre
             avance = usuario.avance
-        
-            return JsonResponse({"status": "existe", "nombre": nombre, "contrsenia": contrasenia, "usuarioID": usuarioID, "avance": avance, "email": email})
+
+            return JsonResponse(
+                {
+                    "status": "existe",
+                    "nombre": nombre,
+                    "contrsenia": contrasenia,
+                    "usuarioID": usuarioID,
+                    "avance": avance,
+                    "email": email,
+                }
+            )
         except:
             return JsonResponse({"status": "no existe"})
-
 
 
 @csrf_exempt
@@ -196,6 +204,7 @@ def admin_login(request):
 def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
+
 
 """
 @csrf_exempt
