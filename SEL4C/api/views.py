@@ -153,18 +153,24 @@ def existe_usuario(request):
         try:
             data = loads(request.body)
 
-            email = data["email"]
+            nombre = data["nombre"]
             contrasenia = data["contrasenia"]
 
-            usuario = Usuario.objects.get(email=email, contrasenia=contrasenia)
+            usuario = Usuario.objects.get(nombre=nombre, contrasenia=contrasenia)
             usuarioID = usuario.usuarioID
-            nombre = usuario.nombre
             avance = usuario.avance
-        
-            return JsonResponse({"status": "existe", "nombre": nombre, "contrsenia": contrasenia, "usuarioID": usuarioID, "avance": avance, "email": email})
+
+            return JsonResponse(
+                {
+                    "status": "existe",
+                    "nombre": nombre,
+                    "contrsenia": contrasenia,
+                    "usuarioID": usuarioID,
+                    "avance": avance,
+                }
+            )
         except:
             return JsonResponse({"status": "no existe"})
-
 
 
 @csrf_exempt
@@ -196,6 +202,7 @@ def admin_login(request):
 def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
+
 
 """
 @csrf_exempt
