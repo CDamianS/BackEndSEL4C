@@ -46,7 +46,7 @@
 .navbar {
     height: 90px;
     background-color: #34495e;
-    filter: drop-shadow(20px 20px 10px rgb(142, 143, 142));
+    /* filter: drop-shadow(20px 20px 10px rgb(142, 143, 142)); */
 
     display: flex;
     justify-content: flex-end;
@@ -205,6 +205,7 @@ h1 {
     padding: 20px;
 }
 
+/* Gráficas */
 .graphs {
     margin-left: 250px;
     padding: 20px;
@@ -225,12 +226,12 @@ h1 {
 }
 
 .general-graph {
-    width: 35rem;
+    width: 38rem;
     height: 500px;
 }
 
 .general-graph canvas {
-    width: 50%; /* Set your desired height here */
+    width: 50%;
 }
 
 .stats {
@@ -242,11 +243,20 @@ h1 {
 }
 
 .data-block {
-    width: 50%;
+    width: 38rem;
     border: 2px solid #ccc; /* Add a border */
     border-radius: 10px; /* Add rounded corners */
 }
 
+h2 {
+    padding: 10px;
+}
+
+h3 {
+    padding: 10px;
+}
+
+/* Tablas */
 .tablas_main {
     margin-left: 250px;
     margin-top: 100px;
