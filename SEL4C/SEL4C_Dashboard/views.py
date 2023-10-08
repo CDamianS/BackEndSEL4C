@@ -61,8 +61,8 @@ def entregas(request):
     return render(request, "dashboard/entregas.html")
 
 
-def opcion(request):
-    return render(request, "dashboard/opcion.html")
+def cambios(request):
+    return render(request, "dashboard/cambios.html")
 
 
 def usuarioGraph(request, usuario_id):

@@ -1,10 +1,21 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
+
+{% block title %}
+<div class = "title">
+<h1> Lista de Usuarios</h1>
+    <div class="creacion">
+        <form action="{% url 'crear_Usuario' %}" method="get">
+            <button type="submit"> Agregar usuario</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
 {% block graphs %}
 <div class="tablas_main">
     <div class="fondo_tablas">
         <div class="lista_usuarios">
-            <h1> Lista de Usuarios</h1>
             <table>
                 <thead>
                     <th>UsuarioID </th>
@@ -42,10 +53,5 @@
             </table>
         </div>
     </div>
-        <div class="creacion">
-            <form action="{% url 'crear_Usuario' %}" method="get">
-                <button type="submit"> Agregar usuario</button>
-            </form>
-        </div>
 </div>
 {% endblock %}

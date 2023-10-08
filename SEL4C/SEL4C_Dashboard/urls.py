@@ -7,9 +7,10 @@ router = routers.DefaultRouter()
 
 
 urlpatterns = [
+    path("/", views.general),
     path("general", views.general),
     path("usuarios/", views.usuarios),
     path("entregas", views.entregas),
-    path("opcion", views.opcion),
+    path("cambios", views.cambios),
     path("usuario/<int:usuario_id>/", views.usuarioGraph),
 ]
