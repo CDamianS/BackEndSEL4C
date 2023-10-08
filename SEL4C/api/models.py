@@ -46,7 +46,7 @@ class Actividad(models.Model):
     actividadID = models.AutoField(primary_key=True)
     nombre = models.CharField(
         max_length=100
-        )
+    )
     estatus = models.CharField(
         max_length=100,
         null= False,
@@ -76,3 +76,22 @@ class CuestionarioFinal(models.Model):
     def __str__(self):
         return f'Pregunra {self.numero} - Respuesta: {self.respuesta} - Usuario: {self.usuarioID}'
     
+
+class CambioNombre(models.Model):
+    solicitudNID = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+    usuarioID = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    estatus = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'Solicitud {self.solicitudNID} - Nuevo nombre: {self.nombre} - Usuario: {self.usuarioID} - Estatus: {self.estatus}'
+    
+
+class CambioContrasenia(models.Model):
+    solicitudCID = models.AutoField(primary_key=True)
+    contrasenia = models.CharField(max_length=50)
+    usuarioID = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    estatus = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'Solicitud {self.solicitudNID} - Nueva contrasenia: {self.contrasenia} - Usuario: {self.usuarioID} - Estatus: {self.estatus}'

@@ -17,6 +17,8 @@ from .models import (
     Actividad,
     CuestionarioInicial,
     CuestionarioFinal,
+    CambioNombre,
+    CambioContrasenia
 )
 from .serializer import (
     AdminSerialiizer,
@@ -24,6 +26,8 @@ from .serializer import (
     ActividadSerializer,
     CuestionarioISerializer,
     CuestionarioFSerializer,
+    CambioNombreSerializer,
+    CambioContraseniaSerializer
 )
 from .forms import (
     AdminForm,
@@ -31,6 +35,8 @@ from .forms import (
     ActividadForm,
     CuestionarioIForm,
     CuestionarioFForm,
+    CambioNForm,
+    CambioCForm
 )
 
 
@@ -67,6 +73,18 @@ class CuestionarioFViewSet(viewsets.ModelViewSet):
 
     queryset = CuestionarioFinal.objects.all()
     serializer_class = CuestionarioFSerializer
+
+class CambioNViewSet(viewsets.ModelViewSet):
+    """Creación de solicitudes de cambio de nombre dentro de la base de datos."""
+
+    queryset = CambioNombre.objects.all()
+    serializer_class = CambioNombreSerializer
+
+class CambioCViewSet(viewsets.ModelViewSet):
+    """Creación de solicitudes de cambio de contrasenia dentro de la base de datos."""
+
+    queryset = CambioContrasenia.objects.all()
+    serializer_class = CambioContraseniaSerializer
 
 
 def crearActividad(actividad):

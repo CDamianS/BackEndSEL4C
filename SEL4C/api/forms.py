@@ -1,5 +1,5 @@
 from django import forms
-from .models import Admin, Usuario, Actividad, CuestionarioInicial, CuestionarioFinal
+from .models import Admin, Usuario, Actividad, CuestionarioInicial, CuestionarioFinal, CambioNombre, CambioContrasenia
 
 class AdminForm(forms.ModelForm):
     class Meta:
@@ -27,4 +27,14 @@ class CuestionarioIForm(forms.ModelForm):
 class CuestionarioFForm(forms.ModelForm):
     class Meta:
         model = CuestionarioFinal
-        fields = ['numero', 'respuesta', 'usuarioID']        
+        fields = ['numero', 'respuesta', 'usuarioID']       
+
+class CambioNForm(forms.ModelForm):
+    class Meta:
+        model = CambioNombre
+        fields = ['nombre', 'usuarioID', 'estatus']
+
+class CambioCForm(forms.ModelForm):
+    class Meta:
+        model = CambioContrasenia
+        fields = ['contrasenia', 'usuarioID', 'estatus']

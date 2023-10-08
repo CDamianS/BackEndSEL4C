@@ -7,8 +7,11 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r"users", views.UserViewSet)
 router.register(r"admins", views.AdminViewSet)
+router.register(r"actividades", views.ActividadViewSet)
 router.register(r"cuestionario_inicial", views.CuestionarioIViewSet)
 router.register(r"cuestionario_final", views.CuestionarioFViewSet)
+router.register(r"cambio_nombre", views.CambioNViewSet)
+router.register(r"cambio_contrasenia", views.CambioCViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
