@@ -94,6 +94,12 @@ def crearActividad(actividad):
 def crearUsuario(usuario):
     usuario_serializer = UsuarioSerializer(usuario)
 
+def crearSolicitudN(solicitud):
+    solicitudN_serializer = CambioNombreSerializer
+
+def crearSolicitudC(solicitud):
+    solicitudC_serializer = CambioContraseniaSerializer
+
 
 # Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
 def acrchivo_subido(f):
@@ -215,29 +221,6 @@ def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
 
-"""
-@csrf_exempt
-def creacion_usuario(request):
-    if request.method == "POST":
-        try:
-            form = UsuarioForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return JsonResponse({"message": "Registro Exitoso"})
-            else:
-
-                error_message = form.errors.values()
-                for error in error_message:
-                    print(error)
-
-                return JsonResponse({"message": "Erorr en los datos de registro"})
-        except:
-            return JsonResponse({"message": "Erorr en los datos de registro"})
-    else:
-        return HttpResponse('Error en el metodo de requets')
-"""
-
-
 @csrf_exempt
 def upload(request):
     if request.method == "POST":
@@ -282,6 +265,54 @@ def download(request, file_id):
         return response
     except:
         return HttpResponse("Este archivo no existe en la base de datos")
+    
+@csrf_exempt
+def enviar_solicitudN(request):
+    if request.method == "POST":
+        try:
+            data = loads(request.body)
+
+            nombre = data["nombre"]
+            estatus = data["estatus"]
+            usuarioID = data["usuarioID"]
+
+
+            solicitud = CambioNombre.objects.create(
+                nombre = nombre,
+                estatus = estatus,
+                usuarioID = usuarioID,
+            )
+            crearSolicitudN(solicitud)
+
+            return JsonResponse({"message": "Solicitud Enviada"})
+        except:
+            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
+        
+
+@csrf_exempt
+def enviar_solicitudC(request):
+    if request.method == "POST":
+        try:
+            data = loads(request.body)
+
+            contrasenia = data["contrasenia"]
+            estatus = data["estatus"]
+            usuarioID_id = data["usuarioID_id"]
+
+            elUsario = Usuario.objects.get(usuarioID=usuarioID_id)
+
+            solicitud = CambioContrasenia.objects.create(
+                contrasenia = contrasenia,
+                estatus = estatus,
+                usuarioID = elUsario,
+            )
+            crearSolicitudC(solicitud)
+
+            return JsonResponse({"message": "Solicitud Enviada"})
+        except:
+            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
+
+
 
 
 @csrf_exempt
@@ -613,6 +644,17 @@ def ver_usuarios(request):
         {"usuarios": usuarios, "filtro": filtro},
     )
 
+@csrf_exempt
+def ver_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+
+    return render(
+        request,
+        "CRUD_Usuarios/ver_usuario.html",
+        {"usuario": usuario}
+    )
+        
+
 
 @csrf_exempt
 def actualizar_usuario(request, pk):
@@ -727,3 +769,14 @@ def ver_ecnuestasF(request):
         "CRUD_Encuestas/ver_encuestosF.html",
         {"encuestasf": encuestasF, "filtro": filtro},
     )
+
+
+"""
+          elUsuario = Usuario.objects.get(usuarioID=usuarioID)
+            elUsuario.nombre = nombre
+            elUsuario.save()
+
+            solicitud = CambioNombre.objects.get(solicitudNID=solicitudID)
+            solicitud.estatus = "Resuelto"
+            solicitud.save()
+"""
