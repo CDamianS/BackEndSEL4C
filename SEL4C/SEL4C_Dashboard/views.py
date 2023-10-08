@@ -28,8 +28,33 @@ def general(request):
     return render(request, "dashboard/general.html", context)
 
 
+@csrf_exempt
 def usuarios(request):
-    return render(request, "dashboard/usuarios.html")
+
+    query = request.GET.get("busueda")
+    if query:
+        usuarios = Usuario.objects.filter(
+            Q(nombre__icontains=query)
+            | Q(usuarioID__icontains=query)
+            | Q(contrasenia__icontains=query)
+            | Q(email__icontains=query)
+            | Q(avance__icontains=query)
+            | Q(genero__icontains=query)
+            | Q(edad__icontains=query)
+            | Q(pais__icontains=query)
+            | Q(institucion__icontains=query)
+            | Q(grado__icontains=query)
+            | Q(diciplina__icontains=query)
+        ).order_by("usuarioID")
+        filtro = True
+    else:
+        usuarios = Usuario.objects.all().order_by("usuarioID")
+        filtro = False
+    return render(
+        request,
+        "dashboard/usuarios.html",
+        {"usuarios": usuarios, "filtro": filtro},
+    )
 
 
 def entregas(request):

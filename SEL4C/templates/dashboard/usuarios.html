@@ -1,60 +1,51 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
 {% block graphs %}
-    <div class="tablas_main">
-        <div class="fondo_tablas">
-            <!--Busqueda-->
-            <form method="GET">
-                <div class="busqueda">
-                    <input type="text" name="busueda" placeholder="Buscar">
-                    <div class="boton_busqueda">
-                        <button type="submit">Buscar</button>
-                    </div>
-                    {% if filtro %}
-                    <a href="{% url 'ver_usuarios' %}"><i>Deshacer</i></a>
-                    {% endif %}
-                </div>
-            </form>
+<div class="tablas_main">
+    <div class="fondo_tablas">
+        <div class="lista_usuarios">
+            <h1> Lista de Usuarios</h1>
+            <table>
+                <thead>
+                    <th>UsuarioID </th>
+                    <th>Nombre </th>
+                    <th>Email </th>
+                    <th>Avance </th>
+                    <th>Genero </th>
+                    <th>Edad </th>
+                    <th>País </th>
+                    <th>Institución </th>
+                    <th>Grado  </th>
+                    <th>Disciplina  </th>
 
-            <!--Lista de usuarios-->
-            <div class="lista_usuarios">
-                <h1> Lista de Usuarios</h1>
-                <table>
-                    <thead>
-                        <th>Nombre </th>
-                        <th>Contraseña </th>
-                        <th>Email </th>
-                        <th>Avance </th>
-                        <th>Genero </th>
-                        <th>Edad </th>
-                        <th>País </th>
-                        <th>Institución </th>
-                        <th>Grado  </th>
-                        <th>Disciplina  </th>
-
-                    </thead>
-                    <tbody>
-                        {% for usuario in usuarios %}
-                        <tr>
-                            <td>{{usuario.nombre}}</td>
-                            <td>{{usuario.contrasenia}}</td>
-                            <td>{{usuario.email}}</td>
-                            <td>{{usuario.avance}}</td>
-                            <td>{{usuario.genero}}</td>
-                            <td>{{usuario.edad}}</td>
-                            <td>{{usuario.pais}}</td>
-                            <td>{{usuario.institucion}}</td>
-                            <td>{{usuario.grado}}</td>
-                            <td>{{usuario.diciplina}}</td>
-                            <td>
-                                <a href="{% url 'actualizar_usuario' pk=usuario.usuarioID %}">Editar</a>
-                                <a href="{% url 'borrar_usuarios' usuario.usuarioID %}">Borrar</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{usuario.usuarioID}}</td>
+                        <td><a href="/dashboard/usuario/{{usuario.usuarioID}}">{{usuario.nombre}}</a></td>
+                        <td>{{usuario.email}}</td>
+                        <td>{{usuario.avance}}</td>
+                        <td>{{usuario.genero}}</td>
+                        <td>{{usuario.edad}}</td>
+                        <td>{{usuario.pais}}</td>
+                        <td>{{usuario.institucion}}</td>
+                        <td>{{usuario.grado}}</td>
+                        <td>{{usuario.diciplina}}</td>
+                        <td>
+                            <a href="{% url 'actualizar_usuario' pk=usuario.usuarioID %}">Editar</a>
+                            <a href="{% url 'borrar_usuarios' usuario.usuarioID %}">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
+    </div>
+        <div class="creacion">
+            <form action="{% url 'crear_Usuario' %}" method="get">
+                <button type="submit"> Agregar usuario</button>
+            </form>
+        </div>
+</div>
 {% endblock %}
