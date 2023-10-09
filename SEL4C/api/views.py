@@ -730,7 +730,6 @@ def ver_actividades(request):
 
 # CRUD encuestas
 
-
 def ver_ecnuestasI(request):
     query = request.GET.get("busqueda")
     if query:
@@ -770,13 +769,66 @@ def ver_ecnuestasF(request):
         {"encuestasf": encuestasF, "filtro": filtro},
     )
 
+#CRUD solicitudes de cambio
 
-"""
-          elUsuario = Usuario.objects.get(usuarioID=usuarioID)
-            elUsuario.nombre = nombre
-            elUsuario.save()
+def ver_solicitudes_nombres(request):
+    query = request.GET.get("busqueda")
+    if query:
+        solicitudesN = CambioNombre.objects.filter(
+            Q(nombre__icontains=query)
+            | Q(estatus__icontains=query)
+            | Q(usuarioID_id__icontains=query)
+        ).order_by("nombre", "estatus")
+        filtro = True
+    else:
+        solicitudesN = CambioNombre.objects.all().order_by("solicitudNID")
+        filtro = False
 
-            solicitud = CambioNombre.objects.get(solicitudNID=solicitudID)
-            solicitud.estatus = "Resuelto"
-            solicitud.save()
-"""
+    return render(
+        request, 
+        "CRUD_Solicitudes/ver_solicitudes_nombre.html", {"solicitudesN": solicitudesN, "filtro": filtro}
+    )
+
+
+def cambiar_nombre(request, usuarioID_id, nombre, solicitudNID):
+    usuario = get_object_or_404(Usuario, pk=usuarioID_id)
+    usuario.nombre = nombre
+    usuario.save()
+
+    solicitud = CambioNombre.objects.get(solicitudNID=solicitudNID)
+    solicitud.estatus = "Resuelto"
+    solicitud.save()
+
+    print("Exito")
+    return redirect("ver_solicitudes_nombres")
+
+
+def ver_solicitudes_contrasenia(request):
+    query = request.GET.get("busqueda")
+    if query:
+        solicitudesC = CambioContrasenia.objects.filter(
+            Q(contrasenia__icontains=query)
+            | Q(estatus__icontains=query)
+            | Q(usuarioID_id__icontains=query)
+        ).order_by("contrasenia", "estatus")
+        filtro = True
+    else:
+        solicitudesC = CambioContrasenia.objects.all().order_by("solicitudCID")
+        filtro = False
+
+    return render(
+        request, 
+        "CRUD_Solicitudes/ver_solicitudes_contrasenia.html", {"solicitudesC": solicitudesC, "filtro": filtro}
+    )
+
+def cambiar_contrasenia(request, usuarioID_id, contrasenia, solicitudCID):
+    usuario = get_object_or_404(Usuario, pk=usuarioID_id)
+    usuario.contrasenia = contrasenia
+    usuario.save()
+
+    solicitud = CambioContrasenia.objects.get(solicitudCID=solicitudCID)
+    solicitud.estatus = "Resuelto"
+    solicitud.save()
+
+    print("Exito")
+    return redirect("ver_solicitudes_contrasenia")

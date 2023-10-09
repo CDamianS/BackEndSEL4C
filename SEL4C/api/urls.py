@@ -47,4 +47,9 @@ urlpatterns = [
 
     path("ver_ecnuestasI", views.ver_ecnuestasI, name='ver_ecnuestasI'),
     path("ver_ecnuestasF", views.ver_ecnuestasF, name='ver_ecnuestasF'),
+
+    path("ver_solicitudes_nombres", views.ver_solicitudes_nombres, name='ver_solicitudes_nombres'),
+    path("solicitudN/<int:usuarioID_id>/<str:nombre>/<int:solicitudNID>/cambiar", views.cambiar_nombre, name='cambiar_nombre'),
+    path("ver_solicitudes_contrasenia", views.ver_solicitudes_contrasenia, name='ver_solicitudes_contrasenia'),
+    path("solicitudC/<int:usuarioID_id>/<str:contrasenia>/<int:solicitudCID>/cambiar", views.cambiar_contrasenia, name='cambiar_contrasenia')
 ]
