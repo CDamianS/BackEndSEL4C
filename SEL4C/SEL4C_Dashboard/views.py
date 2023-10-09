@@ -73,4 +73,33 @@ def usuarioGraph(request, usuario_id):
         "nombre": usuario.nombre,
         "email": usuario.email,
     }
-    return render(request, "dashboard/usuario.html", usuario_json)
+    respuestas_json = {
+        "user": "user@tec.mx",
+        "responses": [
+            {"answer": 1, "question": {"id": 1}},
+            {"answer": 1, "question": {"id": 2}},
+            {"answer": 1, "question": {"id": 3}},
+            {"answer": 1, "question": {"id": 4}},
+            {"answer": 1, "question": {"id": 5}},
+            {"answer": 1, "question": {"id": 6}},
+            {"answer": 1, "question": {"id": 7}},
+            {"answer": 1, "question": {"id": 8}},
+            {"answer": 1, "question": {"id": 9}},
+            {"answer": 1, "question": {"id": 10}},
+            {"answer": 1, "question": {"id": 11}},
+            {"answer": 1, "question": {"id": 12}},
+            {"answer": 1, "question": {"id": 13}},
+            {"answer": 1, "question": {"id": 14}},
+            {"answer": 1, "question": {"id": 15}},
+            {"answer": 1, "question": {"id": 16}},
+            {"answer": 1, "question": {"id": 17}},
+            {"answer": 1, "question": {"id": 18}},
+            {"answer": 1, "question": {"id": 19}},
+            {"answer": 1, "question": {"id": 20}},
+            {"answer": 1, "question": {"id": 21}},
+            {"answer": 1, "question": {"id": 22}},
+            {"answer": 1, "question": {"id": 23}},
+            {"answer": 1, "question": {"id": 24}},
+        ],
+    }
+    return render(request, "dashboard/usuario.html", usuario_json, respuestas_json)
