@@ -19,22 +19,10 @@
     
     <div class="tablas_main">
         <div class="fondo_tablas">
-            <!--Busqueda-->
-            <form method="GET">
-                <div class="busqueda">
-                    <input type="text" name="busueda" placeholder="Buscar">
-                    <div class="boton_busqueda">
-                        <button type="submit">Buscar</button>
-                    </div>
-                    {% if filtro %}
-                    <a href="{% url 'ver_usuarios' %}"><i>Deshacer</i></a>
-                    {% endif %}
-                </div>
-            </form>
 
             <!--Lista de usuarios-->
             <div class="lista_usuarios">
-                <h1> Lista de Usuarios</h1>
+                <h1> Datos del Usuario</h1>
                 <table>
                     <thead>
                         <th>Nombre </th>
@@ -50,7 +38,7 @@
 
                     </thead>
                     <tbody>
-                        {% for usuario in usuarios %}
+
                         <tr>
                             <td>{{usuario.nombre}}</td>
                             <td>{{usuario.contrasenia}}</td>
@@ -62,25 +50,12 @@
                             <td>{{usuario.institucion}}</td>
                             <td>{{usuario.grado}}</td>
                             <td>{{usuario.diciplina}}</td>
-                            <td>
-                                <a href="{% url 'ver_usuario' pk=usuario.usuarioID %}">Ver usuario</a>
-                                <a href="{% url 'actualizar_usuario' pk=usuario.usuarioID %}">Editar</a>
-                                <a href="{% url 'borrar_usuarios' usuario.usuarioID %}">Borrar</a>
-                            </td>
                         </tr>
-                        {% endfor %}
+
                     </tbody>
                 </table>
             </div>
 
-        </div>
-
-
-        <!--Creación de usuario-->
-        <div class="creacion">
-            <form action="{% url 'crear_Usuario' %}" method="get">
-                <button type="submit"> Agregar usuario</button>
-            </form>
         </div>
 
 

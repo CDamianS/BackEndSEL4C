@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitudes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/styles2.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    
+
+    <div class="dashboard">
+        {% include 'sidebar.html' %}
+
+        {% include 'topbar.html' %}
+    </div>
+
+    <div class="tablas_main">
+        <div class="fondo_tablas">
+            <!--Busqueda-->
+            <form method="GET">
+                <div class="busqueda">
+                    <input type="text" name="busueda" placeholder="Buscar">
+                    <div class="boton_busqueda">
+                        <button type="submit">Buscar</button>
+                    </div>
+                    {% if filtro %}
+                    <a href="{% url 'ver_solicitudes_nombres' %}"><i>Deshacer</i></a>
+                    {% endif %}
+                </div>
+            </form>
+
+            <!--Lista de usuarios-->
+            <div class="lista_usuarios">
+                <h1> Solicitudes de cambio de nombre </h1>
+                <table>
+                    <thead>
+                        <th>N° </th>
+                        <th>Nuevo nombre </th>
+                        <th>Estatus </th>
+                        <th>Usuario N° </th>
+
+                    </thead>
+                    <tbody>
+                        {% for solicitud in solicitudesN %}
+                        <tr>
+                            <td>{{solicitud.solicitudNID}}</td>
+                            <td>{{solicitud.nombre}}</td>
+                            <td>{{solicitud.estatus}}</td>
+                            <td>{{solicitud.usuarioID_id}}</td>
+
+                            <td>
+                                <a href="{% url 'cambiar_nombre' usuarioID_id=solicitud.usuarioID_id nombre=solicitud.nombre solicitudNID=solicitud.solicitudNID %}">Cambiar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+    </div>
+    <script src="{% static 'script.js' %}"></script>
+
+
+</body>
+</html> 

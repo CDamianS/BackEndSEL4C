@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Admin, Usuario, Actividad, CuestionarioInicial, CuestionarioFinal
+from .models import Admin, Usuario, Actividad, CuestionarioInicial, CuestionarioFinal, CambioNombre, CambioContrasenia
 
 class AdminSerialiizer(serializers.ModelSerializer):
     class Meta:
@@ -26,3 +26,12 @@ class CuestionarioFSerializer(serializers.ModelSerializer):
         model = CuestionarioFinal
         fields = '__all__'
 
+class CambioNombreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CambioNombre
+        fields = '__all__'
+
+class CambioContraseniaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CambioContrasenia
+        fields = '__all__'
