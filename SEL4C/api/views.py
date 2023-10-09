@@ -17,6 +17,8 @@ from .models import (
     Actividad,
     CuestionarioInicial,
     CuestionarioFinal,
+    CambioNombre,
+    CambioContrasenia
 )
 from .serializer import (
     AdminSerialiizer,
@@ -24,6 +26,8 @@ from .serializer import (
     ActividadSerializer,
     CuestionarioISerializer,
     CuestionarioFSerializer,
+    CambioNombreSerializer,
+    CambioContraseniaSerializer
 )
 from .forms import (
     AdminForm,
@@ -31,6 +35,8 @@ from .forms import (
     ActividadForm,
     CuestionarioIForm,
     CuestionarioFForm,
+    CambioNForm,
+    CambioCForm
 )
 
 
@@ -68,6 +74,18 @@ class CuestionarioFViewSet(viewsets.ModelViewSet):
     queryset = CuestionarioFinal.objects.all()
     serializer_class = CuestionarioFSerializer
 
+class CambioNViewSet(viewsets.ModelViewSet):
+    """Creación de solicitudes de cambio de nombre dentro de la base de datos."""
+
+    queryset = CambioNombre.objects.all()
+    serializer_class = CambioNombreSerializer
+
+class CambioCViewSet(viewsets.ModelViewSet):
+    """Creación de solicitudes de cambio de contrasenia dentro de la base de datos."""
+
+    queryset = CambioContrasenia.objects.all()
+    serializer_class = CambioContraseniaSerializer
+
 
 def crearActividad(actividad):
     actividad_serializer = ActividadSerializer(actividad)
@@ -75,6 +93,12 @@ def crearActividad(actividad):
 
 def crearUsuario(usuario):
     usuario_serializer = UsuarioSerializer(usuario)
+
+def crearSolicitudN(solicitud):
+    solicitudN_serializer = CambioNombreSerializer
+
+def crearSolicitudC(solicitud):
+    solicitudC_serializer = CambioContraseniaSerializer
 
 
 # Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
@@ -205,30 +229,6 @@ def user_login(request):
     """End point para validar el usuario"""
     return render(request, "user_login.html")
 
-
-"""
-@csrf_exempt
-def creacion_usuario(request):
-    if request.method == "POST":
-        try:
-            form = UsuarioForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return JsonResponse({"message": "Registro Exitoso"})
-            else:
-
-                error_message = form.errors.values()
-                for error in error_message:
-                    print(error)
-
-                return JsonResponse({"message": "Erorr en los datos de registro"})
-        except:
-            return JsonResponse({"message": "Erorr en los datos de registro"})
-    else:
-        return HttpResponse('Error en el metodo de requets')
-"""
-
-
 @csrf_exempt
 def upload(request):
     if request.method == "POST":
@@ -273,6 +273,54 @@ def download(request, file_id):
         return response
     except:
         return HttpResponse("Este archivo no existe en la base de datos")
+    
+@csrf_exempt
+def enviar_solicitudN(request):
+    if request.method == "POST":
+        try:
+            data = loads(request.body)
+
+            nombre = data["nombre"]
+            estatus = data["estatus"]
+            usuarioID = data["usuarioID"]
+
+
+            solicitud = CambioNombre.objects.create(
+                nombre = nombre,
+                estatus = estatus,
+                usuarioID = usuarioID,
+            )
+            crearSolicitudN(solicitud)
+
+            return JsonResponse({"message": "Solicitud Enviada"})
+        except:
+            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
+        
+
+@csrf_exempt
+def enviar_solicitudC(request):
+    if request.method == "POST":
+        try:
+            data = loads(request.body)
+
+            contrasenia = data["contrasenia"]
+            estatus = data["estatus"]
+            usuarioID_id = data["usuarioID_id"]
+
+            elUsario = Usuario.objects.get(usuarioID=usuarioID_id)
+
+            solicitud = CambioContrasenia.objects.create(
+                contrasenia = contrasenia,
+                estatus = estatus,
+                usuarioID = elUsario,
+            )
+            crearSolicitudC(solicitud)
+
+            return JsonResponse({"message": "Solicitud Enviada"})
+        except:
+            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
+
+
 
 
 @csrf_exempt
@@ -604,6 +652,17 @@ def ver_usuarios(request):
         {"usuarios": usuarios, "filtro": filtro},
     )
 
+@csrf_exempt
+def ver_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+
+    return render(
+        request,
+        "CRUD_Usuarios/ver_usuario.html",
+        {"usuario": usuario}
+    )
+        
+
 
 @csrf_exempt
 def actualizar_usuario(request, pk):
@@ -679,7 +738,6 @@ def ver_actividades(request):
 
 # CRUD encuestas
 
-
 def ver_ecnuestasI(request):
     query = request.GET.get("busqueda")
     if query:
@@ -718,3 +776,67 @@ def ver_ecnuestasF(request):
         "CRUD_Encuestas/ver_encuestosF.html",
         {"encuestasf": encuestasF, "filtro": filtro},
     )
+
+#CRUD solicitudes de cambio
+
+def ver_solicitudes_nombres(request):
+    query = request.GET.get("busqueda")
+    if query:
+        solicitudesN = CambioNombre.objects.filter(
+            Q(nombre__icontains=query)
+            | Q(estatus__icontains=query)
+            | Q(usuarioID_id__icontains=query)
+        ).order_by("nombre", "estatus")
+        filtro = True
+    else:
+        solicitudesN = CambioNombre.objects.all().order_by("solicitudNID")
+        filtro = False
+
+    return render(
+        request, 
+        "CRUD_Solicitudes/ver_solicitudes_nombre.html", {"solicitudesN": solicitudesN, "filtro": filtro}
+    )
+
+
+def cambiar_nombre(request, usuarioID_id, nombre, solicitudNID):
+    usuario = get_object_or_404(Usuario, pk=usuarioID_id)
+    usuario.nombre = nombre
+    usuario.save()
+
+    solicitud = CambioNombre.objects.get(solicitudNID=solicitudNID)
+    solicitud.estatus = "Resuelto"
+    solicitud.save()
+
+    print("Exito")
+    return redirect("ver_solicitudes_nombres")
+
+
+def ver_solicitudes_contrasenia(request):
+    query = request.GET.get("busqueda")
+    if query:
+        solicitudesC = CambioContrasenia.objects.filter(
+            Q(contrasenia__icontains=query)
+            | Q(estatus__icontains=query)
+            | Q(usuarioID_id__icontains=query)
+        ).order_by("contrasenia", "estatus")
+        filtro = True
+    else:
+        solicitudesC = CambioContrasenia.objects.all().order_by("solicitudCID")
+        filtro = False
+
+    return render(
+        request, 
+        "CRUD_Solicitudes/ver_solicitudes_contrasenia.html", {"solicitudesC": solicitudesC, "filtro": filtro}
+    )
+
+def cambiar_contrasenia(request, usuarioID_id, contrasenia, solicitudCID):
+    usuario = get_object_or_404(Usuario, pk=usuarioID_id)
+    usuario.contrasenia = contrasenia
+    usuario.save()
+
+    solicitud = CambioContrasenia.objects.get(solicitudCID=solicitudCID)
+    solicitud.estatus = "Resuelto"
+    solicitud.save()
+
+    print("Exito")
+    return redirect("ver_solicitudes_contrasenia")
