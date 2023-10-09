@@ -11,6 +11,12 @@
 <body>
 
     <div class="dashboard">
+        {% include 'sidebar.html' %}
+
+        {% include 'topbar.html' %}
+    </div>
+
+    <div class="tablas_main">
         <!--Manejo de errores (inactvio)-->
         {% if exito %}
         <div role="alert">
