@@ -160,8 +160,8 @@ def existe_admin(request):
     """Revisa si el usuario existe en la base de datos."""
 
     if request.method == "POST":
-        nombre = request.POST["nombre"]
-        contrasenia = request.POST["contrasenia"]
+        nombre = request.POST.get("nombre", False)
+        contrasenia = request.POST.get("contrasenia", False)
         admin_id = validar_admin(nombre, contrasenia)
         if admin_id is not None:
             print("si?")
