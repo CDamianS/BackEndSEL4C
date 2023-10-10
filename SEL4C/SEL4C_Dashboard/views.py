@@ -72,8 +72,6 @@ def usuarioGraph(request, usuario_id):
         "ID": usuario.usuarioID,
         "nombre": usuario.nombre,
         "email": usuario.email,
-    }
-    respuestas_json = {
         "user": "user@tec.mx",
         "responses": [
             {"answer": 1, "question": {"id": 1}},
@@ -102,4 +100,4 @@ def usuarioGraph(request, usuario_id):
             {"answer": 1, "question": {"id": 24}},
         ],
     }
-    return render(request, "dashboard/usuario.html", usuario_json, respuestas_json)
+    return render(request, "dashboard/usuario.html", usuario_json)

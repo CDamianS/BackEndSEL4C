@@ -12,7 +12,22 @@
 <div class = "stats">
     <div class= "general-graph">
         <div class="graph">
-            <h1>hola</h1>
+            <table>
+            <thead>
+                <tr>
+                <th>Pregunta</th>
+                <th>Respuesta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for response in usuario_json.responses %}
+                <tr>
+                    <td>{{ response.question.id }}</td>
+                    <td>{{ response.answer }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
         </div>
     </div>
     <div class="general-graph">
@@ -20,7 +35,7 @@
             <canvas id="general"></canvas>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <div id="data" data-id="{{ ID }}"></div>
-            {% block fourth %}
+            {% block first %}
             <script src="{% static 'js/general.js' %}"></script>
             {% endblock %}
         </div>
