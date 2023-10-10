@@ -94,12 +94,20 @@ def crearActividad(actividad):
 def crearUsuario(usuario):
     usuario_serializer = UsuarioSerializer(usuario)
 
+
 def crearSolicitudN(solicitud):
     solicitudN_serializer = CambioNombreSerializer
+
 
 def crearSolicitudC(solicitud):
     solicitudC_serializer = CambioContraseniaSerializer
 
+def crearRespuestasI(solicitud):
+    cuestionarioI_serializer = CuestionarioISerializer
+
+def crearRespuestasF(solicitud):
+    cuestionarioF_serializer = CuestionarioFSerializer
+    
 
 # Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
 def acrchivo_subido(f):
@@ -320,21 +328,51 @@ def enviar_solicitudC(request):
         except:
             return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
 
-
-
-
 @csrf_exempt
-def repuestas_cuestionario(request):
+def repuestas_cuestionarioI(request):
     if request.method == "POST":
-        data = request.POST
 
-        usuarioID = data["usuarioID"]
+            data = loads(request.body)
 
-        print(usuarioID)
+            numero = data["numero"]
+            respuesta = data["respuesta"]
+            usuarioID_id = data["usuarioID_id"]
 
-        return HttpResponse("si")
+            elUsario = Usuario.objects.get(usuarioID=usuarioID_id)
 
-    return HttpResponse("??")
+            solicitud = CuestionarioInicial.objects.create(
+                numero = numero,
+                respuesta = respuesta,
+                usuarioID = elUsario,
+            )
+            crearRespuestasI(solicitud)            
+
+            return JsonResponse({"message": "Solicitud Enviada"})
+
+        
+@csrf_exempt
+def repuestas_cuestionarioF(request):
+    if request.method == "POST":
+        try:
+            data = loads(request.body)
+
+            numero = data["numero"]
+            respuesta = data["respuesta"]
+            usuarioID_id = data["usuarioID_id"]
+
+            elUsario = Usuario.objects.get(usuarioID=usuarioID_id)
+
+            solicitud = CuestionarioFinal.objects.create(
+                numero = numero,
+                respuesta = respuesta,
+                usuarioID = elUsario,
+            )
+            crearRespuestasF(solicitud)            
+
+            return JsonResponse({"message": "Solicitud Enviada"})
+        except:
+            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
+
 
 
 @csrf_exempt

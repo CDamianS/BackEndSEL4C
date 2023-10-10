@@ -29,11 +29,8 @@ urlpatterns = [
     path("cuestionario_PC", views.cuestionario_PC, name="cuestionario_PC"),
     path("upload", views.upload, name="upload"),
     path("download/<int:file_id>", views.download, name="download"),
-    path(
-        "repuestas_cuestionario",
-        views.repuestas_cuestionario,
-        name="repuestas_cuestionario",
-    ),
+    path("repuestas_cuestionarioI", views.repuestas_cuestionarioI, name='repuestas_cuestionarioI'),
+    path("repuestas_cuestionarioF", views.repuestas_cuestionarioF, name='repuestas_cuestionarioF'),
     path("enviar_solicitudN", views.enviar_solicitudN, name="enviar_solicitudN"),
     path("enviar_solicitudC", views.enviar_solicitudC, name="enviar_solicitudC"),
     path("ver_admins", views.ver_admins, name="ver_admins"),
@@ -74,4 +71,6 @@ urlpatterns = [
         views.cambiar_contrasenia,
         name="cambiar_contrasenia",
     ),
+    
+
 ]
