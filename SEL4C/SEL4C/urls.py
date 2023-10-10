@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
+from api  import views
+from general import views
+from SEL4C_Dashboard import views
 
 urlpatterns = [
-    path("", include("api.urls")),
+    path("", include("general.urls")),
     path("dashboard/", include("SEL4C_Dashboard.urls")),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("docs", include_docs_urls(title="Api Documentation")),
+    path('<path:not_found>', views.error_404, name='error_404'),
 ]

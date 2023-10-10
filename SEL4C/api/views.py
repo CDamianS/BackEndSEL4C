@@ -145,7 +145,7 @@ def selecionar_actividad(idAct, idUser):
         actividad_id = None
     return actividad_id
 
-
+"""
 @csrf_exempt
 def index(request):
     return render(request, "Pagina_principal/index.html")
@@ -156,16 +156,16 @@ def descargar_app(request):
     return render(request, "Pagina_principal/descargar.html")
 
 
-"""
+
 @csrf_exempt
 def error_404(request, not_found):
     return render(request, 'Pagina_principal/404.html')
 """
 
-
+"""
 @csrf_exempt
 def existe_admin(request):
-    """Revisa si el usuario existe en la base de datos."""
+    Revisa si el usuario existe en la base de datos.
 
     if request.method == "POST":
         nombre = request.POST.get("nombre", False)
@@ -176,7 +176,7 @@ def existe_admin(request):
             return HttpResponseRedirect("/dashboard/general")
         else:
             return render(request, "Pagina_principal/iniciar_sesion.html")
-
+"""
 
 @csrf_exempt
 def existe_usuario(request):
@@ -225,11 +225,12 @@ def crear_Admin(request):
         form = AdminForm()
     return render(request, "admin_creacion(prueb).html", {"form": form})
 
-
+"""
 @csrf_exempt
 def admin_login(request):
-    """End point para validar el admin"""
+      End point para validar el admin
     return render(request, "Pagina_principal/iniciar_sesion.html")
+"""
 
 
 @csrf_exempt

@@ -14,18 +14,12 @@ router.register(r"cambio_nombre", views.CambioNViewSet)
 router.register(r"cambio_contrasenia", views.CambioCViewSet)
 
 urlpatterns = [
-    path("api/", include(router.urls)),
+    path("", include(router.urls)),
     path("api-auth/", include("rest_framework.urls")),
-    path("", views.index, name="index"),
-    path("descargar_app", views.descargar_app, name="descargar_app"),
-    # path('<path:not_found>', views.error_404, name='error_404'),
-    path("existe_admin", views.existe_admin, name="existe_admin"),
-    path("admin_login", views.admin_login, name="admin_login"),
+
     path("existe_usuario", views.existe_usuario, name="existe_usuario"),
     path("user_login", views.user_login, name="user_login"),
-    path(
-        "cuestionario_inicial", views.cuestionario_inicial, name="cuestionario_inicial"
-    ),
+    path("cuestionario_inicial", views.cuestionario_inicial, name="cuestionario_inicial"),
     path("cuestionario_PC", views.cuestionario_PC, name="cuestionario_PC"),
     path("upload", views.upload, name="upload"),
     path("download/<int:file_id>", views.download, name="download"),
@@ -39,38 +33,15 @@ urlpatterns = [
     path("crear_Admin", views.crear_Admin, name="crear_Admin"),
     path("ver_usuarios", views.ver_usuarios, name="ver_usuarios"),
     path("usuario/<int:pk>/ver", views.ver_usuario, name="ver_usuario"),
-    path(
-        "usuario/<int:pk>/actualizar",
-        views.actualizar_usuario,
-        name="actualizar_usuario",
-    ),
-    path(
-        "usuario/<int:usuarioID>/borrar", views.borrar_usuarios, name="borrar_usuarios"
-    ),
+    path("usuario/<int:pk>/actualizar", views.actualizar_usuario, name="actualizar_usuario"),
+    path("usuario/<int:usuarioID>/borrar", views.borrar_usuarios, name="borrar_usuarios"),
     path("crear_Usuario", views.crear_Usuario, name="crear_Usuario"),
     path("ver_actividades", views.ver_actividades, name="ver_actividades"),
     path("ver_ecnuestasI", views.ver_ecnuestasI, name="ver_ecnuestasI"),
     path("ver_ecnuestasF", views.ver_ecnuestasF, name="ver_ecnuestasF"),
-    path(
-        "ver_solicitudes_nombres",
-        views.ver_solicitudes_nombres,
-        name="ver_solicitudes_nombres",
-    ),
-    path(
-        "solicitudN/<int:usuarioID_id>/<str:nombre>/<int:solicitudNID>/cambiar",
-        views.cambiar_nombre,
-        name="cambiar_nombre",
-    ),
-    path(
-        "ver_solicitudes_contrasenia",
-        views.ver_solicitudes_contrasenia,
-        name="ver_solicitudes_contrasenia",
-    ),
-    path(
-        "solicitudC/<int:usuarioID_id>/<str:contrasenia>/<int:solicitudCID>/cambiar",
-        views.cambiar_contrasenia,
-        name="cambiar_contrasenia",
-    ),
+    path("ver_solicitudes_nombres", views.ver_solicitudes_nombres, name="ver_solicitudes_nombres"),
+    path("solicitudN/<int:usuarioID_id>/<str:nombre>/<int:solicitudNID>/cambiar", views.cambiar_nombre,name="cambiar_nombre"),
+    path("ver_solicitudes_contrasenia", views.ver_solicitudes_contrasenia, name="ver_solicitudes_contrasenia"),
+    path("solicitudC/<int:usuarioID_id>/<str:contrasenia>/<int:solicitudCID>/cambiar", views.cambiar_contrasenia, name="cambiar_contrasenia"),
     
-
 ]
