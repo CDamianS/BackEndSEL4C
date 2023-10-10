@@ -17,6 +17,10 @@
     position: fixed;
 }
 
+.sidebar a:visited {
+    color: white;
+}
+
 .logo_ds img {
     width: 100%;
 }
@@ -46,7 +50,7 @@
 .navbar {
     height: 90px;
     background-color: #34495e;
-    filter: drop-shadow(20px 20px 10px rgb(142, 143, 142));
+    /* filter: drop-shadow(20px 20px 10px rgb(142, 143, 142)); */
 
     display: flex;
     justify-content: flex-end;
@@ -152,8 +156,8 @@ h1 {
 }
 
 .tablas_main {
-    margin-left: 250px;
-    margin-top: 100px;
+    /* margin-left: 250px; */
+    /* margin-top: 100px; */
     padding: 20px;
 }
 
@@ -170,10 +174,10 @@ h1 {
 }
 
 .graph {
-    height: 100%; /* Set the height of "graph" divs to 100% to fill the "graphs" div */
-    padding: 20px; /* Optional: Add padding if desired */
-    border: 2px solid #ccc; /* Add a border */
-    border-radius: 10px; /* Add rounded corners */
+    height: 100%;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
 }
 
 .general-graph {
@@ -200,11 +204,12 @@ h1 {
 }
 
 .tablas_main {
-    margin-left: 250px;
-    margin-top: 100px;
+    /* margin-left: 250px; */
+    /* margin-top: 100px; */
     padding: 20px;
 }
 
+/* Gráficas */
 .graphs {
     margin-left: 250px;
     padding: 20px;
@@ -225,12 +230,12 @@ h1 {
 }
 
 .general-graph {
-    width: 35rem;
+    width: 38rem;
     height: 500px;
 }
 
 .general-graph canvas {
-    width: 50%; /* Set your desired height here */
+    width: 50%;
 }
 
 .stats {
@@ -242,34 +247,52 @@ h1 {
 }
 
 .data-block {
-    width: 50%;
+    width: 38rem;
     border: 2px solid #ccc; /* Add a border */
     border-radius: 10px; /* Add rounded corners */
 }
 
+h2 {
+    padding: 10px;
+}
+
+h3 {
+    padding: 10px;
+}
+
+/* Tablas */
 .tablas_main {
-    margin-left: 250px;
-    margin-top: 100px;
+    /* margin-left: 250px; */
     padding: 20px 20px;
     display: flex; /* Use flexbox to create a horizontal layout */
     flex: 1; /* Make both chart containers take up equal space */
 }
 
 .tablas_main {
-    margin-left: 250px;
-    margin-top: 100px;
+    margin-left: 200px;
     padding: 20px 20px;
     display: flex; /* Use flexbox to create a horizontal layout */
     flex: 1; /* Make both chart containers take up equal space */
 }
 
 .fondo_tablas{
-
-    background-color: #34495e;
-    border: 1px solid rgb(3, 3, 3);
+    border: 2px solid #34495e;
+    border-radius: 10px; /* Add rounded corners */
     justify-content: flex-end;
+    padding: 20px 20px;
     margin-left: auto;
     margin-right: auto;    
 
     z-index: 1000;
+}
+
+.title{
+    padding: 20px 20px;
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title h1{
+    margin-top: 0px;
 }

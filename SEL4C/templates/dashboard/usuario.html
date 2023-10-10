@@ -1,0 +1,44 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+
+{% block title %}
+<h1 style="font-size: 64px;">{{ nombre }}</h1>
+{% endblock %}
+
+{% block graphs %}
+<h2 style="padding: 10px; margin-left:260px;">
+    Encuesta inicial
+</h2>
+<div class = "stats">
+    <div class= "general-graph">
+        <div class="graph">
+            <table>
+            <thead>
+                <tr>
+                <th>Pregunta</th>
+                <th>Respuesta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for response in usuario_json.responses %}
+                <tr>
+                    <td>{{ response.question.id }}</td>
+                    <td>{{ response.answer }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="general-graph">
+        <div class = "graph">
+            <canvas id="general"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <div id="data" data-id="{{ ID }}"></div>
+            {% block first %}
+            <script src="{% static 'js/general.js' %}"></script>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
