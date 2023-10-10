@@ -74,7 +74,6 @@ def existe_admin(request):
         contrasenia = request.POST.get("contrasenia", False)
         admin_id = validar_admin(nombre, contrasenia)
         if admin_id is not None:
-            print("si?")
             return HttpResponseRedirect("/dashboard/general")
         else:
             return render(request, "Pagina_principal/iniciar_sesion.html")

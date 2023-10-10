@@ -3,16 +3,31 @@
 
 {% block title %}
 <div class = "title">
-<h1> Lista de Usuarios</h1>
-    <div class="creacion">
-        <form action="{% url 'crear_Usuario' %}" method="get">
-            <button type="submit"> Agregar usuario</button>
-        </form>
-    </div>
+    <h1> Lista de Usuarios</h1>
+        <div class="creacion">
+            <form action="{% url 'crear_Usuario' %}" method="get">
+                <button type="submit"> Agregar usuario</button>
+            </form>
+        </div>
 </div>
 {% endblock %}
 
 {% block graphs %}
+
+<div class = "busqueda">
+    <form method="GET">
+        <div class="busqueda">
+            <input type="text" name="busueda" placeholder="Buscar">
+            <div class="boton_busqueda">
+                <button type="submit">Buscar</button>
+            </div>
+            {% if filtro %}
+            <a href="{% url 'usuarios' %}"><i>Deshacer</i></a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
 <div class="tablas_main">
     <div class="fondo_tablas">
         <div class="lista_usuarios">

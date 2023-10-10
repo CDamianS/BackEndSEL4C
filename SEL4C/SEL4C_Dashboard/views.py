@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from api.models import Usuario
 import requests
-
+from django.db.models import Q
 # Create your views here.
 # endpoints
 def index(request):
