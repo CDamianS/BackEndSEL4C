@@ -90,14 +90,11 @@ class CambioCViewSet(viewsets.ModelViewSet):
 def crearActividad(actividad):
     actividad_serializer = ActividadSerializer(actividad)
 
-
 def crearUsuario(usuario):
     usuario_serializer = UsuarioSerializer(usuario)
 
-
 def crearSolicitudN(solicitud):
     solicitudN_serializer = CambioNombreSerializer
-
 
 def crearSolicitudC(solicitud):
     solicitudC_serializer = CambioContraseniaSerializer
@@ -145,7 +142,7 @@ def selecionar_actividad(idAct, idUser):
         actividad_id = None
     return actividad_id
 
-
+"""
 @csrf_exempt
 def index(request):
     return render(request, "Pagina_principal/index.html")
@@ -156,16 +153,16 @@ def descargar_app(request):
     return render(request, "Pagina_principal/descargar.html")
 
 
-"""
+
 @csrf_exempt
 def error_404(request, not_found):
     return render(request, 'Pagina_principal/404.html')
 """
 
-
+"""
 @csrf_exempt
 def existe_admin(request):
-    """Revisa si el usuario existe en la base de datos."""
+    Revisa si el usuario existe en la base de datos.
 
     if request.method == "POST":
         nombre = request.POST.get("nombre", False)
@@ -176,7 +173,7 @@ def existe_admin(request):
             return HttpResponseRedirect("/dashboard/general")
         else:
             return render(request, "Pagina_principal/iniciar_sesion.html")
-
+"""
 
 @csrf_exempt
 def existe_usuario(request):
@@ -207,35 +204,12 @@ def existe_usuario(request):
             return JsonResponse({"status": "no existe"})
 
 
-@csrf_exempt
-def crear_Admin(request):
-    if request.method == "POST":
-        form = AdminForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("Ok!!!")
-        else:
-
-            error_message = form.errors.values()
-            for error in error_message:
-                print(error)
-
-            return HttpResponse("erorr :(")
-    else:
-        form = AdminForm()
-    return render(request, "admin_creacion(prueb).html", {"form": form})
-
-
+"""
 @csrf_exempt
 def admin_login(request):
-    """End point para validar el admin"""
+      End point para validar el admin
     return render(request, "Pagina_principal/iniciar_sesion.html")
-
-
-@csrf_exempt
-def user_login(request):
-    """End point para validar el usuario"""
-    return render(request, "user_login.html")
+"""
 
 @csrf_exempt
 def upload(request):
