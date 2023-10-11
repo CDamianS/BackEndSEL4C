@@ -1,28 +1,68 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
-{% block graphs %}
-<div class="graphs">
-    <div class = "gender">
-        <div>
-            <canvas id="gender"></canvas>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        {% block first %}
-        <div class= "gender">
-            <script src="{% static 'js/gender.js' %}"></script>
-        </div>
-        {% endblock %}
-    </div>
-    <!-- <div class= "age">
-         {% block second %}
-         <div>
-         <canvas id="age"></canvas>
-         </div>
-         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-         <div class= "age">
-         <script src="{% static 'js/age.js' %}"></script>
-         </div>
-         {% endblock %}
-         </div> -->
+
+{% block title %}
+<div class = "title">
+    <h1>Solicitudes de cambio de credenciales</h1>
+
 </div>
+{% endblock %}
+
+{% block graphs %}
+<!--Lista de usuarios-->
+<div class="lista_usuarios">
+    <h1> Solicitudes de cambio de nombre </h1>
+    <table>
+        <thead>
+            <th>N° </th>
+            <th>Nuevo nombre </th>
+            <th>Estatus </th>
+            <th>Usuario N° </th>
+            
+        </thead>
+        <tbody>
+            {% for solicitudN in solicitudesN %}
+            <tr>
+                <td>{{solicitudN.solicitudNID}}</td>
+                <td>{{solicitudN.nombre}}</td>
+                <td>{{solicitudN.estatus}}</td>
+                <td>{{solicitudN.usuarioID_id}}</td>
+                <td>
+                    <a href="{% url 'cambiar_nombre' usuarioID_id=solicitudN.usuarioID_id nombre=solicitudN.nombre solicitudNID=solicitudN.solicitudNID %}">Cambiar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!--Lista de usuarios-->
+            <div class="lista_usuarios">
+                <h1> Solicitudes de cambio de contrasenia </h1>
+                <table>
+                    <thead>
+                        <th>N° </th>
+                        <th>Nueva contraseña </th>
+                        <th>Estatus </th>
+                        <th>Usuario N° </th>
+
+                    </thead>
+                    <tbody>
+                        {% for solicitudC in solicitudesC %}
+                        <tr>
+                            <td>{{solicitudC.solicitudCID}}</td>
+                            <td>{{solicitudC.contrasenia}}</td>
+                            <td>{{solicitudC.estatus}}</td>
+                            <td>{{solicitudC.usuarioID_id}}</td>
+
+                            <td>
+                                <a href="{% url 'cambiar_contrasenia' usuarioID_id=solicitudC.usuarioID_id contrasenia=solicitudC.contrasenia solicitudCID=solicitudC.solicitudCID %}">Cambiar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
 {% endblock %}

@@ -9,6 +9,10 @@
     display: flex;
 }
 
+.base{
+    background-image: url("/static/img/grid.png");
+}
+
 .sidebar {
     width: 250px;
     height: 100vh;
@@ -261,15 +265,87 @@ h3 {
     padding: 10px;
 }
 
-/* Tablas */
-.tablas_main {
-    /* margin-left: 250px; */
-    padding: 20px 20px;
-    display: flex; /* Use flexbox to create a horizontal layout */
-    flex: 1; /* Make both chart containers take up equal space */
+.title{
+    padding: 1px 1px;
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
 }
 
+/*Busqueda*/
+.contenedor-busqueda{
+    padding: 10px 75px 10px 275px;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color:#34495e;
+}
+
+.agregar{
+    width: 50px;
+    height: 50px;
+    display: flex;  
+}
+
+.agregar-button{
+    background: #2565ce;
+    padding: 10px 25px;
+    border: 1px solid #34495e;
+    outline: none;
+    color: #ffffff;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-family: sans-serif;
+    border-radius: 10px;
+}
+
+.agregar-button-admin{
+    background: #2565ce;
+    padding: 10px 10px;
+    border: 1px solid #34495e;
+    outline: none;
+    color: #ffffff;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-family: sans-serif;
+    border-radius: 10px;
+}
+
+.busqueda{
+    background: #ffffff;
+    width: 50px;
+    height: 40px;
+    display: flex;
+}
+
+.busqueda-input{
+    flex: 1;
+    padding: 10px 25px;
+    border: 0.5px solid #5e6164;
+    outline: none;
+    font-family: sans-serif;
+}
+
+.busqueda-button{
+    background: #2565ce;
+    padding: 10px 25px;
+    border: 1px  #34495e;
+    outline: none;
+    color: #ffffff;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+.title h1{
+    margin-top: 0px;
+}
+
+/* Tablas */
+
 .tablas_main {
+    border-radius: 10px;
     margin-left: 200px;
     padding: 20px 20px;
     display: flex; /* Use flexbox to create a horizontal layout */
@@ -279,32 +355,47 @@ h3 {
 .fondo_tablas{
     border: 2px solid #34495e;
     border-radius: 10px; /* Add rounded corners */
+    background-color: #d6dadd;
     justify-content: flex-end;
     padding: 20px 20px;
-    margin-left: auto;
-    margin-right: auto;    
-
+    margin-left: 50px;
+    margin-right: 50px;    
     z-index: 1000;
 }
 
-.title{
-    padding: 10px 75px;
-    margin-top: 100px;
-    display: flex;
-    justify-content: space-between;
+.styled-table {
+    border-collapse: collapse;
+    margin: 1px 1px;
+    font-size: 1.0em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.busqueda{
-    padding: 5px 10px 5px 175px;
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.title h1{
-    margin-top: 0px;
-}
-
-.creacion{
+.styled-table thead tr {
+    background-color: #2565ce;
     
+    color: #ffffff;
+    text-align: center;
 }
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 10px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #2565ce;
+}
+
+
