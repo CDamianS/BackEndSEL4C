@@ -14,7 +14,7 @@ from api.models import (
     CuestionarioInicial,
     CuestionarioFinal,
     CambioNombre,
-    CambioContrasenia
+    CambioContrasenia,
 )
 from api.serializer import (
     AdminSerialiizer,
@@ -23,7 +23,7 @@ from api.serializer import (
     CuestionarioISerializer,
     CuestionarioFSerializer,
     CambioNombreSerializer,
-    CambioContraseniaSerializer
+    CambioContraseniaSerializer,
 )
 from api.forms import (
     AdminForm,
@@ -32,7 +32,7 @@ from api.forms import (
     CuestionarioIForm,
     CuestionarioFForm,
     CambioNForm,
-    CambioCForm
+    CambioCForm,
 )
 
 # Create your views here.
@@ -114,9 +114,11 @@ def cambios(request):
     solicitudesN = CambioNombre.objects.all().order_by("solicitudNID")
     solicitudesC = CambioContrasenia.objects.all().order_by("solicitudCID")
     return render(
-        request, 
-        "dashboard/cambios.html", {"solicitudesN": solicitudesN,"solicitudesC": solicitudesC}
+        request,
+        "dashboard/cambios.html",
+        {"solicitudesN": solicitudesN, "solicitudesC": solicitudesC},
     )
+
 
 def administradores(request):
     query = request.GET.get("busueda")
@@ -143,36 +145,4 @@ def administradores(request):
 def usuarioGraph(request, usuario_id):
     usuario = Usuario.objects.get(usuarioID=usuario_id)
     # Convierte el modelo a un diccionario y luego a JSON
-    usuario_json = {
-        "ID": usuario.usuarioID,
-        "nombre": usuario.nombre,
-        "email": usuario.email,
-        "user": "user@tec.mx",
-        "responses": [
-            {"answer": 1, "question": {"id": 1}},
-            {"answer": 1, "question": {"id": 2}},
-            {"answer": 1, "question": {"id": 3}},
-            {"answer": 1, "question": {"id": 4}},
-            {"answer": 1, "question": {"id": 5}},
-            {"answer": 1, "question": {"id": 6}},
-            {"answer": 1, "question": {"id": 7}},
-            {"answer": 1, "question": {"id": 8}},
-            {"answer": 1, "question": {"id": 9}},
-            {"answer": 1, "question": {"id": 10}},
-            {"answer": 1, "question": {"id": 11}},
-            {"answer": 1, "question": {"id": 12}},
-            {"answer": 1, "question": {"id": 13}},
-            {"answer": 1, "question": {"id": 14}},
-            {"answer": 1, "question": {"id": 15}},
-            {"answer": 1, "question": {"id": 16}},
-            {"answer": 1, "question": {"id": 17}},
-            {"answer": 1, "question": {"id": 18}},
-            {"answer": 1, "question": {"id": 19}},
-            {"answer": 1, "question": {"id": 20}},
-            {"answer": 1, "question": {"id": 21}},
-            {"answer": 1, "question": {"id": 22}},
-            {"answer": 1, "question": {"id": 23}},
-            {"answer": 1, "question": {"id": 24}},
-        ],
-    }
     return render(request, "dashboard/usuario.html", usuario_json)
