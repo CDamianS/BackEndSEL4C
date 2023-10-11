@@ -14,17 +14,17 @@ nombre_status = [
 
 
 class Usuario(models.Model):
-    usuarioID = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100)
-    contrasenia = models.CharField(max_length=50)
-    email = models.EmailField(max_length=200)
-    avance = models.IntegerField()
-    genero = models.CharField(max_length=20)
-    edad = models.IntegerField()
-    pais = models.CharField(max_length=50)
-    institucion = models.CharField(max_length=100)
-    grado = models.CharField(max_length=50)
-    diciplina = models.CharField(max_length=100)
+    usuarioID = models.AutoField(primary_key=True, blank=True)
+    nombre = models.CharField(max_length=100, blank=True)
+    contrasenia = models.CharField(max_length=50, blank=True)
+    email = models.EmailField(max_length=200, blank=True)
+    avance = models.IntegerField(default=0)
+    genero = models.CharField(max_length=20, blank=True)
+    edad = models.IntegerField(blank=True)
+    pais = models.CharField(max_length=50, blank=True)
+    institucion = models.CharField(max_length=100, blank=True)
+    grado = models.CharField(max_length=50, blank=True)
+    diciplina = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return f"Usuario {self.usuarioID}: {self.nombre}"
