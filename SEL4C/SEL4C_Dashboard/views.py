@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
 from json import loads, dumps
@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from api.models import Usuario
 import requests
-
+from django.db.models import Q
 # Create your views here.
 # endpoints
 def index(request):
