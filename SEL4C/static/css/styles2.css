@@ -50,7 +50,7 @@
 .navbar {
     height: 90px;
     background-color: #34495e;
-    /* filter: drop-shadow(20px 20px 10px rgb(142, 143, 142)); */
+    filter: drop-shadow(5px 10px 5px rgb(142, 143, 142)); 
 
     display: flex;
     justify-content: flex-end;
@@ -63,6 +63,7 @@
 
 .logout-button {
     background-color: #2565ce;
+    border-radius: 10px;
     color: white;
     font-weight: bold;
     font-size: 1.3rem;
@@ -119,7 +120,7 @@ h1 {
 }
 
 .graphs canvas {
-    height: 180px; /* Set your desired height here */
+    height: auto; /* Set your desired height here */
 }
 
 .graph {
@@ -287,14 +288,14 @@ h3 {
 }
 
 .title{
-    padding: 20px 10px;
+    padding: 10px 75px;
     margin-top: 100px;
     display: flex;
     justify-content: space-between;
 }
 
 .busqueda{
-    padding: 10px 10px 10px 175px;
+    padding: 5px 10px 5px 175px;
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
@@ -302,4 +303,8 @@ h3 {
 
 .title h1{
     margin-top: 0px;
+}
+
+.creacion{
+    
 }
