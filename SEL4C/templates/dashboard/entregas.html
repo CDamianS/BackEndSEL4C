@@ -1,28 +1,52 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
+
+{% block title %}
+<div class = "title">
+    <h1> Lista de Actividades entregadas </h1>
+
+</div>
+{% endblock %}
+
 {% block graphs %}
-<div class="graphs">
-    <div class = "gender">
-        {% block first %}
-        <div>
-            <canvas id="gender"></canvas>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <div class= "gender">
-            <script src="{% static 'js/gender.js' %}"></script>
-        </div>
-        {% endblock %}
+<div class = "contenedor-busqueda">
+            <form method="GET">
+                <div class="busqueda">
+                    <input type="text" name="busueda" placeholder="Buscar" class="busqueda-input">
+                    <button type="submit" class="busqueda-button">Buscar</button>
+
+                    {% if filtro %}
+                    <a href="{% url 'ver_actividades' %}"><i>Deshacer</i></a>
+                    {% endif %}
+                </div>
+            </form>
+</div>
+
+<div class="tablas_main">
+    <div class="fondo_tablas">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Estatus</th>
+                    <th>Entregado por:</th>
+                    <th>Entregable</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for actividad in actividades %}
+                <tr>
+                    <td>{{ actividad.nombre }}</td>
+                    <td>{{ actividad.estatus }}</td>
+                    <td>{{ actividad.usuarioID }}</td>
+                    <td>
+                        <a href="{% url 'download' file_id=actividad.actividadID %}">Descargar Archivo</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    
+        </table>
     </div>
-    <!-- <div class= "age">
-         {% block second %}
-         <div>
-         <canvas id="age"></canvas>
-         </div>
-         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-         <div class= "age">
-         <script src="{% static 'js/age.js' %}"></script>
-         </div>
-         {% endblock %}
-         </div> -->
 </div>
 {% endblock %}
