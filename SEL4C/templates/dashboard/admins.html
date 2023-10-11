@@ -1,0 +1,64 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+
+{% block title %}
+<div class = "title">
+    <h1> Lista de administradores </h1>
+
+</div>
+{% endblock %}
+
+
+{% block graphs %}
+<div class = "contenedor-busqueda">
+    <form method="GET">
+        <div class="busqueda">
+            <input type="text" name="busueda" placeholder="Buscar" class="busqueda-input">
+            <button type="submit" class="busqueda-button">Buscar</button>
+
+            {% if filtro %}
+            <a href="{% url 'ver_admins' %}"><i>Deshacer</i></a>
+            {% endif %}
+        </div>
+    </form>
+
+
+    <form action="{% url 'crear_Admin' %}" method="get">
+        <div class="agregar">
+            <button type="submit" class="agregar-button-admin"> Agregar administrador</button>
+        </div>
+    </form>
+
+</div>
+
+<div class="tablas_main">
+    <div class="fondo_tablas">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Contraseña</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in admins %}
+                <tr>
+                    <td>{{ admin.nombre }}</td>
+                    <td>{{ admin.contrasenia }}</td>
+                    <td>
+                        <a href="{% url 'actulizar_admins' pk=admin.adminID %}">Editar</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'borrar_admins' admin.adminID %}">Borrar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    
+        </table>
+    
+    </div>
+</div>
+{% endblock %}

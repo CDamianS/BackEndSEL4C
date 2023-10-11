@@ -305,7 +305,7 @@ def enviar_solicitudC(request):
 @csrf_exempt
 def repuestas_cuestionarioI(request):
     if request.method == "POST":
-
+        try:
             data = loads(request.body)
 
             numero = data["numero"]
@@ -322,6 +322,8 @@ def repuestas_cuestionarioI(request):
             crearRespuestasI(solicitud)            
 
             return JsonResponse({"message": "Solicitud Enviada"})
+        except:
+            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
 
         
 @csrf_exempt
@@ -678,19 +680,20 @@ def ver_usuario(request, pk):
 
 @csrf_exempt
 def actualizar_usuario(request, pk):
-    usuario = get_object_or_404(Usuario, pk=pk)
+    usuario = get_object_or_404(Usuario, usuarioID=pk)
+    print(usuario)
 
     if request.method == "POST":
         form = UsuarioForm(request.POST, instance=usuario)
+        print(form)
         if form.is_valid():
             form.save()
-            print("Exito")
-            return redirect("ver_usuarios")
+            return redirect("usuarios", usuario.usuarioID)
         else:
             error_messages = form.errors.values()
             for error in error_messages:
                 print(error)
-                return redirect("ver_usuarios")
+                return redirect("usuarios")
     else:
         form = UsuarioForm(instance=usuario)
         return render(request, "CRUD_Usuarios/editar_usuarios.html", {"form": form})

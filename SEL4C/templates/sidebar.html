@@ -6,7 +6,7 @@
     </div>
     <ul class="menu">
         <li class="menu-item" href="#">
-            <a href="/dashboard/general">General</a>
+            <a href="{% url 'general' %}">General</a>
             <ul class="submenu">
                 <li class="submenu-item">Sub Opción 1.1</li>
                 <li class="submenu-item">Sub Opción 1.2</li>
@@ -20,21 +20,21 @@
             </ul>
         </li>
         <li class="menu-item" href="#">
-            <a href="/dashboard/entregas">Entregas</a>
+            <a href="{% url 'entregas' %}">Entregas</a>
             <ul class="submenu">
                 <li class="submenu-item">Sub Opción 3.1</li>
                 <li class="submenu-item">Sub Opción 3.2</li>
             </ul>
         </li>
         <li class="menu-item" href="#">
-            <a href="/dashboard/cambios">Cambios</a>
+            <a href="{% url 'cambios' %}">Cambios</a>
             <ul class="submenu">
                 <li class="submenu-item">Sub Opción 4.1</li>
                 <li class="submenu-item">Sub Opción 4.2</li>
             </ul>
         </li>
         <li class="menu-item" href="#">
-            <a href="{% url 'ver_admins' %}">Administradores</a>
+            <a href="{% url 'administradores' %}">Administradores</a>
             <ul class="submenu">
                 <li class="submenu-item">Sub Opción 4.1</li>
                 <li class="submenu-item">Sub Opción 4.2</li>
