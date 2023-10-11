@@ -18,7 +18,7 @@ from .models import (
     CuestionarioInicial,
     CuestionarioFinal,
     CambioNombre,
-    CambioContrasenia
+    CambioContrasenia,
 )
 from .serializer import (
     AdminSerialiizer,
@@ -27,7 +27,7 @@ from .serializer import (
     CuestionarioISerializer,
     CuestionarioFSerializer,
     CambioNombreSerializer,
-    CambioContraseniaSerializer
+    CambioContraseniaSerializer,
 )
 from .forms import (
     AdminForm,
@@ -36,7 +36,7 @@ from .forms import (
     CuestionarioIForm,
     CuestionarioFForm,
     CambioNForm,
-    CambioCForm
+    CambioCForm,
 )
 
 
@@ -74,11 +74,13 @@ class CuestionarioFViewSet(viewsets.ModelViewSet):
     queryset = CuestionarioFinal.objects.all()
     serializer_class = CuestionarioFSerializer
 
+
 class CambioNViewSet(viewsets.ModelViewSet):
     """Creación de solicitudes de cambio de nombre dentro de la base de datos."""
 
     queryset = CambioNombre.objects.all()
     serializer_class = CambioNombreSerializer
+
 
 class CambioCViewSet(viewsets.ModelViewSet):
     """Creación de solicitudes de cambio de contrasenia dentro de la base de datos."""
@@ -90,21 +92,26 @@ class CambioCViewSet(viewsets.ModelViewSet):
 def crearActividad(actividad):
     actividad_serializer = ActividadSerializer(actividad)
 
+
 def crearUsuario(usuario):
     usuario_serializer = UsuarioSerializer(usuario)
+
 
 def crearSolicitudN(solicitud):
     solicitudN_serializer = CambioNombreSerializer
 
+
 def crearSolicitudC(solicitud):
     solicitudC_serializer = CambioContraseniaSerializer
+
 
 def crearRespuestasI(solicitud):
     cuestionarioI_serializer = CuestionarioISerializer
 
+
 def crearRespuestasF(solicitud):
     cuestionarioF_serializer = CuestionarioFSerializer
-    
+
 
 # Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
 def acrchivo_subido(f):
@@ -142,6 +149,7 @@ def selecionar_actividad(idAct, idUser):
         actividad_id = None
     return actividad_id
 
+
 """
 @csrf_exempt
 def index(request):
@@ -174,6 +182,7 @@ def existe_admin(request):
         else:
             return render(request, "Pagina_principal/iniciar_sesion.html")
 """
+
 
 @csrf_exempt
 def existe_usuario(request):
@@ -210,6 +219,7 @@ def admin_login(request):
       End point para validar el admin
     return render(request, "Pagina_principal/iniciar_sesion.html")
 """
+
 
 @csrf_exempt
 def upload(request):
@@ -255,7 +265,8 @@ def download(request, file_id):
         return response
     except:
         return HttpResponse("Este archivo no existe en la base de datos")
-    
+
+
 @csrf_exempt
 def enviar_solicitudN(request):
     if request.method == "POST":
@@ -266,18 +277,17 @@ def enviar_solicitudN(request):
             estatus = data["estatus"]
             usuarioID = data["usuarioID"]
 
-
             solicitud = CambioNombre.objects.create(
-                nombre = nombre,
-                estatus = estatus,
-                usuarioID = usuarioID,
+                nombre=nombre,
+                estatus=estatus,
+                usuarioID=usuarioID,
             )
             crearSolicitudN(solicitud)
 
             return JsonResponse({"message": "Solicitud Enviada"})
         except:
             return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
-        
+
 
 @csrf_exempt
 def enviar_solicitudC(request):
@@ -292,9 +302,9 @@ def enviar_solicitudC(request):
             elUsario = Usuario.objects.get(usuarioID=usuarioID_id)
 
             solicitud = CambioContrasenia.objects.create(
-                contrasenia = contrasenia,
-                estatus = estatus,
-                usuarioID = elUsario,
+                contrasenia=contrasenia,
+                estatus=estatus,
+                usuarioID=elUsario,
             )
             crearSolicitudC(solicitud)
 
@@ -302,30 +312,30 @@ def enviar_solicitudC(request):
         except:
             return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
 
+
 @csrf_exempt
 def repuestas_cuestionarioI(request):
     if request.method == "POST":
+        data = loads(request.body)
+        usuario_id = data["usuarioID"]
+        responses = data["responses"]
         try:
-            data = loads(request.body)
+            usuario = Usuario.objects.get(usuarioID=usuario_id)
+        except Usuario.DoesNotExist:
+            return JsonResponse({"message": "Usuario does not exist."})
 
-            numero = data["numero"]
-            respuesta = data["respuesta"]
-            usuarioID_id = data["usuarioID_id"]
+        for response in responses:
+            answer = response.get("answer")
+            response_id = response.get("id")
 
-            elUsario = Usuario.objects.get(usuarioID=usuarioID_id)
-
-            solicitud = CuestionarioInicial.objects.create(
-                numero = numero,
-                respuesta = respuesta,
-                usuarioID = elUsario,
+            CuestionarioInicial.objects.create(
+                preguntaID=response_id, respuesta=answer, usuarioID=usuario
             )
-            crearRespuestasI(solicitud)            
 
-            return JsonResponse({"message": "Solicitud Enviada"})
-        except:
-            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
+        return JsonResponse({"message": "Data processed successfully."}, status=200)
+    return JsonResponse({"message": "Invalid request method."}, status=405)
 
-        
+
 @csrf_exempt
 def repuestas_cuestionarioF(request):
     if request.method == "POST":
@@ -339,16 +349,15 @@ def repuestas_cuestionarioF(request):
             elUsario = Usuario.objects.get(usuarioID=usuarioID_id)
 
             solicitud = CuestionarioFinal.objects.create(
-                numero = numero,
-                respuesta = respuesta,
-                usuarioID = elUsario,
+                numero=numero,
+                respuesta=respuesta,
+                usuarioID=elUsario,
             )
-            crearRespuestasF(solicitud)            
+            crearRespuestasF(solicitud)
 
             return JsonResponse({"message": "Solicitud Enviada"})
         except:
             return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
-
 
 
 @csrf_exempt
@@ -667,16 +676,12 @@ def ver_usuarios(request):
         {"usuarios": usuarios, "filtro": filtro},
     )
 
+
 @csrf_exempt
 def ver_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
 
-    return render(
-        request,
-        "CRUD_Usuarios/ver_usuario.html",
-        {"usuario": usuario}
-    )
-        
+    return render(request, "CRUD_Usuarios/ver_usuario.html", {"usuario": usuario})
 
 
 @csrf_exempt
@@ -752,6 +757,7 @@ def ver_actividades(request):
 
 # CRUD encuestas
 
+
 def ver_ecnuestasI(request):
     query = request.GET.get("busqueda")
     if query:
@@ -791,7 +797,9 @@ def ver_ecnuestasF(request):
         {"encuestasf": encuestasF, "filtro": filtro},
     )
 
-#CRUD solicitudes de cambio
+
+# CRUD solicitudes de cambio
+
 
 def ver_solicitudes_nombres(request):
     query = request.GET.get("busqueda")
@@ -807,8 +815,9 @@ def ver_solicitudes_nombres(request):
         filtro = False
 
     return render(
-        request, 
-        "CRUD_Solicitudes/ver_solicitudes_nombre.html", {"solicitudesN": solicitudesN, "filtro": filtro}
+        request,
+        "CRUD_Solicitudes/ver_solicitudes_nombre.html",
+        {"solicitudesN": solicitudesN, "filtro": filtro},
     )
 
 
@@ -839,9 +848,11 @@ def ver_solicitudes_contrasenia(request):
         filtro = False
 
     return render(
-        request, 
-        "CRUD_Solicitudes/ver_solicitudes_contrasenia.html", {"solicitudesC": solicitudesC, "filtro": filtro}
+        request,
+        "CRUD_Solicitudes/ver_solicitudes_contrasenia.html",
+        {"solicitudesC": solicitudesC, "filtro": filtro},
     )
+
 
 def cambiar_contrasenia(request, usuarioID_id, contrasenia, solicitudCID):
     usuario = get_object_or_404(Usuario, pk=usuarioID_id)
