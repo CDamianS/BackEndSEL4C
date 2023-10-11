@@ -590,6 +590,7 @@ def actulizar_admins(request, pk):
 
     if request.method == "POST":
         form = AdminForm(request.POST, instance=admin)
+        print(form)
         if form.is_valid():
             form.save()
             print("Exito")
@@ -681,14 +682,12 @@ def ver_usuario(request, pk):
 @csrf_exempt
 def actualizar_usuario(request, pk):
     usuario = get_object_or_404(Usuario, usuarioID=pk)
-    print(usuario)
 
     if request.method == "POST":
         form = UsuarioForm(request.POST, instance=usuario)
-        print(form)
         if form.is_valid():
             form.save()
-            return redirect("usuarios", usuario.usuarioID)
+            return redirect("usuarios")
         else:
             error_messages = form.errors.values()
             for error in error_messages:
