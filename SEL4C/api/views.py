@@ -454,111 +454,104 @@ def cuestionario_inicial(request):
             "id": 24,
             "text": " Conozco estrategias para desarrollar un proyecto, aún con escasez de recursos.",
         },
-    ]
-    return JsonResponse(questions, safe=False)
-
-
-def cuestionario_PC(request):
-    """Send the initial questions."""
-    questions = [
         {
-            "id": 1,
+            "id": 25,
             "text": " Creo que el cometer errores nos ofrece nuevas oportunidades de aprendizaje.",
         },
         {
-            "id": 2,
+            "id": 26,
             "text": "Identifico datos de mi disciplina y de otras áreas que contribuyen a resolver problemas.",
         },
         {
-            "id": 3,
+            "id":27,
             "text": "Participo en proyectos que se tienen que resolver utilizando perspectivas Inter/multidisciplinarias.",
         },
         {
-            "id": 4,
+            "id": 28,
             "text": "Organizo información para resolver problemas.",
         },
         {
-            "id": 5,
+            "id": 29,
             "text": "Me agrada conocer perspectivas diferentes de un problema.",
         },
         {
-            "id": 6,
+            "id": 30,
             "text": "Me inclino por estrategias para comprender las partes y el todo de un problema.",
         },
         {
-            "id": 7,
+            "id": 31,
             "text": "Tengo la capacidad de Identificar los componentes esenciales de un problema para formular una pregunta de investigación.",
         },
         {
-            "id": 8,
+            "id": 32,
             "text": "Conozco la estructura y los formatos para elaborar reportes de investigación que se utilizan en mi área o disciplina.",
         },
         {
-            "id": 9,
+            "id": 33,
             "text": "Identifico la estructura de un artículo de investigación que se maneja en mi área o disciplina.",
         },
         {
-            "id": 10,
+            "id": 34,
             "text": "Identifico los elementos para formular una pregunta de investigación.",
         },
         {
-            "id": 11,
+            "id": 35,
             "text": "Diseño instrumentos de investigación coherentes con el método de investigación utilizado.",
         },
         {
-            "id": 12,
+            "id": 36,
             "text": "Formulo y pruebo hipótesis de investigación.",
         },
         {
-            "id": 13,
+            "id": 37,
             "text": "Me inclino a usar datos científicos para analizar problemas de investigación.",
         },
         {
-            "id": 14,
+            "id": 38,
             "text": "Tengo la capacidad para analizar críticamente problemas desde diferentes perspectivas.",
         },
         {
-            "id": 15,
+            "id": 39,
             "text": "Identifico la fundamentación de juicios propios y ajenos para reconocer argumentos falsos.",
         },
         {
-            "id": 16,
+            "id": 40,
             "text": "Autoevalúo  el nivel de avance y logro de mis metas para hacer los ajustes necesarios.",
         },
         {
-            "id": 17,
+            "id": 41,
             "text": "Utilizo razonamientos basados en el conocimiento científico para emitir juicios ante un problema.",
         },
         {
-            "id": 18,
+            "id": 42,
             "text": "Me aseguro de revisar los lineamientos éticos de los proyectos en los que participo.",
         },
         {
-            "id": 19,
+            "id": 43,
             "text": "Me aseguro de revisar los lineamientos éticos de los proyectos en los que participo.",
         },
         {
-            "id": 20,
+            "id": 44,
             "text": "Aprecio críticas en el desarrollo de proyectos para mejorarlos.",
         },
         {
-            "id": 21,
+            "id": 45,
             "text": "Conozco los criterios para determinar un problema.",
         },
         {
-            "id": 22,
+            "id": 46,
             "text": "Tengo la capacidad de identificar las variables, de diversas disciplinas, que pueden ayudar a responder preguntas.",
         },
         {
-            "id": 23,
+            "id": 47,
             "text": "Aplico soluciones innovadoras a diversas problemáticas.",
         },
         {
-            "id": 24,
+            "id": 48,
             "text": "Soluciono problemas interpretando datos de diferentes disciplinas.",
         },
         {
-            "id": 25,
+            "id": 49,
             "text": "Analizo problemas de investigación contemplando el contexto para crear soluciones.",
         },
     ]
