@@ -141,6 +141,20 @@ def administradores(request):
         request, "dashboard/admins.html", {"admins": admins, "filtro": filtro}
     )
 
+@csrf_exempt
+def borrar_usuarios(request, usuarioID):
+    usuario = get_object_or_404(Usuario, pk=usuarioID)
+    usuario.delete()
+    print("Exito")
+    return redirect("usuarios")
+
+@csrf_exempt
+def borrar_admins(request, adminID):
+    admin = get_object_or_404(Admin, pk=adminID)
+    admin.delete()
+    print("Exito")
+    return redirect("administradores")
+
 
 def usuarioGraph(request, usuario_id):
     usuario = Usuario.objects.get(usuarioID=usuario_id)

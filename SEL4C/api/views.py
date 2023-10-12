@@ -611,7 +611,7 @@ def actulizar_admins(request, pk):
                 return redirect("ver_admins")
     else:
         form = AdminForm(instance=admin)
-        return render(request, "CRUD_Admin/editar_admins.html", {"form": form})
+        return render(request, "dashboard/admins.html", {"form": form})
 
 
 @csrf_exempt
@@ -700,7 +700,7 @@ def actualizar_usuario(request, pk):
                 return redirect("usuarios")
     else:
         form = UsuarioForm(instance=usuario)
-        return render(request, "CRUD_Usuarios/editar_usuarios.html", {"form": form})
+        return render(request, "dashboard/usuarios.html", {"form": form})
 
 
 @csrf_exempt
@@ -708,7 +708,7 @@ def borrar_usuarios(request, usuarioID):
     usuario = get_object_or_404(Usuario, pk=usuarioID)
     usuario.delete()
     print("Exito")
-    return redirect("ver_usuarios")
+    return redirect("SEL4C_Dashboard/usuarios")
 
 
 @csrf_exempt
@@ -726,7 +726,7 @@ def crear_Usuario(request):
             return redirect("ver_usuarios")
     else:
         form = UsuarioForm()
-    return render(request, "CRUD_Usuarios/crear_usuarios.html", {"form": form})
+    return render(request, "dashboard/usuarios.html", {"form": form})
 
 
 # CRUD actividades
