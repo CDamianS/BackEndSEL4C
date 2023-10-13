@@ -1,0 +1,81 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+
+{% block title %}
+        <div class = "title">
+            <h1> Creación de usuario</h1>
+
+        </div>
+{% endblock %}
+
+{% block graphs %}
+        <div class="forma-fondo">
+            <div class="contenedor-forma">
+                <form method="post">
+                    {% csrf_token %}
+                        
+                    <h3 class="titulo-forma">Ingrese los datos del usuario</h3>
+
+                    <div class="form-group">
+                        <label class="small mb-1" for="{{ form.nombre.id_for_label }}">Nombre: </label>    
+                        {{ form.nombre }}
+                    </div>
+                        
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.contrasenia.id_for_label }}">Contraseña: </label>       
+                                    {{ form.contrasenia }}
+                                </div>   
+        
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.email.id_for_label }}">Email: </label>       
+                                    {{ form.email }}
+                                </div>
+        
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.avance.id_for_label }}">Avance: </label>       
+                                    {{ form.avance }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.genero.id_for_label }}">Género: </label>       
+                                    {{ form.genero }}
+                                </div>
+        
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.edad.id_for_label }}">Edad: </label>       
+                                    {{ form.edad }}
+                                </div>
+        
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.pais.id_for_label }}">País: </label>       
+                                    {{ form.pais }}
+                                </div>
+        
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.institucion.id_for_label }}">Institución: </label>       
+                                    {{ form.institucion }}
+                                </div>
+        
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.grado.id_for_label }}">Grado: </label>       
+                                    {{ form.grado }}
+                                </div>
+        
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.diciplina.id_for_label }}">Disciplina: </label>       
+                                    {{ form.diciplina }}
+                                </div>
+        
+                                <button type="submit"> Crear </button>                   
+        
+                </form>
+    
+            </div>
+            
+        </div>
+
+
+        
+
+
+{% endblock %}

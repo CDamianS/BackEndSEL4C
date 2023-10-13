@@ -454,6 +454,7 @@ def cuestionario_inicial(request):
             "id": 24,
             "text": " Conozco estrategias para desarrollar un proyecto, aún con escasez de recursos.",
         },
+
     ]
     return JsonResponse(questions, safe=False)
 
@@ -603,15 +604,15 @@ def actulizar_admins(request, pk):
         if form.is_valid():
             form.save()
             print("Exito")
-            return redirect("ver_admins")
+            return redirect("SEL4C_Dashboard/usuarios")
         else:
             error_messages = form.errors.values()
             for error in error_messages:
                 print(error)
-                return redirect("ver_admins")
+                return redirect("SEL4C_Dashboard/usuarios")
     else:
         form = AdminForm(instance=admin)
-        return render(request, "dashboard/admins.html", {"form": form})
+        return render(request, "CRUD_Admin/editar_admins.html", {"form": form})
 
 
 @csrf_exempt
@@ -619,7 +620,7 @@ def borrar_admins(request, adminID):
     admin = get_object_or_404(Admin, pk=adminID)
     admin.delete()
     print("Exito")
-    return redirect("ver_admins")
+    return redirect("SEL4C_Dashboard/usuarios")
 
 
 @csrf_exempt
@@ -700,7 +701,7 @@ def actualizar_usuario(request, pk):
                 return redirect("usuarios")
     else:
         form = UsuarioForm(instance=usuario)
-        return render(request, "dashboard/usuarios.html", {"form": form})
+        return render(request, "CRUD_Usuarios/editar_usuarios.html", {"form": form})
 
 
 @csrf_exempt
@@ -726,7 +727,7 @@ def crear_Usuario(request):
             return redirect("ver_usuarios")
     else:
         form = UsuarioForm()
-    return render(request, "dashboard/usuarios.html", {"form": form})
+    return render(request, "dashboard/usuario_creacion.html", {"form": form})
 
 
 # CRUD actividades
