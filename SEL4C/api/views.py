@@ -339,25 +339,24 @@ def repuestas_cuestionarioI(request):
 @csrf_exempt
 def repuestas_cuestionarioF(request):
     if request.method == "POST":
+        data = loads(request.body)
+        usuario_id = data["usuarioID"]
+        responses = data["responses"]
         try:
-            data = loads(request.body)
+            usuario = Usuario.objects.get(usuarioID=usuario_id)
+        except Usuario.DoesNotExist:
+            return JsonResponse({"message": "Usuario does not exist."})
 
-            numero = data["numero"]
-            respuesta = data["respuesta"]
-            usuarioID_id = data["usuarioID_id"]
+        for response in responses:
+            answer = response.get("answer")
+            response_id = response.get("question")
 
-            elUsario = Usuario.objects.get(usuarioID=usuarioID_id)
-
-            solicitud = CuestionarioFinal.objects.create(
-                numero=numero,
-                respuesta=respuesta,
-                usuarioID=elUsario,
+            CuestionarioInicial.objects.create(
+                numero=response_id, respuesta=answer, usuarioID=usuario
             )
-            crearRespuestasF(solicitud)
 
-            return JsonResponse({"message": "Solicitud Enviada"})
-        except:
-            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
+        return JsonResponse({"message": "Data processed successfully."}, status=200)
+    return JsonResponse({"message": "Invalid request method."}, status=405)
 
 
 @csrf_exempt

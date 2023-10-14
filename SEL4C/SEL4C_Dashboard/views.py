@@ -163,5 +163,16 @@ def usuarioGraph(request, usuario_id):
         "email": usuario.email,
         "ID": usuario.usuarioID,
     }
-    # Convierte el modelo a un diccionario y luego a JSON
+
+    respuestas_cuestionario = CuestionarioInicial.objects.filter(usuarioID=usuario)
+
+    respuestas_lista = []
+    for respuesta in respuestas_cuestionario:
+        respuesta_dict = {
+            "numero": respuesta.numero,
+            "respuesta": respuesta.respuesta
+        }
+        respuestas_lista.append(respuesta_dict)
+
+    usuario_json["respuestas_cuestionario"] = respuestas_lista
     return render(request, "dashboard/usuario.html", usuario_json)
