@@ -9,7 +9,7 @@ class AdminForm(forms.ModelForm):
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ['nombre', 'contrasenia', 'email', 'avance', 'genero', 'edad', 'pais', 'institucion', 'grado', 'diciplina']
+        fields = ['nombre', 'contrasenia', 'email', 'avance', 'genero', 'edad', 'pais', 'institucion', 'grado', 'diciplina', 'respuestasI']
 
 class ActividadForm(forms.ModelForm):
     class Meta:
