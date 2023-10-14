@@ -25,6 +25,7 @@ class Usuario(models.Model):
     institucion = models.CharField(max_length=100, blank=True)
     grado = models.CharField(max_length=50, blank=True)
     diciplina = models.CharField(max_length=100, blank=True)
+    respuestasI = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Usuario {self.usuarioID}: {self.nombre}"
