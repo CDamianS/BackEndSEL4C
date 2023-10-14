@@ -224,7 +224,7 @@ def admin_login(request):
 @csrf_exempt
 def upload(request):
     if request.method == "POST":
-        try:
+
             data = request.POST
             file = request.FILES
 
@@ -246,8 +246,6 @@ def upload(request):
             crearActividad(actividad)
 
             return JsonResponse({"message": "La actividad se entrgo correctamente!!!"})
-        except:
-            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
     else:
         return HttpResponse("Error en el metodo de requet")
 
@@ -730,6 +728,7 @@ def crear_Usuario(request):
 
 
 # CRUD actividades
+@csrf_exempt
 def ver_actividades(request):
 
     query = request.GET.get("busueda")
@@ -757,7 +756,7 @@ def ver_actividades(request):
 
 # CRUD encuestas
 
-
+@csrf_exempt
 def ver_ecnuestasI(request):
     query = request.GET.get("busqueda")
     if query:
@@ -777,7 +776,7 @@ def ver_ecnuestasI(request):
         {"encuestasI": encuestasI, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def ver_ecnuestasF(request):
     query = request.GET.get("busqueda")
     if query:
@@ -800,7 +799,7 @@ def ver_ecnuestasF(request):
 
 # CRUD solicitudes de cambio
 
-
+@csrf_exempt
 def ver_solicitudes_nombres(request):
     query = request.GET.get("busqueda")
     if query:
@@ -820,7 +819,7 @@ def ver_solicitudes_nombres(request):
         {"solicitudesN": solicitudesN, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def cambiar_nombre(request, usuarioID_id, nombre, solicitudNID):
     usuario = get_object_or_404(Usuario, pk=usuarioID_id)
     usuario.nombre = nombre
@@ -833,7 +832,7 @@ def cambiar_nombre(request, usuarioID_id, nombre, solicitudNID):
     print("Exito")
     return redirect("ver_solicitudes_nombres")
 
-
+@csrf_exempt
 def ver_solicitudes_contrasenia(request):
     query = request.GET.get("busqueda")
     if query:
@@ -853,7 +852,7 @@ def ver_solicitudes_contrasenia(request):
         {"solicitudesC": solicitudesC, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def cambiar_contrasenia(request, usuarioID_id, contrasenia, solicitudCID):
     usuario = get_object_or_404(Usuario, pk=usuarioID_id)
     usuario.contrasenia = contrasenia
