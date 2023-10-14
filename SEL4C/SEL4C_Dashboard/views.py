@@ -37,18 +37,19 @@ from api.forms import (
 
 # Create your views here.
 # endpoints
+@csrf_exempt
 def index(request):
     return render(request, "Pagina_principal/index.html")
 
-
+@csrf_exempt
 def descargar_app(request):
     return render(request, "Pagina_principal/descargar.html")
 
-
+@csrf_exempt
 def error_404(request, not_found):
     return render(request, "Pagina_principal/404.html")
 
-
+@csrf_exempt
 def general(request):
     num_usuarios = Usuario.objects.count()
     usuarios_done = Usuario.objects.filter(avance=5).count()
@@ -85,7 +86,7 @@ def usuarios(request):
         {"usuarios": usuarios, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def entregas(request):
 
     query = request.GET.get("busueda")
@@ -110,7 +111,7 @@ def entregas(request):
         {"actividades": actividades, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def cambios(request):
     solicitudesN = CambioNombre.objects.all().order_by("solicitudNID")
     solicitudesC = CambioContrasenia.objects.all().order_by("solicitudCID")
@@ -120,7 +121,7 @@ def cambios(request):
         {"solicitudesN": solicitudesN, "solicitudesC": solicitudesC},
     )
 
-
+@csrf_exempt
 def administradores(request):
     query = request.GET.get("busueda")
     if query:
@@ -156,7 +157,7 @@ def borrar_admins(request, adminID):
     print("Exito")
     return redirect("administradores")
 
-
+@csrf_exempt
 def usuarioGraph(request, usuario_id):
     usuario = Usuario.objects.get(usuarioID=usuario_id)
     usuario_json = {
