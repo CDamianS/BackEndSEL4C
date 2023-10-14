@@ -224,7 +224,7 @@ def admin_login(request):
 @csrf_exempt
 def upload(request):
     if request.method == "POST":
-
+        try:
             data = request.POST
             file = request.FILES
 
@@ -246,6 +246,8 @@ def upload(request):
             crearActividad(actividad)
 
             return JsonResponse({"message": "La actividad se entrgo correctamente!!!"})
+        except:
+            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
     else:
         return HttpResponse("Error en el metodo de requet")
 
