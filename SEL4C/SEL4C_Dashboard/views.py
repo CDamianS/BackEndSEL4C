@@ -73,6 +73,7 @@ def usuarios(request):
             | Q(institucion__icontains=query)
             | Q(grado__icontains=query)
             | Q(diciplina__icontains=query)
+            | Q(respuestasI__icontains=query)
         ).order_by("usuarioID")
         filtro = True
     else:
