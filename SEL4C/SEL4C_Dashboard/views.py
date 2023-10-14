@@ -158,5 +158,10 @@ def borrar_admins(request, adminID):
 
 def usuarioGraph(request, usuario_id):
     usuario = Usuario.objects.get(usuarioID=usuario_id)
+    usuario_json = {
+        "nombre": usuario.nombre,
+        "email": usuario.email,
+        "ID": usuario.usuarioID,
+    }
     # Convierte el modelo a un diccionario y luego a JSON
     return render(request, "dashboard/usuario.html", usuario_json)
