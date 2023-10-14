@@ -457,7 +457,7 @@ def cuestionario_inicial(request):
     ]
     return JsonResponse(questions, safe=False)
 
-
+@csrf_exempt
 def cuestionario_PC(request):
     """Send the initial questions."""
     questions = [
