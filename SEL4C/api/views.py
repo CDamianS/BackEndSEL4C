@@ -326,10 +326,10 @@ def repuestas_cuestionarioI(request):
 
         for response in responses:
             answer = response.get("answer")
-            response_id = response.get("id")
+            response_id = response.get("question")
 
             CuestionarioInicial.objects.create(
-                preguntaID=response_id, respuesta=answer, usuarioID=usuario
+                numero=response_id, respuesta=answer, usuarioID=usuario
             )
 
         return JsonResponse({"message": "Data processed successfully."}, status=200)
