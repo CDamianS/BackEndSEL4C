@@ -603,15 +603,15 @@ def actulizar_admins(request, pk):
         if form.is_valid():
             form.save()
             print("Exito")
-            return redirect("SEL4C_Dashboard/usuarios")
+            return redirect("/dashboard/administradores")
         else:
             error_messages = form.errors.values()
             for error in error_messages:
                 print(error)
-                return redirect("SEL4C_Dashboard/usuarios")
+                return redirect("/dashboard/administradores")
     else:
         form = AdminForm(instance=admin)
-        return render(request, "CRUD_Admin/editar_admins.html", {"form": form})
+        return render(request, "dashboard/admin_edicion.html", {"form": form})
 
 
 @csrf_exempt
@@ -628,17 +628,17 @@ def crear_Admin(request):
         form = AdminForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("ver_admins")
+            return redirect("/dashboard/administradores")
         else:
 
             error_message = form.errors.values()
             for error in error_message:
                 print(error)
 
-            return redirect("crear_Admin")
+            return redirect("/dashboard/administradores")
     else:
         form = AdminForm()
-    return render(request, "CRUD_Admin/crear_admins.html", {"form": form})
+    return render(request, "dashboard/admin_creacion.html", {"form": form})
 
 
 # CRUD usuarios
@@ -692,15 +692,15 @@ def actualizar_usuario(request, pk):
         form = UsuarioForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
-            return redirect("usuarios")
+            return redirect("/dashboard/usuarios")
         else:
             error_messages = form.errors.values()
             for error in error_messages:
                 print(error)
-                return redirect("usuarios")
+                return redirect("/dashboard/usuarios")
     else:
         form = UsuarioForm(instance=usuario)
-        return render(request, "CRUD_Usuarios/editar_usuarios.html", {"form": form})
+        return render(request, "dashboard/usuario_edicion.html", {"form": form})
 
 
 @csrf_exempt
@@ -717,13 +717,13 @@ def crear_Usuario(request):
         form = UsuarioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("ver_usuarios")
+            return redirect("/dashboard/usuarios")
         else:
             error_message = form.errors.values()
             for error in error_message:
                 print(error)
 
-            return redirect("ver_usuarios")
+            return redirect("/dashboard/usuarios")
     else:
         form = UsuarioForm()
     return render(request, "dashboard/usuario_creacion.html", {"form": form})

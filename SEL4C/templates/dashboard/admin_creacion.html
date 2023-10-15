@@ -1,0 +1,38 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+
+{% block title %}
+        <div class = "title">
+            <h1> Creación de administradores</h1>
+
+        </div>
+{% endblock %}
+
+{% block graphs %}
+        <div class="forma-fondo">
+            <div class="contenedor-forma">
+                <form method="POST">
+                    {% csrf_token %}
+                        
+                    <h3 class="titulo-forma">Ingrese los datos del nuevo administrador</h3>
+
+                    <div class="contenedor-input">
+                        <label for="{{ form.nombre.id_for_label }}">Nombre: </label>      
+                    </div>
+                    {{ form.nombre }}
+
+                    <div class="contenedor-input">
+                        <label for="{{ form.contrasenia.id_for_label }}">Contraseña: </label>       
+                    </div> 
+                    {{ form.contrasenia }}  
+        
+        
+                    <button class="button-forma" type="submit"> Crear </button>                   
+        
+                </form>
+    
+            </div>
+            
+        </div>
+
+{% endblock %}
