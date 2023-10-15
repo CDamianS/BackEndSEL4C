@@ -114,105 +114,7 @@ h1 {
     margin-left: 250px;
     margin-top: 100px;
     padding: 20px;
-}
-
-.graphs {
-    margin-left: 250px;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.graphs canvas {
-    height: auto; /* Set your desired height here */
-}
-
-.graph {
-    height: 100%; /* Set the height of "graph" divs to 100% to fill the "graphs" div */
-    padding: 20px; /* Optional: Add padding if desired */
-    border: 2px solid #ccc; /* Add a border */
-    border-radius: 10px; /* Add rounded corners */
-}
-
-.general-graph {
-    width: 37rem;
-    height: 500px;
-}
-
-.general-graph canvas {
-    width: 50%; /* Set your desired height here */
-}
-
-.stats {
-    padding: 20px;
-    margin-left: 250px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.data-block {
-    padding: 20px;
-    margin-bottom: 16px;
-    height: 31%;
-    width: 37rem;
-    border: 2px solid #ccc; /* Add a border */
-    border-radius: 10px; /* Add rounded corners */
-}
-
-.tablas_main {
-    /* margin-left: 250px; */
-    /* margin-top: 100px; */
-    padding: 20px;
-}
-
-.graphs {
-    margin-left: 250px;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.graphs canvas {
-    height: 180px; /* Set your desired height here */
-}
-
-.graph {
-    height: 100%;
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-}
-
-.general-graph {
-    width: 35rem;
-    height: 500px;
-}
-
-.general-graph canvas {
-    width: 50%; /* Set your desired height here */
-}
-
-.stats {
-    padding: 20px;
-    margin-left: 250px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.data-block {
-    width: 50%;
-    border: 2px solid #ccc; /* Add a border */
-    border-radius: 10px; /* Add rounded corners */
-}
-
-.tablas_main {
-    /* margin-left: 250px; */
-    /* margin-top: 100px; */
-    padding: 20px;
+    margin-top: 0px;
 }
 
 /* Gráficas */
@@ -222,6 +124,7 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    overflow-x: auto;
 }
 
 .graphs canvas {
@@ -229,10 +132,13 @@ h1 {
 }
 
 .graph {
+    margin-left: 20px;
+    margin-left: 20px;
     height: 100%; /* Set the height of "graph" divs to 100% to fill the "graphs" div */
     padding: 20px; /* Optional: Add padding if desired */
     border: 2px solid #ccc; /* Add a border */
     border-radius: 10px; /* Add rounded corners */
+    display: flex;
 }
 
 .general-graph {
@@ -252,18 +158,34 @@ h1 {
     justify-content: space-between;
 }
 
-.data-block {
-    width: 38rem;
+.data-block-1{
+    width: 500px;
+    margin: 10px;
+    padding: 10px;
     border: 2px solid #ccc; /* Add a border */
     border-radius: 10px; /* Add rounded corners */
+    background-color: #34495E;
+    color: #ffffff;
 }
 
-h2 {
+.data-block-2{
+    width: 500px;
+    margin: 10px;
     padding: 10px;
+    border: 2px solid #ccc; /* Add a border */
+    border-radius: 10px; /* Add rounded corners */
+    background-color: #041E42;
+    color: #ffffff;
 }
 
-h3 {
+.data-block-3{
+    width: 500px;
+    margin: 10px;
     padding: 10px;
+    border: 2px solid #ccc; /* Add a border */
+    border-radius: 10px; /* Add rounded corners */
+    background-color: #2565CE;
+    color: #ffffff;
 }
 
 .title{
@@ -271,6 +193,14 @@ h3 {
     margin-top: 100px;
     display: flex;
     justify-content: space-between;
+}
+
+
+
+.subtitle{
+    padding: 0 20px 0 20px;
+    margin-left:250px;
+    display: flex;
 }
 
 /*Busqueda*/
@@ -336,9 +266,6 @@ h3 {
     font-family: sans-serif;
 }
 
-.title h1{
-    margin-top: 0px;
-}
 
 /* Tablas */
 
