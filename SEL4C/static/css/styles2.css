@@ -19,6 +19,7 @@
     background-color: rgb(4, 30, 66);
     color: white;
     position: fixed;
+    z-index: 1000;
 }
 
 .sidebar a:visited {
@@ -275,7 +276,7 @@ h3 {
 /*Busqueda*/
 .contenedor-busqueda{
     padding: 10px 75px 10px 275px;
-    margin-top: 1px;
+    margin-top: 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -283,8 +284,7 @@ h3 {
 }
 
 .agregar{
-    width: 50px;
-    height: 50px;
+
     display: flex;  
 }
 
@@ -314,8 +314,6 @@ h3 {
 
 .busqueda{
     background: #ffffff;
-    width: 50px;
-    height: 40px;
     display: flex;
 }
 
@@ -346,8 +344,7 @@ h3 {
 
 .tablas_main {
     border-radius: 10px;
-    margin-left: 200px;
-    padding: 20px 20px;
+    padding: 20px 75px 20px 275px;
     display: flex; /* Use flexbox to create a horizontal layout */
     flex: 1; /* Make both chart containers take up equal space */
 }
@@ -356,29 +353,26 @@ h3 {
     border: 2px solid #34495e;
     border-radius: 10px; /* Add rounded corners */
     background-color: #d6dadd;
-    justify-content: flex-end;
+    display: flex;
     padding: 20px 20px;
-    margin-left: 50px;
-    margin-right: 50px;    
-    z-index: 1000;
+    overflow-x: auto;
 }
 
 .styled-table {
     border-collapse: collapse;
-    margin: 1px 1px;
     font-size: 1.0em;
     font-family: sans-serif;
-    min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    overflow: hidden;
+    
 }
 
 .styled-table thead tr {
     background-color: #2565ce;
-    
     color: #ffffff;
     text-align: center;
+    
+
 }
 
 .styled-table th,
