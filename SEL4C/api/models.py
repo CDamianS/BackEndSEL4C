@@ -11,6 +11,12 @@ nombre_status = [
     "4.- Socialización",
     "Entregable final",
 ]
+usuario_genero = (
+    ("Masculino", "Masculino"),
+    ("Femenino", "Femenino"),
+    ("Otro", "Otro"),
+    ("Prefiero no decir", "Prefiero no decirlo")
+)
 
 
 class Usuario(models.Model):
@@ -19,12 +25,13 @@ class Usuario(models.Model):
     contrasenia = models.CharField(max_length=50, blank=True)
     email = models.EmailField(max_length=200, blank=True)
     avance = models.IntegerField(default=0)
-    genero = models.CharField(max_length=20, blank=True)
+    genero = models.CharField(max_length=50, blank=True, choices=usuario_genero)
     edad = models.IntegerField(blank=True)
     pais = models.CharField(max_length=50, blank=True)
     institucion = models.CharField(max_length=100, blank=True)
     grado = models.CharField(max_length=50, blank=True)
     diciplina = models.CharField(max_length=100, blank=True)
+    respuestasI = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Usuario {self.usuarioID}: {self.nombre}"

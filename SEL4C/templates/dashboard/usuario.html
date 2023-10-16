@@ -6,32 +6,32 @@
 {% endblock %}
 
 {% block graphs %}
-<h2 style="padding: 10px; margin-left:260px;">
+<h2 style="padding: 10px; margin-left: 260px;">
     Encuesta inicial
 </h2>
-<div class = "stats">
-    <div class= "general-graph">
+<div class="stats">
+    <div class="general-graph">
         <div class="graph">
             <table>
-            <thead>
-                <tr>
-                <th>Pregunta</th>
-                <th>Respuesta</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for response in usuario_json.responses %}
-                <tr>
-                    <td>{{ response.question.id }}</td>
-                    <td>{{ response.answer }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+                <thead>
+                    <tr>
+                        <th>Pregunta</th>
+                        <th>Respuesta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for respuesta in respuestas_cuestionario %}
+                        <tr>
+                            <td>Pregunta {{ respuesta.numero }}</td>
+                            <td>{{ respuesta.respuesta }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>
     <div class="general-graph">
-        <div class = "graph">
+        <div class="graph">
             <canvas id="general"></canvas>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <div id="data" data-id="{{ ID }}"></div>

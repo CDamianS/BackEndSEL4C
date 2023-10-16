@@ -37,19 +37,23 @@ from api.forms import (
 
 # Create your views here.
 # endpoints
+@csrf_exempt
 def index(request):
     return render(request, "Pagina_principal/index.html")
 
-
+@csrf_exempt
 def descargar_app(request):
     return render(request, "Pagina_principal/descargar.html")
 
-
+@csrf_exempt
 def error_404(request, not_found):
     return render(request, "Pagina_principal/404.html")
 
-
+@csrf_exempt
 def general(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     num_usuarios = Usuario.objects.count()
     usuarios_done = Usuario.objects.filter(avance=5).count()
     context = {"num_usuarios": num_usuarios, "usuarios_done": usuarios_done}
@@ -58,6 +62,8 @@ def general(request):
 
 @csrf_exempt
 def usuarios(request):
+    if not request.session.get('login'):
+        return redirect('index')
 
     query = request.GET.get("busueda")
     if query:
@@ -73,6 +79,7 @@ def usuarios(request):
             | Q(institucion__icontains=query)
             | Q(grado__icontains=query)
             | Q(diciplina__icontains=query)
+            | Q(respuestasI__icontains=query)
         ).order_by("usuarioID")
         filtro = True
     else:
@@ -84,8 +91,10 @@ def usuarios(request):
         {"usuarios": usuarios, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def entregas(request):
+    if not request.session.get('login'):
+        return redirect('index')
 
     query = request.GET.get("busueda")
     if query:
@@ -97,11 +106,6 @@ def entregas(request):
         actividades = Actividad.objects.all().order_by("nombre")
         filtro = False
 
-    """ ver si se usaran sesiones o cookies
-    exito = request.session.pop('exito', None)
-
-    error = request.session.pop('error', None)
-    """
 
     return render(
         request,
@@ -109,8 +113,11 @@ def entregas(request):
         {"actividades": actividades, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def cambios(request):
+    if not request.session.get('login'):
+        return redirect('index')
+        
     solicitudesN = CambioNombre.objects.all().order_by("solicitudNID")
     solicitudesC = CambioContrasenia.objects.all().order_by("solicitudCID")
     return render(
@@ -119,8 +126,11 @@ def cambios(request):
         {"solicitudesN": solicitudesN, "solicitudesC": solicitudesC},
     )
 
-
+@csrf_exempt
 def administradores(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busueda")
     if query:
         admins = Admin.objects.filter(
@@ -131,23 +141,52 @@ def administradores(request):
         admins = Admin.objects.all().order_by("nombre")
         filtro = False
 
-    """ ver si se usaran sesiones o cookies
-    exito = request.session.pop('exito', None)
-
-    error = request.session.pop('error', None)
-    """
 
     return render(
         request, "dashboard/admins.html", {"admins": admins, "filtro": filtro}
     )
 
+@csrf_exempt
+def borrar_usuarios(request, usuarioID):
+    if not request.session.get('login'):
+        return redirect('index')
+        
+    usuario = get_object_or_404(Usuario, pk=usuarioID)
+    usuario.delete()
+    print("Exito")
+    return redirect("usuarios")
 
+@csrf_exempt
+def borrar_admins(request, adminID):
+    if not request.session.get('login'):
+        return redirect('index')
+    
+    admin = get_object_or_404(Admin, pk=adminID)
+    admin.delete()
+    print("Exito")
+    return redirect("administradores")
+
+@csrf_exempt
 def usuarioGraph(request, usuario_id):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     usuario = Usuario.objects.get(usuarioID=usuario_id)
     usuario_json = {
         "nombre": usuario.nombre,
         "email": usuario.email,
         "ID": usuario.usuarioID,
     }
-    # Convierte el modelo a un diccionario y luego a JSON
+
+    respuestas_cuestionario = CuestionarioInicial.objects.filter(usuarioID=usuario)
+
+    respuestas_lista = []
+    for respuesta in respuestas_cuestionario:
+        respuesta_dict = {
+            "numero": respuesta.numero,
+            "respuesta": respuesta.respuesta
+        }
+        respuestas_lista.append(respuesta_dict)
+
+    usuario_json["respuestas_cuestionario"] = respuestas_lista
     return render(request, "dashboard/usuario.html", usuario_json)

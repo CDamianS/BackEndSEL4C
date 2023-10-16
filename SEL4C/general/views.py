@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+from django.contrib import messages
 from json import loads, dumps, JSONDecodeError, JSONDecoder, load
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
@@ -62,7 +63,12 @@ def descargar_app(request):
 @csrf_exempt
 def admin_login(request):
     """End point para validar el admin"""
-    return render(request, "Pagina_principal/iniciar_sesion.html")
+    
+    if not request.session.get('login'):
+        
+        return render(request, "Pagina_principal/iniciar_sesion.html")
+    else:
+        return redirect("/dashboard/general")
 
 
 @csrf_exempt
@@ -73,7 +79,17 @@ def existe_admin(request):
         nombre = request.POST.get("nombre", False)
         contrasenia = request.POST.get("contrasenia", False)
         admin_id = validar_admin(nombre, contrasenia)
+
         if admin_id is not None:
-            return HttpResponseRedirect("/dashboard/general")
+            request.session['login'] = True
+            request.session['id'] = admin_id
+            return redirect("/dashboard/general")
         else:
             return render(request, "Pagina_principal/iniciar_sesion.html")
+
+@csrf_exempt
+def logout(request):
+    request.session['login'] = False
+    del request.session['id']
+
+    return redirect('admin_login')

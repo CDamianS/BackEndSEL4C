@@ -8,4 +8,5 @@ urlpatterns = [
     path("descargar_app", views.descargar_app, name="descargar_app"),
     path("existe_admin", views.existe_admin, name="existe_admin"),
     path("admin_login", views.admin_login, name="admin_login"),
+    path("logout", views.logout, name="logout"),
 ]

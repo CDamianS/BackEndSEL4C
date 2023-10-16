@@ -37,7 +37,6 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Contraseña</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -46,7 +45,6 @@
                 {% for admin in admins %}
                 <tr>
                     <td>{{ admin.nombre }}</td>
-                    <td>{{ admin.contrasenia }}</td>
                     <td>
                         <a href="{% url 'actulizar_admins' pk=admin.adminID %}">Editar</a>
                     </td>

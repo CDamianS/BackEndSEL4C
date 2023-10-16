@@ -39,6 +39,7 @@ from .forms import (
     CambioCForm,
 )
 
+## Funciones para crear elementos en la base de datos ##
 
 class AdminViewSet(viewsets.ModelViewSet):
     """Creación de admins dentro de la base de datos."""
@@ -112,13 +113,15 @@ def crearRespuestasI(solicitud):
 def crearRespuestasF(solicitud):
     cuestionarioF_serializer = CuestionarioFSerializer
 
-
 # Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
 def acrchivo_subido(f):
     with open("static/upload/" + f.name, "wb+") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
+
+
+## Endpoints para la app ##
 
 @csrf_exempt
 def validar_user(name, password):
@@ -150,40 +153,6 @@ def selecionar_actividad(idAct, idUser):
     return actividad_id
 
 
-"""
-@csrf_exempt
-def index(request):
-    return render(request, "Pagina_principal/index.html")
-
-
-@csrf_exempt
-def descargar_app(request):
-    return render(request, "Pagina_principal/descargar.html")
-
-
-
-@csrf_exempt
-def error_404(request, not_found):
-    return render(request, 'Pagina_principal/404.html')
-"""
-
-"""
-@csrf_exempt
-def existe_admin(request):
-    Revisa si el usuario existe en la base de datos.
-
-    if request.method == "POST":
-        nombre = request.POST.get("nombre", False)
-        contrasenia = request.POST.get("contrasenia", False)
-        admin_id = validar_admin(nombre, contrasenia)
-        if admin_id is not None:
-            print("si?")
-            return HttpResponseRedirect("/dashboard/general")
-        else:
-            return render(request, "Pagina_principal/iniciar_sesion.html")
-"""
-
-
 @csrf_exempt
 def existe_usuario(request):
     """Revisa si el usuario existe en la base de datos."""
@@ -211,14 +180,6 @@ def existe_usuario(request):
             )
         except:
             return JsonResponse({"status": "no existe"})
-
-
-"""
-@csrf_exempt
-def admin_login(request):
-      End point para validar el admin
-    return render(request, "Pagina_principal/iniciar_sesion.html")
-"""
 
 
 @csrf_exempt
@@ -326,10 +287,10 @@ def repuestas_cuestionarioI(request):
 
         for response in responses:
             answer = response.get("answer")
-            response_id = response.get("id")
+            response_id = response.get("question")
 
             CuestionarioInicial.objects.create(
-                preguntaID=response_id, respuesta=answer, usuarioID=usuario
+                numero=response_id, respuesta=answer, usuarioID=usuario
             )
 
         return JsonResponse({"message": "Data processed successfully."}, status=200)
@@ -339,25 +300,24 @@ def repuestas_cuestionarioI(request):
 @csrf_exempt
 def repuestas_cuestionarioF(request):
     if request.method == "POST":
+        data = loads(request.body)
+        usuario_id = data["usuarioID"]
+        responses = data["responses"]
         try:
-            data = loads(request.body)
+            usuario = Usuario.objects.get(usuarioID=usuario_id)
+        except Usuario.DoesNotExist:
+            return JsonResponse({"message": "Usuario does not exist."})
 
-            numero = data["numero"]
-            respuesta = data["respuesta"]
-            usuarioID_id = data["usuarioID_id"]
+        for response in responses:
+            answer = response.get("answer")
+            response_id = response.get("question")
 
-            elUsario = Usuario.objects.get(usuarioID=usuarioID_id)
-
-            solicitud = CuestionarioFinal.objects.create(
-                numero=numero,
-                respuesta=respuesta,
-                usuarioID=elUsario,
+            CuestionarioInicial.objects.create(
+                numero=response_id, respuesta=answer, usuarioID=usuario
             )
-            crearRespuestasF(solicitud)
 
-            return JsonResponse({"message": "Solicitud Enviada"})
-        except:
-            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
+        return JsonResponse({"message": "Data processed successfully."}, status=200)
+    return JsonResponse({"message": "Invalid request method."}, status=405)
 
 
 @csrf_exempt
@@ -454,120 +414,122 @@ def cuestionario_inicial(request):
             "id": 24,
             "text": " Conozco estrategias para desarrollar un proyecto, aún con escasez de recursos.",
         },
+
     ]
     return JsonResponse(questions, safe=False)
 
-
+@csrf_exempt
 def cuestionario_PC(request):
     """Send the initial questions."""
     questions = [
         {
-            "id": 1,
+            "id": 25,
             "text": " Creo que el cometer errores nos ofrece nuevas oportunidades de aprendizaje.",
         },
         {
-            "id": 2,
+            "id": 26,
             "text": "Identifico datos de mi disciplina y de otras áreas que contribuyen a resolver problemas.",
         },
         {
-            "id": 3,
+            "id":27,
             "text": "Participo en proyectos que se tienen que resolver utilizando perspectivas Inter/multidisciplinarias.",
         },
         {
-            "id": 4,
+            "id": 28,
             "text": "Organizo información para resolver problemas.",
         },
         {
-            "id": 5,
+            "id": 29,
             "text": "Me agrada conocer perspectivas diferentes de un problema.",
         },
         {
-            "id": 6,
+            "id": 30,
             "text": "Me inclino por estrategias para comprender las partes y el todo de un problema.",
         },
         {
-            "id": 7,
+            "id": 31,
             "text": "Tengo la capacidad de Identificar los componentes esenciales de un problema para formular una pregunta de investigación.",
         },
         {
-            "id": 8,
+            "id": 32,
             "text": "Conozco la estructura y los formatos para elaborar reportes de investigación que se utilizan en mi área o disciplina.",
         },
         {
-            "id": 9,
+            "id": 33,
             "text": "Identifico la estructura de un artículo de investigación que se maneja en mi área o disciplina.",
         },
         {
-            "id": 10,
+            "id": 34,
             "text": "Identifico los elementos para formular una pregunta de investigación.",
         },
         {
-            "id": 11,
+            "id": 35,
             "text": "Diseño instrumentos de investigación coherentes con el método de investigación utilizado.",
         },
         {
-            "id": 12,
+            "id": 36,
             "text": "Formulo y pruebo hipótesis de investigación.",
         },
         {
-            "id": 13,
+            "id": 37,
             "text": "Me inclino a usar datos científicos para analizar problemas de investigación.",
         },
         {
-            "id": 14,
+            "id": 38,
             "text": "Tengo la capacidad para analizar críticamente problemas desde diferentes perspectivas.",
         },
         {
-            "id": 15,
+            "id": 39,
             "text": "Identifico la fundamentación de juicios propios y ajenos para reconocer argumentos falsos.",
         },
         {
-            "id": 16,
+            "id": 40,
             "text": "Autoevalúo  el nivel de avance y logro de mis metas para hacer los ajustes necesarios.",
         },
         {
-            "id": 17,
+            "id": 41,
             "text": "Utilizo razonamientos basados en el conocimiento científico para emitir juicios ante un problema.",
         },
         {
-            "id": 18,
+            "id": 42,
             "text": "Me aseguro de revisar los lineamientos éticos de los proyectos en los que participo.",
         },
         {
-            "id": 19,
+            "id": 43,
             "text": "Me aseguro de revisar los lineamientos éticos de los proyectos en los que participo.",
         },
         {
-            "id": 20,
+            "id": 44,
             "text": "Aprecio críticas en el desarrollo de proyectos para mejorarlos.",
         },
         {
-            "id": 21,
+            "id": 45,
             "text": "Conozco los criterios para determinar un problema.",
         },
         {
-            "id": 22,
+            "id": 46,
             "text": "Tengo la capacidad de identificar las variables, de diversas disciplinas, que pueden ayudar a responder preguntas.",
         },
         {
-            "id": 23,
+            "id": 47,
             "text": "Aplico soluciones innovadoras a diversas problemáticas.",
         },
         {
-            "id": 24,
+            "id": 48,
             "text": "Soluciono problemas interpretando datos de diferentes disciplinas.",
         },
         {
-            "id": 25,
+            "id": 49,
             "text": "Analizo problemas de investigación contemplando el contexto para crear soluciones.",
         },
     ]
     return JsonResponse(questions, safe=False)
 
 
-## CRUD general ##
-# CRUD admins
 
+## Endpoints del CRUD general ##
+
+# CRUD admins
 
 @csrf_exempt
 def ver_admins(request):
@@ -595,6 +557,9 @@ def ver_admins(request):
 
 @csrf_exempt
 def actulizar_admins(request, pk):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     admin = get_object_or_404(Admin, pk=pk)
 
     if request.method == "POST":
@@ -603,42 +568,51 @@ def actulizar_admins(request, pk):
         if form.is_valid():
             form.save()
             print("Exito")
-            return redirect("ver_admins")
+            return redirect("/dashboard/administradores")
         else:
             error_messages = form.errors.values()
             for error in error_messages:
                 print(error)
-                return redirect("ver_admins")
+                return redirect("/dashboard/administradores")
     else:
         form = AdminForm(instance=admin)
-        return render(request, "CRUD_Admin/editar_admins.html", {"form": form})
+        return render(request, "dashboard/admin_edicion.html", {"form": form})
 
 
 @csrf_exempt
 def borrar_admins(request, adminID):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     admin = get_object_or_404(Admin, pk=adminID)
     admin.delete()
     print("Exito")
-    return redirect("ver_admins")
+    return redirect("SEL4C_Dashboard/usuarios")
 
 
 @csrf_exempt
 def crear_Admin(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     if request.method == "POST":
-        form = AdminForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("ver_admins")
-        else:
+        try:
+            form = AdminForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("/dashboard/administradores")
+            else:
 
-            error_message = form.errors.values()
-            for error in error_message:
-                print(error)
+                error_message = form.errors.values()
+                for error in error_message:
+                    print(error)
 
-            return redirect("crear_Admin")
+                return redirect("/dashboard/administradores")
+        except:
+            return render(request, "dashboard/admin_creacion.html", {"form": form})
     else:
         form = AdminForm()
-    return render(request, "CRUD_Admin/crear_admins.html", {"form": form})
+    return render(request, "dashboard/admin_creacion.html", {"form": form})
 
 
 # CRUD usuarios
@@ -686,51 +660,66 @@ def ver_usuario(request, pk):
 
 @csrf_exempt
 def actualizar_usuario(request, pk):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     usuario = get_object_or_404(Usuario, usuarioID=pk)
 
     if request.method == "POST":
         form = UsuarioForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
-            return redirect("usuarios")
+            return redirect("/dashboard/usuarios")
         else:
             error_messages = form.errors.values()
             for error in error_messages:
                 print(error)
-                return redirect("usuarios")
+                return redirect("/dashboard/usuarios")
     else:
         form = UsuarioForm(instance=usuario)
-        return render(request, "CRUD_Usuarios/editar_usuarios.html", {"form": form})
+        return render(request, "dashboard/usuario_edicion.html", {"form": form})
 
 
 @csrf_exempt
 def borrar_usuarios(request, usuarioID):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     usuario = get_object_or_404(Usuario, pk=usuarioID)
     usuario.delete()
     print("Exito")
-    return redirect("ver_usuarios")
+    return redirect("SEL4C_Dashboard/usuarios")
 
 
 @csrf_exempt
 def crear_Usuario(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     if request.method == "POST":
-        form = UsuarioForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("ver_usuarios")
-        else:
-            error_message = form.errors.values()
-            for error in error_message:
-                print(error)
+        try:
+            form = UsuarioForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("/dashboard/usuarios")
+            else:
+                error_message = form.errors.values()
+                for error in error_message:
+                    print(error)
 
-            return redirect("ver_usuarios")
+                return redirect("/dashboard/usuarios")
+        except:
+            return render(request, "dashboard/usuario_creacion.html", {"form": form})
     else:
         form = UsuarioForm()
-    return render(request, "CRUD_Usuarios/crear_usuarios.html", {"form": form})
+    return render(request, "dashboard/usuario_creacion.html", {"form": form})
 
 
 # CRUD actividades
+@csrf_exempt
 def ver_actividades(request):
+    if not request.session.get('login'):
+        return redirect('index')
 
     query = request.GET.get("busueda")
     if query:
@@ -757,8 +746,11 @@ def ver_actividades(request):
 
 # CRUD encuestas
 
-
+@csrf_exempt
 def ver_ecnuestasI(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         encuestasI = CuestionarioInicial.objects.filter(
@@ -777,8 +769,11 @@ def ver_ecnuestasI(request):
         {"encuestasI": encuestasI, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def ver_ecnuestasF(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         encuestasF = CuestionarioFinal.objects.filter(
@@ -800,8 +795,11 @@ def ver_ecnuestasF(request):
 
 # CRUD solicitudes de cambio
 
-
+@csrf_exempt
 def ver_solicitudes_nombres(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         solicitudesN = CambioNombre.objects.filter(
@@ -820,7 +818,7 @@ def ver_solicitudes_nombres(request):
         {"solicitudesN": solicitudesN, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def cambiar_nombre(request, usuarioID_id, nombre, solicitudNID):
     usuario = get_object_or_404(Usuario, pk=usuarioID_id)
     usuario.nombre = nombre
@@ -833,8 +831,11 @@ def cambiar_nombre(request, usuarioID_id, nombre, solicitudNID):
     print("Exito")
     return redirect("ver_solicitudes_nombres")
 
-
+@csrf_exempt
 def ver_solicitudes_contrasenia(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         solicitudesC = CambioContrasenia.objects.filter(
@@ -853,7 +854,7 @@ def ver_solicitudes_contrasenia(request):
         {"solicitudesC": solicitudesC, "filtro": filtro},
     )
 
-
+@csrf_exempt
 def cambiar_contrasenia(request, usuarioID_id, contrasenia, solicitudCID):
     usuario = get_object_or_404(Usuario, pk=usuarioID_id)
     usuario.contrasenia = contrasenia

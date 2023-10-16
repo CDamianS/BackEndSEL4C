@@ -1,0 +1,82 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+
+{% block title %}
+        <div class = "title">
+            <h1> Creación de usuario</h1>
+
+        </div>
+{% endblock %}
+
+{% block graphs %}
+        <div class="forma-fondo">
+            <div class="contenedor-forma">
+                <form method="POST">
+                    {% csrf_token %}
+                        
+                    <h3 class="titulo-forma">Ingrese los datos del usuario</h3>
+
+                    <div class="contenedor-input">
+                        <label for="{{ form.nombre.id_for_label }}">Nombre: </label>      
+                    </div>
+                    {{ form.nombre }}
+
+                    <div class="contenedor-input">
+                        <label for="{{ form.contrasenia.id_for_label }}">Contraseña: </label>       
+                    </div> 
+                    {{ form.contrasenia }}  
+        
+                    <div class="contenedor-input">
+                        <label for="{{ form.email.id_for_label }}">Email: </label>       
+                    </div>
+                    {{ form.email }}
+        
+                    <div class="contenedor-input">
+                        <label for="{{ form.avance.id_for_label }}">Avance: </label>       
+                    </div>
+                    {{ form.avance }}
+                                
+                    <div class="contenedor-input">
+                        <label for="{{ form.genero.id_for_label }}">Género: </label>       
+                    </div>
+                    {{ form.genero }}
+        
+                    <div class="contenedor-input">
+                        <label class="small mb-1" for="{{ form.edad.id_for_label }}">Edad: </label>       
+                    </div>
+                    {{ form.edad }}
+        
+                    <div class="contenedor-input">
+                        <label for="{{ form.pais.id_for_label }}">País: </label>       
+                    </div>
+                    {{ form.pais }}
+        
+                    <div class="contenedor-input">
+                        <label for="{{ form.institucion.id_for_label }}">Institución: </label>       
+                    </div>
+                    {{ form.institucion }}
+        
+                    <div class="contenedor-input">
+                       <label for="{{ form.grado.id_for_label }}">Grado: </label>                
+                    </div>
+                    {{ form.grado }}
+        
+                    <div class="contenedor-input">
+                        <label for="{{ form.diciplina.id_for_label }}">Disciplina: </label>                
+                    </div>
+                    {{ form.diciplina }}
+
+                    <div class="contenedor-input">
+                        <label for="{{ form.respuestasI.id_for_label }}">Respueats Inicial: </label>                
+                    </div>
+                    {{ form.respuestasI }}
+        
+                    <button class="button-forma" type="submit"> Crear </button>                   
+        
+                </form>
+    
+            </div>
+            
+        </div>
+
+{% endblock %}

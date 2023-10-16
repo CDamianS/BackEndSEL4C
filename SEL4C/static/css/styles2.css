@@ -19,6 +19,7 @@
     background-color: rgb(4, 30, 66);
     color: white;
     position: fixed;
+    z-index: 1000;
 }
 
 .sidebar a:visited {
@@ -113,97 +114,7 @@ h1 {
     margin-left: 250px;
     margin-top: 100px;
     padding: 20px;
-}
-
-.graphs {
-    margin-left: 250px;
-    padding: 20px;
-    display: flex;
-    /* flex-direction: row; */
-    /* justify-content: space-between; */
-}
-
-.graphs canvas {
-    height: auto; /* Set your desired height here */
-}
-
-.graph {
-    height: 100%; /* Set the height of "graph" divs to 100% to fill the "graphs" div */
-    padding: 40px; /* Optional: Add padding if desired */
-    border: 2px solid #ccc; /* Add a border */
-    border-radius: 10px; /* Add rounded corners */
-}
-
-.general-graph {
-    width: 37rem;
-    height: 500px;
-}
-
-.general-graph canvas {
-    width: 50%; /* Set your desired height here */
-}
-
-.stats {
-    padding: 20px;
-    margin-left: 250px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.data-block {
-    padding: 20px;
-    margin-bottom: 16px;
-    height: 31%;
-    width: 37rem;
-    border: 2px solid #ccc; /* Add a border */
-    border-radius: 10px; /* Add rounded corners */
-}
-
-.tablas_main {
-    /* margin-left: 250px; */
-    /* margin-top: 100px; */
-    padding: 20px;
-}
-
-.graphs canvas {
-    height: 180px; /* Set your desired height here */
-}
-
-.graph {
-    height: 100%;
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-}
-
-.general-graph {
-    width: 35rem;
-    height: 500px;
-}
-
-.general-graph canvas {
-    width: 50%; /* Set your desired height here */
-}
-
-.stats {
-    padding: 20px;
-    margin-left: 250px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.data-block {
-    width: 50%;
-    border: 2px solid #ccc; /* Add a border */
-    border-radius: 10px; /* Add rounded corners */
-}
-
-.tablas_main {
-    /* margin-left: 250px; */
-    /* margin-top: 100px; */
-    padding: 20px;
+    margin-top: 0px;
 }
 
 /* Gráficas */
@@ -213,6 +124,7 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    overflow-x: auto;
 }
 
 .graphs canvas {
@@ -220,10 +132,13 @@ h1 {
 }
 
 .graph {
+    margin-left: 20px;
+    margin-left: 20px;
     height: 100%; /* Set the height of "graph" divs to 100% to fill the "graphs" div */
     padding: 20px; /* Optional: Add padding if desired */
     border: 2px solid #ccc; /* Add a border */
     border-radius: 10px; /* Add rounded corners */
+    display: flex;
 }
 
 .general-graph {
@@ -243,18 +158,34 @@ h1 {
     justify-content: space-between;
 }
 
-.data-block {
-    width: 38rem;
+.data-block-1{
+    width: 500px;
+    margin: 10px;
+    padding: 10px;
     border: 2px solid #ccc; /* Add a border */
     border-radius: 10px; /* Add rounded corners */
+    background-color: #34495E;
+    color: #ffffff;
 }
 
-h2 {
+.data-block-2{
+    width: 500px;
+    margin: 10px;
     padding: 10px;
+    border: 2px solid #ccc; /* Add a border */
+    border-radius: 10px; /* Add rounded corners */
+    background-color: #041E42;
+    color: #ffffff;
 }
 
-h3 {
+.data-block-3{
+    width: 500px;
+    margin: 10px;
     padding: 10px;
+    border: 2px solid #ccc; /* Add a border */
+    border-radius: 10px; /* Add rounded corners */
+    background-color: #2565CE;
+    color: #ffffff;
 }
 
 .title{
@@ -264,10 +195,18 @@ h3 {
     justify-content: space-between;
 }
 
+
+
+.subtitle{
+    padding: 0 20px 0 20px;
+    margin-left:250px;
+    display: flex;
+}
+
 /*Busqueda*/
 .contenedor-busqueda{
     padding: 10px 75px 10px 275px;
-    margin-top: 1px;
+    margin-top: 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -275,8 +214,7 @@ h3 {
 }
 
 .agregar{
-    width: 50px;
-    height: 50px;
+
     display: flex;  
 }
 
@@ -306,8 +244,6 @@ h3 {
 
 .busqueda{
     background: #ffffff;
-    width: 50px;
-    height: 40px;
     display: flex;
 }
 
@@ -330,16 +266,12 @@ h3 {
     font-family: sans-serif;
 }
 
-.title h1{
-    margin-top: 0px;
-}
 
 /* Tablas */
 
 .tablas_main {
     border-radius: 10px;
-    margin-left: 200px;
-    padding: 20px 20px;
+    padding: 20px 75px 20px 275px;
     display: flex; /* Use flexbox to create a horizontal layout */
     flex: 1; /* Make both chart containers take up equal space */
 }
@@ -348,29 +280,26 @@ h3 {
     border: 2px solid #34495e;
     border-radius: 10px; /* Add rounded corners */
     background-color: #d6dadd;
-    justify-content: flex-end;
+    display: flex;
     padding: 20px 20px;
-    margin-left: 50px;
-    margin-right: 50px;    
-    z-index: 1000;
+    overflow-x: auto;
 }
 
 .styled-table {
     border-collapse: collapse;
-    margin: 1px 1px;
     font-size: 1.0em;
     font-family: sans-serif;
-    min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    overflow: hidden;
+    
 }
 
 .styled-table thead tr {
     background-color: #2565ce;
-    
     color: #ffffff;
     text-align: center;
+    
+
 }
 
 .styled-table th,
@@ -390,4 +319,82 @@ h3 {
     border-bottom: 2px solid #2565ce;
 }
 
+/* Forma */
 
+.forma-fondo{
+    align-items: start;
+    display: flex;
+    justify-content: start;
+    padding: 10px 75px 10px 275px;
+    height: 500px;
+}
+
+.contenedor-forma{
+    background-color: #0039a6;
+    border-radius: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border: 2px solid #000000;
+    display: flex;
+    height: flex;
+    padding: 10px;
+    width: 320px;
+    align-items: center;
+}
+
+.titulo-forma{
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 1px;
+    text-align: center;
+}
+
+.contenedor-input{
+    height: 20px;
+    position: relative;
+    width: 100%;
+    text-align: start;
+    color: #e1e1eb;
+    font-family: sans-serif;
+    line-height: 20px;
+    pointer-events: none;
+    font-weight: 700;
+    left: 4px;
+    
+}
+
+.contenedor-input-entrada{
+    height: 30px;
+    position: relative;
+    width: 100%;
+    text-align: start;
+    background-color: #012464;
+    border-radius: 10px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    font-size: 18px;
+    outline: 0;
+    padding: 4px 20px 4px;
+    width: 100%;
+}
+
+.button-forma{
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 35px;
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.button-forma:active {
+    background-color: #06b;
+  }

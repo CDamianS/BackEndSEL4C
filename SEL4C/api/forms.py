@@ -5,11 +5,26 @@ class AdminForm(forms.ModelForm):
     class Meta:
         model = Admin
         fields = ['nombre', 'contrasenia']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+            'contrasenia': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+        }
 
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ['nombre', 'contrasenia', 'email', 'avance', 'genero', 'edad', 'pais', 'institucion', 'grado', 'diciplina']
+        fields = ['nombre', 'contrasenia', 'email', 'avance', 'genero', 'edad', 'pais', 'institucion', 'grado', 'diciplina', 'respuestasI']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+            'contrasenia': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+            'email': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+            'avance': forms.NumberInput(attrs={'class': 'contenedor-input-entrada'}),
+            'edad': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+            'pais': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+            'institucion': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+            'grado': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+            'diciplina': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+        }
 
 class ActividadForm(forms.ModelForm):
     class Meta:
