@@ -51,6 +51,9 @@ def error_404(request, not_found):
 
 @csrf_exempt
 def general(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     num_usuarios = Usuario.objects.count()
     usuarios_done = Usuario.objects.filter(avance=5).count()
     context = {"num_usuarios": num_usuarios, "usuarios_done": usuarios_done}
@@ -59,6 +62,8 @@ def general(request):
 
 @csrf_exempt
 def usuarios(request):
+    if not request.session.get('login'):
+        return redirect('index')
 
     query = request.GET.get("busueda")
     if query:
@@ -88,6 +93,8 @@ def usuarios(request):
 
 @csrf_exempt
 def entregas(request):
+    if not request.session.get('login'):
+        return redirect('index')
 
     query = request.GET.get("busueda")
     if query:
@@ -99,11 +106,6 @@ def entregas(request):
         actividades = Actividad.objects.all().order_by("nombre")
         filtro = False
 
-    """ ver si se usaran sesiones o cookies
-    exito = request.session.pop('exito', None)
-
-    error = request.session.pop('error', None)
-    """
 
     return render(
         request,
@@ -113,6 +115,9 @@ def entregas(request):
 
 @csrf_exempt
 def cambios(request):
+    if not request.session.get('login'):
+        return redirect('index')
+        
     solicitudesN = CambioNombre.objects.all().order_by("solicitudNID")
     solicitudesC = CambioContrasenia.objects.all().order_by("solicitudCID")
     return render(
@@ -123,6 +128,9 @@ def cambios(request):
 
 @csrf_exempt
 def administradores(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busueda")
     if query:
         admins = Admin.objects.filter(
@@ -133,11 +141,6 @@ def administradores(request):
         admins = Admin.objects.all().order_by("nombre")
         filtro = False
 
-    """ ver si se usaran sesiones o cookies
-    exito = request.session.pop('exito', None)
-
-    error = request.session.pop('error', None)
-    """
 
     return render(
         request, "dashboard/admins.html", {"admins": admins, "filtro": filtro}
@@ -145,6 +148,9 @@ def administradores(request):
 
 @csrf_exempt
 def borrar_usuarios(request, usuarioID):
+    if not request.session.get('login'):
+        return redirect('index')
+        
     usuario = get_object_or_404(Usuario, pk=usuarioID)
     usuario.delete()
     print("Exito")
@@ -152,6 +158,9 @@ def borrar_usuarios(request, usuarioID):
 
 @csrf_exempt
 def borrar_admins(request, adminID):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     admin = get_object_or_404(Admin, pk=adminID)
     admin.delete()
     print("Exito")
@@ -159,6 +168,9 @@ def borrar_admins(request, adminID):
 
 @csrf_exempt
 def usuarioGraph(request, usuario_id):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     usuario = Usuario.objects.get(usuarioID=usuario_id)
     usuario_json = {
         "nombre": usuario.nombre,

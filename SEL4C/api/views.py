@@ -568,7 +568,6 @@ def cuestionario_PC(request):
 ## CRUD general ##
 # CRUD admins
 
-
 @csrf_exempt
 def ver_admins(request):
 
@@ -595,6 +594,9 @@ def ver_admins(request):
 
 @csrf_exempt
 def actulizar_admins(request, pk):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     admin = get_object_or_404(Admin, pk=pk)
 
     if request.method == "POST":
@@ -616,6 +618,9 @@ def actulizar_admins(request, pk):
 
 @csrf_exempt
 def borrar_admins(request, adminID):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     admin = get_object_or_404(Admin, pk=adminID)
     admin.delete()
     print("Exito")
@@ -624,6 +629,9 @@ def borrar_admins(request, adminID):
 
 @csrf_exempt
 def crear_Admin(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     if request.method == "POST":
         form = AdminForm(request.POST)
         if form.is_valid():
@@ -686,6 +694,9 @@ def ver_usuario(request, pk):
 
 @csrf_exempt
 def actualizar_usuario(request, pk):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     usuario = get_object_or_404(Usuario, usuarioID=pk)
 
     if request.method == "POST":
@@ -705,6 +716,9 @@ def actualizar_usuario(request, pk):
 
 @csrf_exempt
 def borrar_usuarios(request, usuarioID):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     usuario = get_object_or_404(Usuario, pk=usuarioID)
     usuario.delete()
     print("Exito")
@@ -713,6 +727,9 @@ def borrar_usuarios(request, usuarioID):
 
 @csrf_exempt
 def crear_Usuario(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     if request.method == "POST":
         form = UsuarioForm(request.POST)
         if form.is_valid():
@@ -732,6 +749,8 @@ def crear_Usuario(request):
 # CRUD actividades
 @csrf_exempt
 def ver_actividades(request):
+    if not request.session.get('login'):
+        return redirect('index')
 
     query = request.GET.get("busueda")
     if query:
@@ -760,6 +779,9 @@ def ver_actividades(request):
 
 @csrf_exempt
 def ver_ecnuestasI(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         encuestasI = CuestionarioInicial.objects.filter(
@@ -780,6 +802,9 @@ def ver_ecnuestasI(request):
 
 @csrf_exempt
 def ver_ecnuestasF(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         encuestasF = CuestionarioFinal.objects.filter(
@@ -803,6 +828,9 @@ def ver_ecnuestasF(request):
 
 @csrf_exempt
 def ver_solicitudes_nombres(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         solicitudesN = CambioNombre.objects.filter(
@@ -836,6 +864,9 @@ def cambiar_nombre(request, usuarioID_id, nombre, solicitudNID):
 
 @csrf_exempt
 def ver_solicitudes_contrasenia(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         solicitudesC = CambioContrasenia.objects.filter(
