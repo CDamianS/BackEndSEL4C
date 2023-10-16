@@ -39,6 +39,7 @@ from .forms import (
     CambioCForm,
 )
 
+## Funciones para crear elementos en la base de datos ##
 
 class AdminViewSet(viewsets.ModelViewSet):
     """Creación de admins dentro de la base de datos."""
@@ -112,13 +113,15 @@ def crearRespuestasI(solicitud):
 def crearRespuestasF(solicitud):
     cuestionarioF_serializer = CuestionarioFSerializer
 
-
 # Función para subir archivos al proyecto de Django (por si fuera a ser necesario)
 def acrchivo_subido(f):
     with open("static/upload/" + f.name, "wb+") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
+
+
+## Endpoints para la app ##
 
 @csrf_exempt
 def validar_user(name, password):
@@ -150,40 +153,6 @@ def selecionar_actividad(idAct, idUser):
     return actividad_id
 
 
-"""
-@csrf_exempt
-def index(request):
-    return render(request, "Pagina_principal/index.html")
-
-
-@csrf_exempt
-def descargar_app(request):
-    return render(request, "Pagina_principal/descargar.html")
-
-
-
-@csrf_exempt
-def error_404(request, not_found):
-    return render(request, 'Pagina_principal/404.html')
-"""
-
-"""
-@csrf_exempt
-def existe_admin(request):
-    Revisa si el usuario existe en la base de datos.
-
-    if request.method == "POST":
-        nombre = request.POST.get("nombre", False)
-        contrasenia = request.POST.get("contrasenia", False)
-        admin_id = validar_admin(nombre, contrasenia)
-        if admin_id is not None:
-            print("si?")
-            return HttpResponseRedirect("/dashboard/general")
-        else:
-            return render(request, "Pagina_principal/iniciar_sesion.html")
-"""
-
-
 @csrf_exempt
 def existe_usuario(request):
     """Revisa si el usuario existe en la base de datos."""
@@ -211,14 +180,6 @@ def existe_usuario(request):
             )
         except:
             return JsonResponse({"status": "no existe"})
-
-
-"""
-@csrf_exempt
-def admin_login(request):
-      End point para validar el admin
-    return render(request, "Pagina_principal/iniciar_sesion.html")
-"""
 
 
 @csrf_exempt
@@ -565,7 +526,9 @@ def cuestionario_PC(request):
     return JsonResponse(questions, safe=False)
 
 
-## CRUD general ##
+
+## Endpoints del CRUD general ##
+
 # CRUD admins
 
 @csrf_exempt
@@ -633,17 +596,20 @@ def crear_Admin(request):
         return redirect('index')
     
     if request.method == "POST":
-        form = AdminForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("/dashboard/administradores")
-        else:
+        try:
+            form = AdminForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("/dashboard/administradores")
+            else:
 
-            error_message = form.errors.values()
-            for error in error_message:
-                print(error)
+                error_message = form.errors.values()
+                for error in error_message:
+                    print(error)
 
-            return redirect("/dashboard/administradores")
+                return redirect("/dashboard/administradores")
+        except:
+            return render(request, "dashboard/admin_creacion.html", {"form": form})
     else:
         form = AdminForm()
     return render(request, "dashboard/admin_creacion.html", {"form": form})
@@ -731,16 +697,19 @@ def crear_Usuario(request):
         return redirect('index')
     
     if request.method == "POST":
-        form = UsuarioForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("/dashboard/usuarios")
-        else:
-            error_message = form.errors.values()
-            for error in error_message:
-                print(error)
+        try:
+            form = UsuarioForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("/dashboard/usuarios")
+            else:
+                error_message = form.errors.values()
+                for error in error_message:
+                    print(error)
 
-            return redirect("/dashboard/usuarios")
+                return redirect("/dashboard/usuarios")
+        except:
+            return render(request, "dashboard/usuario_creacion.html", {"form": form})
     else:
         form = UsuarioForm()
     return render(request, "dashboard/usuario_creacion.html", {"form": form})
