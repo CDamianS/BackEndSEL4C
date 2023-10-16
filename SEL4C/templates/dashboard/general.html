@@ -2,14 +2,20 @@
 {% load static %}
 
 {% block title %}
-<h1>General</h1>
+<div class = "title">
+    <h1>General</h1>
+</div>
+
 {% endblock %}
 
 {% block graphs %}
-<h2 style="padding: 10px; margin-left:250px;">
-    Estadisticas de usuarios
-</h2>
+<div class="subtitle">
+    <h2 > Estadisticas de usuarios </h2>
+</div>
+
+
 <div class="graphs">
+    
     <div class = "graph">
         <canvas id="gender"></canvas>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -35,9 +41,10 @@
     </div>
 </div>
 
-<h2 style="padding: 10px; margin-left:250px;">
-    Encuesta inicial
-</h2>
+<div class="subtitle">
+    <h2 > Encuesta Inicial </h2>
+</div>
+
 <div class = "stats">
     <div class="general-graph">
         <div class = "graph">
@@ -48,23 +55,18 @@
             {% endblock %}
         </div>
     </div>
+
     <div class= "general-data">
-        <div class = "data-block" style="
-                      background-color: #34495E;
-                      color: #ffffff;">
+        <div class = "data-block-1">
             <h2>Usuarios</h2>
             <h3>Usuarios registrados: {{ num_usuarios }}</h3>
 
         </div>
-        <div class = "data-block" style="
-                      background-color: #041E42;
-                      color: #ffffff;">
+        <div class = "data-block-2">
             <h2>Retroalimentación</h2>
             <h3>{{ usuarios_done }} usuarios esperan retroalimentación</h3>
         </div>
-        <div class = "data-block" style="
-                      background-color: #2565CE;
-                      color: #ffffff;">
+        <div class = "data-block-3">
             <h2>Cambios</h2>
             <h3>Existen {{ usuarios_done }} cambios por aprobar</h3>
         </div>

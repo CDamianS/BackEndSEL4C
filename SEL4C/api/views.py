@@ -568,7 +568,6 @@ def cuestionario_PC(request):
 ## CRUD general ##
 # CRUD admins
 
-
 @csrf_exempt
 def ver_admins(request):
 
@@ -595,6 +594,9 @@ def ver_admins(request):
 
 @csrf_exempt
 def actulizar_admins(request, pk):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     admin = get_object_or_404(Admin, pk=pk)
 
     if request.method == "POST":
@@ -603,19 +605,22 @@ def actulizar_admins(request, pk):
         if form.is_valid():
             form.save()
             print("Exito")
-            return redirect("SEL4C_Dashboard/usuarios")
+            return redirect("/dashboard/administradores")
         else:
             error_messages = form.errors.values()
             for error in error_messages:
                 print(error)
-                return redirect("SEL4C_Dashboard/usuarios")
+                return redirect("/dashboard/administradores")
     else:
         form = AdminForm(instance=admin)
-        return render(request, "CRUD_Admin/editar_admins.html", {"form": form})
+        return render(request, "dashboard/admin_edicion.html", {"form": form})
 
 
 @csrf_exempt
 def borrar_admins(request, adminID):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     admin = get_object_or_404(Admin, pk=adminID)
     admin.delete()
     print("Exito")
@@ -624,21 +629,24 @@ def borrar_admins(request, adminID):
 
 @csrf_exempt
 def crear_Admin(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     if request.method == "POST":
         form = AdminForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("ver_admins")
+            return redirect("/dashboard/administradores")
         else:
 
             error_message = form.errors.values()
             for error in error_message:
                 print(error)
 
-            return redirect("crear_Admin")
+            return redirect("/dashboard/administradores")
     else:
         form = AdminForm()
-    return render(request, "CRUD_Admin/crear_admins.html", {"form": form})
+    return render(request, "dashboard/admin_creacion.html", {"form": form})
 
 
 # CRUD usuarios
@@ -686,25 +694,31 @@ def ver_usuario(request, pk):
 
 @csrf_exempt
 def actualizar_usuario(request, pk):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     usuario = get_object_or_404(Usuario, usuarioID=pk)
 
     if request.method == "POST":
         form = UsuarioForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
-            return redirect("usuarios")
+            return redirect("/dashboard/usuarios")
         else:
             error_messages = form.errors.values()
             for error in error_messages:
                 print(error)
-                return redirect("usuarios")
+                return redirect("/dashboard/usuarios")
     else:
         form = UsuarioForm(instance=usuario)
-        return render(request, "CRUD_Usuarios/editar_usuarios.html", {"form": form})
+        return render(request, "dashboard/usuario_edicion.html", {"form": form})
 
 
 @csrf_exempt
 def borrar_usuarios(request, usuarioID):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     usuario = get_object_or_404(Usuario, pk=usuarioID)
     usuario.delete()
     print("Exito")
@@ -713,17 +727,20 @@ def borrar_usuarios(request, usuarioID):
 
 @csrf_exempt
 def crear_Usuario(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     if request.method == "POST":
         form = UsuarioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("ver_usuarios")
+            return redirect("/dashboard/usuarios")
         else:
             error_message = form.errors.values()
             for error in error_message:
                 print(error)
 
-            return redirect("ver_usuarios")
+            return redirect("/dashboard/usuarios")
     else:
         form = UsuarioForm()
     return render(request, "dashboard/usuario_creacion.html", {"form": form})
@@ -732,6 +749,8 @@ def crear_Usuario(request):
 # CRUD actividades
 @csrf_exempt
 def ver_actividades(request):
+    if not request.session.get('login'):
+        return redirect('index')
 
     query = request.GET.get("busueda")
     if query:
@@ -760,6 +779,9 @@ def ver_actividades(request):
 
 @csrf_exempt
 def ver_ecnuestasI(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         encuestasI = CuestionarioInicial.objects.filter(
@@ -780,6 +802,9 @@ def ver_ecnuestasI(request):
 
 @csrf_exempt
 def ver_ecnuestasF(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         encuestasF = CuestionarioFinal.objects.filter(
@@ -803,6 +828,9 @@ def ver_ecnuestasF(request):
 
 @csrf_exempt
 def ver_solicitudes_nombres(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         solicitudesN = CambioNombre.objects.filter(
@@ -836,6 +864,9 @@ def cambiar_nombre(request, usuarioID_id, nombre, solicitudNID):
 
 @csrf_exempt
 def ver_solicitudes_contrasenia(request):
+    if not request.session.get('login'):
+        return redirect('index')
+    
     query = request.GET.get("busqueda")
     if query:
         solicitudesC = CambioContrasenia.objects.filter(

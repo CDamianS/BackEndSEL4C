@@ -11,71 +11,72 @@
 {% block graphs %}
         <div class="forma-fondo">
             <div class="contenedor-forma">
-                <form method="post">
+                <form method="POST">
                     {% csrf_token %}
                         
                     <h3 class="titulo-forma">Ingrese los datos del usuario</h3>
 
                     <div class="contenedor-input">
-                        <label class="small mb-1" for="{{ form.nombre.id_for_label }}">Nombre: </label>    
-                        {{ form.nombre }}
+                        <label for="{{ form.nombre.id_for_label }}">Nombre: </label>      
                     </div>
-                        
-                    <div class="form-group">
-                        <label class="small mb-1" for="{{ form.contrasenia.id_for_label }}">Contraseña: </label>       
-                        {{ form.contrasenia }}
-                    </div>   
+                    {{ form.nombre }}
+
+                    <div class="contenedor-input">
+                        <label for="{{ form.contrasenia.id_for_label }}">Contraseña: </label>       
+                    </div> 
+                    {{ form.contrasenia }}  
         
-                                <div class="form-group">
-                                    <label class="small mb-1" for="{{ form.email.id_for_label }}">Email: </label>       
-                                    {{ form.email }}
-                                </div>
+                    <div class="contenedor-input">
+                        <label for="{{ form.email.id_for_label }}">Email: </label>       
+                    </div>
+                    {{ form.email }}
         
-                                <div class="form-group">
-                                    <label class="small mb-1" for="{{ form.avance.id_for_label }}">Avance: </label>       
-                                    {{ form.avance }}
-                                </div>
+                    <div class="contenedor-input">
+                        <label for="{{ form.avance.id_for_label }}">Avance: </label>       
+                    </div>
+                    {{ form.avance }}
                                 
-                                <div class="form-group">
-                                    <label class="small mb-1" for="{{ form.genero.id_for_label }}">Género: </label>       
-                                    {{ form.genero }}
-                                </div>
+                    <div class="contenedor-input">
+                        <label for="{{ form.genero.id_for_label }}">Género: </label>       
+                    </div>
+                    {{ form.genero }}
         
-                                <div class="form-group">
-                                    <label class="small mb-1" for="{{ form.edad.id_for_label }}">Edad: </label>       
-                                    {{ form.edad }}
-                                </div>
+                    <div class="contenedor-input">
+                        <label class="small mb-1" for="{{ form.edad.id_for_label }}">Edad: </label>       
+                    </div>
+                    {{ form.edad }}
         
-                                <div class="form-group">
-                                    <label class="small mb-1" for="{{ form.pais.id_for_label }}">País: </label>       
-                                    {{ form.pais }}
-                                </div>
+                    <div class="contenedor-input">
+                        <label for="{{ form.pais.id_for_label }}">País: </label>       
+                    </div>
+                    {{ form.pais }}
         
-                                <div class="form-group">
-                                    <label class="small mb-1" for="{{ form.institucion.id_for_label }}">Institución: </label>       
-                                    {{ form.institucion }}
-                                </div>
+                    <div class="contenedor-input">
+                        <label for="{{ form.institucion.id_for_label }}">Institución: </label>       
+                    </div>
+                    {{ form.institucion }}
         
-                                <div class="form-group">
-                                    <label class="small mb-1" for="{{ form.grado.id_for_label }}">Grado: </label>       
-                                    {{ form.grado }}
-                                </div>
+                    <div class="contenedor-input">
+                       <label for="{{ form.grado.id_for_label }}">Grado: </label>                
+                    </div>
+                    {{ form.grado }}
         
-                                <div class="form-group">
-                                    <label class="small mb-1" for="{{ form.diciplina.id_for_label }}">Disciplina: </label>       
-                                    {{ form.diciplina }}
-                                </div>
+                    <div class="contenedor-input">
+                        <label for="{{ form.diciplina.id_for_label }}">Disciplina: </label>                
+                    </div>
+                    {{ form.diciplina }}
+
+                    <div class="contenedor-input">
+                        <label for="{{ form.respuestasI.id_for_label }}">Respueats Inicial: </label>                
+                    </div>
+                    {{ form.respuestasI }}
         
-                                <button type="submit"> Crear </button>                   
+                    <button class="button-forma" type="submit"> Crear </button>                   
         
                 </form>
     
             </div>
             
         </div>
-
-
-        
-
 
 {% endblock %}
