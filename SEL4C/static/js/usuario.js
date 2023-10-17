@@ -1,50 +1,50 @@
-const general = document.getElementById('general');
+const usuario = document.getElementById('usuario');
+const usuarioID_id = document.getElementById('data');
 
-fetch('/api/cuestionario_inicial/')
+fetch("/api/calculo", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ usuarioID_id })
+})
 .then(response => response.json())
 .then(data => {
-    const valoresEscala = {
-        "Totalmente de acuerdo": 5,
-        "Poco de acuerdo": 4,
-        "Ni en acuerdo ni en desacuerdo": 3,
-        "Poco en desacuerdo": 2,
-        "Totalmente en desacuerdo": 1
-    };
+    // Parsea los datos
+    const autocontrol = data.Autocontrol;
+    const liderazgo = data.Liderazgo;
+    const conciencia = data.Conciencia;
+    const innovacion = data.Innovacion;
 
-    const dimensiones = {
-        'Autocontrol': [1, 2, 3, 4],
-        'Liderazgo': [5, 6, 7, 8, 9, 10],
-        'Conciencia': [11, 12, 13, 14, 15, 16, 17],
-        'Innovación': [18, 19, 20, 21, 22, 23, 24]
-    };
-
-    const promedios = {};
-
-    for (const dimension in dimensiones) {
-        const dimensionValues = dimensiones[dimension];
-        const total = dimensionValues.reduce((acc, num) => acc + valoresEscala[data[num]], 0);
-        const promedio = total / dimensionValues.length;
-        promedios[dimension] = promedio;
-    }
-
-    // Configura la gráfica con Chart.js
-    new Chart(general, {
+    // Crea el gráfico
+    new Chart(usuario, {
         type: 'radar',
         data: {
-            labels: Object.keys(promedios),
+            labels: ["Autocontrol", "Liderazgo", "Conciencia", "Innovación"],
             datasets: [{
-                label: 'Promedio por Dimensión',
-                data: Object.values(promedios),
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                data: [autocontrol, liderazgo, conciencia, innovacion],
             }]
         },
         options: {
-            scale: {
-                ticks: { beginAtZero: true, min: 1, max: 5 }
+            scales: {
+                r: {
+                    min: 0,
+                    max: 5,
+                    stepSize: 1,
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Respuestas Encuesta Inicial'
+                },
+                legend: {
+                    display: false
+                }
             }
         }
     });
 })
-.catch(error => console.error(error));
+.catch(error => {
+    console.error("Error en la solicitud POST:", error);
+});
