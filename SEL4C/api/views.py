@@ -10,6 +10,7 @@ from rest_framework import viewsets
 import requests
 from django.core.files.storage import FileSystemStorage
 import os
+import json
 
 from .models import (
     Usuario,
@@ -974,32 +975,46 @@ def revisar_progreso(request):
 def upload_string(request):
     if request.method == "POST":
         try:
-            data = request.POST
+            data = json.loads(request.body)
 
-            nombre = data["nombre"]
-            estatus = data["estatus"]
-            usuarioID = data["usuarioID"]
-            input_string = data["entregable"]
-
-            file_name = f"{nombre}.txt"
-            file_path = os.path.join("~/Entregas", file_name)
-            with open(file_path, "w") as file:
-                file.write(input_string)
+            nombre = data.get("nombre")
+            estatus = data.get("estatus")
+            usuarioID = data.get("usuarioID")
+            entregable_data = data.get("entregable")  # Datos del archivo como cadena base64
 
             elUsuario = Usuario.objects.get(usuarioID=usuarioID)
             elUsuario.avance += 1
             elUsuario.save()
 
+            # Crear un nombre único para el archivo de texto
+            nombre_archivo = f"{usuarioID}_{nombre}.txt"
+
+            # Obtener la ruta completa del directorio de entregas del usuario
+            directorio_entregas = os.path.expanduser("~/Entregas")
+
+            # Asegurarse de que el directorio exista
+            if not os.path.exists(directorio_entregas):
+                os.makedirs(directorio_entregas)
+
+            # Ruta donde se guardará el archivo de texto
+            ruta_archivo = os.path.join(directorio_entregas, nombre_archivo)
+
+            # Guardar el contenido de texto en el archivo
+            with open(ruta_archivo, "w") as archivo:
+                archivo.write(entregable_data)
+
+            # Crear la actividad y asociar el archivo con el campo entregable
             actividad = Actividad.objects.create(
                 nombre=nombre,
                 estatus=estatus,
                 usuarioID=elUsuario,
-                entregable=file_path,
             )
-            crearActividad(actividad)
+
+            # Asociar el archivo al campo entregable del modelo Actividad
+            actividad.entregable.save(nombre_archivo, open(ruta_archivo, "rb"))
 
             return JsonResponse({"message": "La actividad se entregó correctamente!!!"})
-        except:
-            return JsonResponse({"error": "Ha ocurrido un error :("}, status=400)
+        except Exception as e:
+            return JsonResponse({"error": f"Ha ocurrido un error: {str(e)}"}, status=400)
     else:
         return HttpResponse("Error en el método de request")
