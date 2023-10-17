@@ -324,9 +324,8 @@ def repuestas_cuestionarioF(request):
 def calculo(request):
     if request.method == "POST":
         try:
-            data = request.POST
-
-            usuarioID_id = data.get("usuarioID_id")  # Cambio el nombre del campo
+            data = json.loads(request.body)
+            usuarioID_id = data.get("usuarioID_id")
             print(usuarioID_id)
 
             respuestas = CuestionarioInicial.objects.filter(usuarioID=usuarioID_id).values_list("respuesta")
