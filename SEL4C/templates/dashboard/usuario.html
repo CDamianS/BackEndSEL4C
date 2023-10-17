@@ -2,33 +2,31 @@
 {% load static %}
 
 {% block title %}
-<h1 style="font-size: 64px;">{{ nombre }}</h1>
 {% endblock %}
 
 {% block graphs %}
+<h2 style="font-size: 64px; margin-left: 260px; margin-top: 100px">{{ nombre }}</h1>
 <h2 style="padding: 10px; margin-left: 260px;">
     Encuesta inicial
 </h2>
 <div class="stats">
-    <div class="general-graph">
-        <div class="graph">
-            <table>
-                <thead>
+    <div class="fondo_tablas">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Pregunta</th>
+                    <th>Respuesta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for respuesta in respuestas_cuestionario %}
                     <tr>
-                        <th>Pregunta</th>
-                        <th>Respuesta</th>
+                        <td>Pregunta {{ respuesta.numero }}</td>
+                        <td>{{ respuesta.respuesta }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for respuesta in respuestas_cuestionario %}
-                        <tr>
-                            <td>Pregunta {{ respuesta.numero }}</td>
-                            <td>{{ respuesta.respuesta }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     <div class="general-graph">
         <div class="graph">
@@ -38,6 +36,10 @@
             {% block first %}
             <script src="{% static 'js/general.js' %}"></script>
             {% endblock %}
+        </div>
+    </div>
+    <div class="general-graph">
+        <div class="graph">
         </div>
     </div>
 </div>

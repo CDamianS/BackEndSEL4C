@@ -33,6 +33,15 @@ fetch('/api/users/')
                     y: {
                         beginAtZero: true
                     }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Edad'
+                    },
+                    legend: {
+                        display: false
+                    }
                 }
             }
         });
