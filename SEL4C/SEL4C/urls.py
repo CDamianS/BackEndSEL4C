@@ -19,6 +19,7 @@ from rest_framework.documentation import include_docs_urls
 from api  import views
 from general import views
 from SEL4C_Dashboard import views
+from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path("", include("general.urls")),
@@ -26,5 +27,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("docs", include_docs_urls(title="Api Documentation")),
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('<path:not_found>', views.error_404, name='error_404'),
 ]
