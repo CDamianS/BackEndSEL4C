@@ -2,44 +2,64 @@
 {% load static %}
 
 {% block title %}
+<h1 style="font-size: 64px; margin-left: 260px; margin-top: 100px">{{ nombre }}</h1>
 {% endblock %}
 
 {% block graphs %}
-<h2 style="font-size: 64px; margin-left: 260px; margin-top: 100px">{{ nombre }}</h1>
-<h2 style="padding: 10px; margin-left: 260px;">
-    Encuesta inicial
-</h2>
 <div class="stats">
-    <div class="fondo_tablas">
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Pregunta</th>
-                    <th>Respuesta</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for respuesta in respuestas_cuestionario %}
+    <div class="titulosycont">
+        <h2>Encuesta inicial</h2>
+        <div class="fondo_tablas">
+            <table class="styled-table">
+                <thead>
                     <tr>
-                        <td>Pregunta {{ respuesta.numero }}</td>
-                        <td>{{ respuesta.respuesta }}</td>
+                        <th>Pregunta</th>
+                        <th>Respuesta</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div class="general-graph">
-        <div class="graph">
-            <canvas id="general"></canvas>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <div id="data" data-id="{{ ID }}"></div>
-            {% block first %}
-            <script src="{% static 'js/general.js' %}"></script>
-            {% endblock %}
+                </thead>
+                <tbody>
+                    {% for respuesta in respuestasEI %}
+                        <tr>
+                            <td>Pregunta {{ respuesta.numero }}</td>
+                            <td>{{ respuesta.respuesta }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="general-graph">
-        <div class="graph">
+    <div class="titulosycont">
+        <h2>Encuesta PC</h2>
+        <div class="fondo_tablas">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Pregunta</th>
+                        <th>Respuesta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for respuesta in respuestasPC %}
+                        <tr>
+                            <td>Pregunta {{ respuesta.numero }}</td>
+                            <td>{{ respuesta.respuesta }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <h2 style="margin-left: 20px">Resultados encuesta inicial</h2>
+        <div class="general-graph">
+            <div class="graph">
+                <canvas id="usuario"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <div id="data" data-id="{{ ID }}"></div>
+                {% block first %}
+                <script src="{% static 'js/usuario.js' %}"></script>
+                {% endblock %}
+            </div>
         </div>
     </div>
 </div>

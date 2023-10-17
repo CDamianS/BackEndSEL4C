@@ -37,7 +37,7 @@ fetch('/api/users/')
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Edad'
+                        text: 'Edad de los usuarios'
                     },
                     legend: {
                         display: false

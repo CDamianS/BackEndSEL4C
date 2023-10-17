@@ -173,7 +173,7 @@ def borrar_admins(request, adminID):
 def usuarioGraph(request, usuario_id):
     if not request.session.get('login'):
         return redirect('index')
-    
+
     usuario = Usuario.objects.get(usuarioID=usuario_id)
     usuario_json = {
         "nombre": usuario.nombre,
@@ -183,13 +183,24 @@ def usuarioGraph(request, usuario_id):
 
     respuestas_cuestionario = CuestionarioInicial.objects.filter(usuarioID=usuario)
 
-    respuestas_lista = []
-    for respuesta in respuestas_cuestionario:
-        respuesta_dict = {
-            "numero": respuesta.numero,
-            "respuesta": respuesta.respuesta
-        }
-        respuestas_lista.append(respuesta_dict)
+    responsesEI = []
+    respuestasPC = []
 
-    usuario_json["respuestas_cuestionario"] = respuestas_lista
+    for respuesta in respuestas_cuestionario:
+        if respuesta.numero <= 24:
+            responsesEI.append({
+                "numero": respuesta.numero,
+                "respuesta": respuesta.respuesta
+            })
+        else:
+            # Resta 24 al número y agrega a respuestasPC
+            numero_pc = respuesta.numero - 24
+            respuestasPC.append({
+                "numero": numero_pc,
+                "respuesta": respuesta.respuesta
+            })
+
+    usuario_json["respuestasEI"] = responsesEI
+    usuario_json["respuestasPC"] = respuestasPC
+
     return render(request, "dashboard/usuario.html", usuario_json)

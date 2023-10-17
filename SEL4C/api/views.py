@@ -323,9 +323,9 @@ def repuestas_cuestionarioF(request):
 def calculo(request):
     if request.method == "POST":
         try:
-            data = (request.POST)
+            data = request.POST
 
-            usuarioID_id = data["usuarioID_id"]
+            usuarioID_id = data.get("usuarioID_id")  # Cambio el nombre del campo
             print(usuarioID_id)
 
             respuestas = CuestionarioInicial.objects.filter(usuarioID=usuarioID_id).values_list("respuesta")
@@ -385,9 +385,6 @@ def calculo(request):
             Liderazgo_Promedio = Liderazgo_Promedio/len(Liderazgo)
             Conciencia_Promedio = Conciencia_Promedio/len(Conciencia)
             Innovacion_Promedio = Innovacion_Promedio/len(Innovacion)
-
-
-
             return JsonResponse(
                 {
                     "Autocontrol": Autocontrol_Promedio,
@@ -396,8 +393,8 @@ def calculo(request):
                     "Innovacion": Innovacion_Promedio,
                 }
             )
-        except:
-            return JsonResponse({"message": "Error"} )
+        except Exception as e:
+            return JsonResponse({"message": str(e)})
 
 
 

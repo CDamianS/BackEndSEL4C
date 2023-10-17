@@ -21,7 +21,7 @@ fetch('/api/users/')
             data: {
                 labels: progress,
                 datasets: [{
-                    label: 'Avance',
+                    label: 'Avance por número de entregas',
                     data: progressValues,
                     borderWidth: 2,
                     borderColor: 'rgba(255, 99, 132, 1)', // Cambia el color de la línea aquí
@@ -37,7 +37,7 @@ fetch('/api/users/')
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Avance'
+                            text: 'Numero de entregas de los usuarios'
                         },
                         legend: {
                             display: false
