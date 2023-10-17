@@ -323,10 +323,10 @@ def repuestas_cuestionarioF(request):
 def calculo(request):
     if request.method == "POST":
         try:
-            data = (request.POST)
+            data = loads(request.body)
+            #data = request.POST
 
             usuarioID_id = data["usuarioID_id"]
-            print(usuarioID_id)
 
             respuestas = CuestionarioInicial.objects.filter(usuarioID=usuarioID_id).values_list("respuesta")
             respuestas_lista = []
@@ -346,8 +346,6 @@ def calculo(request):
             Conciencia_Promedio = 0
             Innovacion_Promedio = 0
             
-
-            print(respuestas_lista)
             valores_str = []
             valores_num = []
         
@@ -397,13 +395,7 @@ def calculo(request):
                 }
             )
         except:
-            return JsonResponse({"message": "Error"} )
-
-
-
-
-
-
+            return JsonResponse({"message": "Invalid data or format"})
 
 
 @csrf_exempt
