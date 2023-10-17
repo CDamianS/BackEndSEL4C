@@ -71,6 +71,8 @@ urlpatterns = [
         views.cambiar_contrasenia,
         name="cambiar_contrasenia",
     ),
+    path("calculo", views.calculo, name="calculo"),
     path("revisar_progreso", views.revisar_progreso, name="revisar_progreso"),
     path("upload_string", views.upload_string, name="upload_string"),
+
 ]
