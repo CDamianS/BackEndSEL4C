@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+import os
 from json import loads, dumps, JSONDecodeError, JSONDecoder, load
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
@@ -866,3 +867,56 @@ def cambiar_contrasenia(request, usuarioID_id, contrasenia, solicitudCID):
 
     print("Exito")
     return redirect("ver_solicitudes_contrasenia")
+
+@csrf_exempt
+def revisar_progreso(request):
+    if request.method == "POST":
+        try:
+            data = loads(request.body)
+            usuarioID = data["id"]
+        except Exception as e:
+            return JsonResponse({"error": "Error en la solicitud POST"}, status=400)
+
+        nombres_actividades = ["identificacion", "investigacion", "ideacion", "socializacion"]
+        progreso_actividades = {}
+
+        for nombre_actividad in nombres_actividades:
+            actividad_existente = Actividad.objects.filter(usuarioID=usuarioID, nombre=nombre_actividad).exists()
+            progreso_actividades[nombre_actividad] = actividad_existente
+
+        return JsonResponse(progreso_actividades)
+
+    return JsonResponse({"error": "Método no admitido"}, status=405)
+
+@csrf_exempt
+def upload_string(request):
+    if request.method == "POST":
+        try:
+            nombre = request.POST.get("nombre")
+            estatus = request.POST.get("estatus")
+            usuarioID = request.POST.get("usuarioID")
+            entregable_string = request.POST.get("entregable")
+
+            elUsuario = Usuario.objects.get(usuarioID=usuarioID)
+            elUsuario.avance += 1
+            elUsuario.save()
+
+            actividad = Actividad.objects.create(
+                nombre=nombre,
+                estatus=estatus,
+                usuarioID=elUsuario,
+            )
+
+            file_path = os.path.join("media", "entregables", f"actividad_{actividad.nombre}.txt")
+            with open(file_path, "w") as file:
+                file.write(entregable_string)
+
+            # Asigna la ruta del archivo entregable a la actividad
+            actividad.entregable.name = file_path
+            actividad.save()
+
+            return JsonResponse({"message": "La actividad se entregó correctamente!!!"})
+        except Exception as e:
+            return JsonResponse({"error": f"Ha ocurrido un error: {str(e)}"}, status=400)
+    else:
+        return HttpResponse("Error en el método de request")

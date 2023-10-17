@@ -30,9 +30,18 @@ fetch('/api/users/')
             },
             options: {
                 scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Avance'
+                        },
+                        legend: {
+                            display: false
+                        }
                 }
             }
         });
