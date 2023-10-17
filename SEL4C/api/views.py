@@ -319,6 +319,92 @@ def repuestas_cuestionarioF(request):
         return JsonResponse({"message": "Data processed successfully."}, status=200)
     return JsonResponse({"message": "Invalid request method."}, status=405)
 
+@csrf_exempt
+def calculo(request):
+    if request.method == "POST":
+        try:
+            data = (request.POST)
+
+            usuarioID_id = data["usuarioID_id"]
+            print(usuarioID_id)
+
+            respuestas = CuestionarioInicial.objects.filter(usuarioID=usuarioID_id).values_list("respuesta")
+            respuestas_lista = []
+
+            for respuesta in respuestas:
+                respuestas_lista.append(respuesta)     
+
+            
+
+            Autocontrol = [1, 2, 3, 4]
+            Liderazgo = [5, 6, 7, 8, 9, 10]
+            Conciencia = [11, 12, 13, 14, 15, 16, 17]
+            Innovacion = [18, 19, 20, 21, 22, 23, 24]
+
+            Autocontrol_Promedio = 0
+            Liderazgo_Promedio = 0
+            Conciencia_Promedio = 0
+            Innovacion_Promedio = 0
+            
+
+            print(respuestas_lista)
+            valores_str = []
+            valores_num = []
+        
+            for valor in respuestas_lista:
+                vall = str(valor)
+                valores_str.append(vall)
+
+            for vall in valores_str:
+                if vall == "('Totalmente de acuerdo',)":
+                    valores_num.append(5)
+                if vall == "('Poco de acuerdo',)":
+                    valores_num.append(4)
+                if vall == "('Ni en acuerdo ni en desacuerdo',)":
+                    valores_num.append(3)
+                if vall == "('Poco en desacuerdo',)":
+                    valores_num.append(2)
+                if vall == "('Totalmente en desacuerdo',)":
+                    valores_num.append(1)
+            
+            i = 1
+            for num in valores_num:
+                
+                if i in Autocontrol:
+                    Autocontrol_Promedio += num
+                if i in Liderazgo:
+                    Liderazgo_Promedio += num
+                if i in Conciencia:
+                    Conciencia_Promedio += num
+                if i in Innovacion:
+                    Innovacion_Promedio += num  
+
+                i += 1
+
+            Autocontrol_Promedio = Autocontrol_Promedio/len(Autocontrol)
+            Liderazgo_Promedio = Liderazgo_Promedio/len(Liderazgo)
+            Conciencia_Promedio = Conciencia_Promedio/len(Conciencia)
+            Innovacion_Promedio = Innovacion_Promedio/len(Innovacion)
+
+
+
+            return JsonResponse(
+                {
+                    "Autocontrol": Autocontrol_Promedio,
+                    "Liderazgo": Liderazgo_Promedio,
+                    "Conciencia": Conciencia_Promedio,
+                    "Innovacion": Innovacion_Promedio,
+                }
+            )
+        except:
+            return JsonResponse({"message": "Error"} )
+
+
+
+
+
+
+
 
 @csrf_exempt
 def cuestionario_inicial(request):

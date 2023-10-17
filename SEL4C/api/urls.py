@@ -71,4 +71,5 @@ urlpatterns = [
         views.cambiar_contrasenia,
         name="cambiar_contrasenia",
     ),
+    path("calculo", views.calculo, name="calculo"),
 ]
