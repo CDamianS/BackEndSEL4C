@@ -41,7 +41,7 @@ new Chart(ctx, {
         plugins: {
             title: {
                 display: true,
-                text: 'Género'
+                text: 'Género de usuarios'
             },
             legend: {
                 display: false
