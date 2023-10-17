@@ -283,6 +283,8 @@ h1 {
     display: flex;
     padding: 20px 20px;
     overflow-x: auto;
+    overflow-y: auto;
+    max-height: 500px;
 }
 
 .styled-table {
@@ -291,7 +293,7 @@ h1 {
     font-family: sans-serif;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    
+
 }
 
 .styled-table thead tr {

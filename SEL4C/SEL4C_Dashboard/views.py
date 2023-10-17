@@ -56,7 +56,10 @@ def general(request):
     
     num_usuarios = Usuario.objects.count()
     usuarios_done = Usuario.objects.filter(avance=5).count()
-    context = {"num_usuarios": num_usuarios, "usuarios_done": usuarios_done}
+    cambios = CambioNombre.objects.count() + CambioContrasenia.objects.count()
+    context = {"num_usuarios": num_usuarios,
+               "usuarios_done": usuarios_done,
+               "cambios": cambios}
     return render(request, "dashboard/general.html", context)
 
 

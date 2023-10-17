@@ -944,3 +944,57 @@ def cambiar_contrasenia(request, usuarioID_id, contrasenia, solicitudCID):
 
     print("Exito")
     return redirect("ver_solicitudes_contrasenia")
+
+@csrf_exempt
+def revisar_progreso(request):
+    if request.method == "POST":
+        try:
+            data = loads(request.body)
+            usuarioID = data["id"]
+        except Exception as e:
+            return JsonResponse({"error": "Error en la solicitud POST"}, status=400)
+
+        nombres_actividades = ["identificacion", "investigacion", "ideacion", "socializacion"]
+        progreso_actividades = {}
+
+        for nombre_actividad in nombres_actividades:
+            actividad_existente = Actividad.objects.filter(usuarioID=usuarioID, nombre=nombre_actividad).exists()
+            progreso_actividades[nombre_actividad] = actividad_existente
+
+        return JsonResponse(progreso_actividades)
+
+    return JsonResponse({"error": "Método no admitido"}, status=405)
+
+@csrf_exempt
+def upload_string(request):
+    if request.method == "POST":
+        try:
+            data = request.POST
+
+            nombre = data["nombre"]
+            estatus = data["estatus"]
+            usuarioID = data["usuarioID"]
+            input_string = data["entregable"]
+
+            file_name = f"{nombre}.txt"
+            file_path = os.path.join("~/Entregas", file_name)
+            with open(file_path, "w") as file:
+                file.write(input_string)
+
+            elUsuario = Usuario.objects.get(usuarioID=usuarioID)
+            elUsuario.avance += 1
+            elUsuario.save()
+
+            actividad = Actividad.objects.create(
+                nombre=nombre,
+                estatus=estatus,
+                usuarioID=elUsuario,
+                entregable=file_path,
+            )
+            crearActividad(actividad)
+
+            return JsonResponse({"message": "La actividad se entregó correctamente!!!"})
+        except:
+            return JsonResponse({"error": "Ha ocurrido un error :("}, status=400)
+    else:
+        return HttpResponse("Error en el método de request")
