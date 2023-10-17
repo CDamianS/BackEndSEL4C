@@ -888,7 +888,7 @@ def revisar_progreso(request):
     return JsonResponse({"error": "Método no admitido"}, status=405)
 
 @csrf_exempt
-def upload_string(request, input_string):
+def upload_string(request):
     if request.method == "POST":
         try:
             data = request.POST
@@ -896,6 +896,7 @@ def upload_string(request, input_string):
             nombre = data["nombre"]
             estatus = data["estatus"]
             usuarioID = data["usuarioID"]
+            input_string = data["entregable"]
 
             file_name = f"{nombre}.txt"
             file_path = os.path.join("~/Entregas", file_name)
