@@ -192,7 +192,7 @@ def upload(request):
             nombre = data["nombre"]
             estatus = data["estatus"]
             usuarioID = data["usuarioID"]
-            entregable = file.get("entregable")  # Cambiamos file["entregable"] a file.get("entregable")
+            entregable = file["entregable"]
 
             elUsuario = Usuario.objects.get(usuarioID=usuarioID)
             elUsuario.avance += 1
@@ -204,21 +204,13 @@ def upload(request):
                 usuarioID=elUsuario,
                 entregable=entregable,
             )
+            crearActividad(actividad)
 
-            # Si entregable es un archivo, guárdalo
-            if entregable:
-                file_path = os.path.join("media", "entregables", f"actividad_{actividad.actividadID}.txt")
-                with open(file_path, "wb") as file:
-                    for chunk in entregable.chunks():
-                        file.write(chunk)
-                actividad.entregable.name = file_path
-                actividad.save()
-
-            return JsonResponse({"message": "La actividad se entregó correctamente!!!"})
-        except Exception as e:
-            return JsonResponse({"error": f"Ha ocurrido un error: {str(e)}"}, status=400)
+            return JsonResponse({"message": "La actividad se entrgo correctamente!!!"})
+        except:
+            return JsonResponse({"error": "Ha ocurrido un errror :("}, status=400)
     else:
-        return HttpResponse("Error en el método de request")
+        return HttpResponse("Error en el metodo de requet")
 
 
 @csrf_exempt
@@ -896,13 +888,19 @@ def revisar_progreso(request):
     return JsonResponse({"error": "Método no admitido"}, status=405)
 
 @csrf_exempt
-def upload_string(request):
+def upload_string(request, input_string):
     if request.method == "POST":
         try:
-            nombre = request.POST.get("nombre")
-            estatus = request.POST.get("estatus")
-            usuarioID = request.POST.get("usuarioID")
-            entregable_string = request.POST.get("entregable")
+            data = request.POST
+
+            nombre = data["nombre"]
+            estatus = data["estatus"]
+            usuarioID = data["usuarioID"]
+
+            file_name = f"{nombre}.txt"
+            file_path = os.path.join("~/Entregas", file_name)
+            with open(file_path, "w") as file:
+                file.write(input_string)
 
             elUsuario = Usuario.objects.get(usuarioID=usuarioID)
             elUsuario.avance += 1
@@ -912,14 +910,12 @@ def upload_string(request):
                 nombre=nombre,
                 estatus=estatus,
                 usuarioID=elUsuario,
+                entregable=file_path,
             )
-
-            entregable_path = actividad.entregable.path
-            with open(entregable_path, "w") as file:
-                file.write(entregable_string)
+            crearActividad(actividad)
 
             return JsonResponse({"message": "La actividad se entregó correctamente!!!"})
-        except Exception as e:
-            return JsonResponse({"error": f"Ha ocurrido un error: {str(e)}"}, status=400)
+        except:
+            return JsonResponse({"error": "Ha ocurrido un error :("}, status=400)
     else:
         return HttpResponse("Error en el método de request")
