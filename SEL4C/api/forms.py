@@ -21,9 +21,7 @@ class UsuarioForm(forms.ModelForm):
             'avance': forms.NumberInput(attrs={'class': 'contenedor-input-entrada'}),
             'edad': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
             'pais': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
-            'institucion': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
-            'grado': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
-            'diciplina': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
+
         }
 
 class ActividadForm(forms.ModelForm):

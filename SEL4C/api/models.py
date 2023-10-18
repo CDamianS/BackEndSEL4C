@@ -1,8 +1,10 @@
 from django.db import models
 
-# Create your models here.
 
+# Create your models here.
 # Parametos para el model de Actividades
+
+
 usuario_genero = (
     ("Masculino", "Masculino"),
     ("Femenino", "Femenino"),
@@ -32,8 +34,8 @@ class Usuario(models.Model):
     genero = models.CharField(max_length=50, blank=True, choices=usuario_genero)
     edad = models.IntegerField(blank=True)
     pais = models.CharField(max_length=50, blank=True)
-    institucion = models.CharField(max_length=100, blank=True)
-    grado = models.CharField(max_length=50, blank=True, choices=grado_academico)
+    institucion = models.CharField(max_length=100, blank=True, default = "Tecnológico de Monterrey")
+    grado = models.CharField(max_length=100, blank=True, choices=grado_academico)
     diciplina = models.CharField(max_length=100, blank=True, choices=disciplina_c)
     respuestasI = models.BooleanField(default=False)
 
