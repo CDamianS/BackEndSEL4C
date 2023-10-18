@@ -295,6 +295,9 @@ def repuestas_cuestionarioI(request):
                 numero=response_id, respuesta=answer, usuarioID=usuario
             )
 
+            usuario.avance += 1
+            usuario.save()
+
         return JsonResponse({"message": "Data processed successfully."}, status=200)
     return JsonResponse({"message": "Invalid request method."}, status=405)
 
@@ -361,7 +364,7 @@ def calculo(request):
                     valores_num.append(4)
                 if vall == "('Ni en acuerdo ni en desacuerdo',)":
                     valores_num.append(3)
-                if vall == "('En desacuerdo|',)":
+                if vall == "('En desacuerdo',)":
                     valores_num.append(2)
                 if vall == "('Totalmente en desacuerdo',)":
                     valores_num.append(1)

@@ -20,7 +20,6 @@ class UsuarioForm(forms.ModelForm):
             'email': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
             'avance': forms.NumberInput(attrs={'class': 'contenedor-input-entrada'}),
             'edad': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
-            'pais': forms.TextInput(attrs={'class': 'contenedor-input-entrada'}),
 
         }
 
