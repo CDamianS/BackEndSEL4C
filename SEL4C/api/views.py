@@ -358,11 +358,11 @@ def calculo(request):
             for vall in valores_str:
                 if vall == "('Totalmente de acuerdo',)":
                     valores_num.append(5)
-                if vall == "('Poco de acuerdo',)":
+                if vall == "('De acuerdo',)":
                     valores_num.append(4)
                 if vall == "('Ni en acuerdo ni en desacuerdo',)":
                     valores_num.append(3)
-                if vall == "('Poco en desacuerdo',)":
+                if vall == "('En desacuerdo',)":
                     valores_num.append(2)
                 if vall == "('Totalmente en desacuerdo',)":
                     valores_num.append(1)
