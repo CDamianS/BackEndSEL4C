@@ -11,6 +11,7 @@ import requests
 from django.core.files.storage import FileSystemStorage
 import os
 import json
+import pycountry
 
 from .models import (
     Usuario,
@@ -346,8 +347,6 @@ def calculo(request):
             Conciencia_Promedio = 0
             Innovacion_Promedio = 0
             
-
-            print(respuestas_lista)
             valores_str = []
             valores_num = []
         
@@ -974,12 +973,12 @@ def revisar_progreso(request):
 def upload_string(request):
     if request.method == "POST":
         try:
-            data = json.loads(request.body)
+            data = request.POST
 
-            nombre = data.get("nombre")
-            estatus = data.get("estatus")
-            usuarioID = data.get("usuarioID")
-            entregable_data = data.get("entregable")  # Datos del archivo como cadena base64
+            nombre = data["nombre"]
+            estatus = data["estatus"]
+            usuarioID = data["usuarioID"]
+            entregable_data = data["entregable"]  # Datos del archivo como cadena base64
 
             elUsuario = Usuario.objects.get(usuarioID=usuarioID)
             elUsuario.avance += 1
@@ -1017,3 +1016,4 @@ def upload_string(request):
             return JsonResponse({"error": f"Ha ocurrido un error: {str(e)}"}, status=400)
     else:
         return HttpResponse("Error en el método de request")
+
