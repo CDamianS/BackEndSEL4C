@@ -1,50 +1,61 @@
 const usuario = document.getElementById('usuario');
-const usuarioID_id = document.getElementById('data');
+const element = document.getElementById('data');
+const usuarioID = element.getAttribute('data-id');
 
-fetch("/api/calculo", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ usuarioID_id })
-})
-.then(response => response.json())
-.then(data => {
-    // Parsea los datos
-    const autocontrol = data.Autocontrol;
-    const liderazgo = data.Liderazgo;
-    const conciencia = data.Conciencia;
-    const innovacion = data.Innovacion;
+apiUrl = '/api/calculo';
 
-    // Crea el gráfico
-    new Chart(usuario, {
-        type: 'radar',
-        data: {
-            labels: ["Autocontrol", "Liderazgo", "Conciencia", "Innovación"],
-            datasets: [{
-                data: [autocontrol, liderazgo, conciencia, innovacion],
-            }]
-        },
-        options: {
-            scales: {
-                r: {
-                    min: 0,
-                    max: 5,
-                    stepSize: 1,
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Respuestas Encuesta Inicial'
-                },
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
+const data = {
+  usuarioID_id: usuarioID,
+};
+
+fetch(apiUrl, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
 })
-.catch(error => {
-    console.error("Error en la solicitud POST:", error);
+  .then((response) => response.json())
+  .then((responseData) => {
+    // Crea el gráfico de radar con los datos obtenidos
+    createRadarChart(responseData);
+  })
+  .catch((error) => {
+    console.error('Error al obtener los datos:', error);
 });
+
+function createRadarChart(data) {
+  // Agrega un console.log para verificar los datos recibidos
+  console.log(data);  // Utiliza 'data' en lugar de 'responseData'
+
+  const labels = Object.keys(data);  // Obtiene las etiquetas a partir de las claves de los datos
+  const values = Object.values(data); // Obtiene los valores a partir de los datos
+
+  // Configuración del gráfico
+  const config = {
+    type: 'radar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Puntuación',
+          data: values,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de fondo del gráfico
+          borderColor: 'rgba(75, 192, 192, 1)',     // Color del borde del gráfico
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        r: {
+          suggestedMin: 0,
+          suggestedMax: 5,
+        },
+      },
+    },
+  };
+
+  // Crea el gráfico de radar
+  new Chart(usuario, config);
+}

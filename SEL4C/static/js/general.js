@@ -5,9 +5,9 @@ fetch('/api/cuestionario_inicial/')
   .then(data => {
     const valoresEscala = {
       "Totalmente de acuerdo": 5,
-      "Poco de acuerdo": 4,
+      "De acuerdo": 4,
       "Ni en acuerdo ni en desacuerdo": 3,
-      "Poco en desacuerdo": 2,
+      "En desacuerdo": 2,
       "Totalmente en desacuerdo": 1
     };
 
