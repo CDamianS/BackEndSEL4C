@@ -1,23 +1,29 @@
 from django.db import models
 
-# Create your models here.
 
+# Create your models here.
 # Parametos para el model de Actividades
-estatus_status = ["Completado", "No completado"]
-nombre_status = [
-    "1.- Identificación",
-    "2.- Investigación",
-    "3.- Ideación",
-    "4.- Socialización",
-    "Entregable final",
-]
+
+
 usuario_genero = (
     ("Masculino", "Masculino"),
     ("Femenino", "Femenino"),
     ("Otro", "Otro"),
     ("Prefiero no decir", "Prefiero no decirlo")
 )
-
+grado_academico = (
+    ("Pregrado (licenciatura, profesional, universidad, grado)", "Pregrado (licenciatura, profesional, universidad, grado)"),
+    ("Posgrado (maestría, doctorado)", "Posgrado (maestría, doctorado)"),
+    ("Educación continua", "Educación continua")
+)
+disciplina_c = (
+    ("Ingenieria y ciencias", "Ingenieria y ciencias"),
+    ("Humanidades y ciencia", "Humanidades y ciencia"),
+    ("Ciencias sociales", "Ciencias sociales"),
+    ("Ciencias de la salud", "Ciencias de la salud"),
+    ("Arquitectura, Arte y Diseño", "Arquitectura, Arte y Diseño"),
+    ("Negocios", "Negocios")
+)
 
 class Usuario(models.Model):
     usuarioID = models.AutoField(primary_key=True, blank=True)
@@ -28,9 +34,9 @@ class Usuario(models.Model):
     genero = models.CharField(max_length=50, blank=True, choices=usuario_genero)
     edad = models.IntegerField(blank=True)
     pais = models.CharField(max_length=50, blank=True)
-    institucion = models.CharField(max_length=100, blank=True)
-    grado = models.CharField(max_length=50, blank=True)
-    diciplina = models.CharField(max_length=100, blank=True)
+    institucion = models.CharField(max_length=100, blank=True, default = "Tecnológico de Monterrey")
+    grado = models.CharField(max_length=100, blank=True, choices=grado_academico)
+    diciplina = models.CharField(max_length=100, blank=True, choices=disciplina_c)
     respuestasI = models.BooleanField(default=False)
 
     def __str__(self):

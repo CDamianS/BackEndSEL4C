@@ -11,6 +11,7 @@ import requests
 from django.core.files.storage import FileSystemStorage
 import os
 import json
+import pycountry
 
 from .models import (
     Usuario,
@@ -346,8 +347,6 @@ def calculo(request):
             Conciencia_Promedio = 0
             Innovacion_Promedio = 0
             
-
-            print(respuestas_lista)
             valores_str = []
             valores_num = []
         
@@ -358,11 +357,11 @@ def calculo(request):
             for vall in valores_str:
                 if vall == "('Totalmente de acuerdo',)":
                     valores_num.append(5)
-                if vall == "('Poco de acuerdo',)":
+                if vall == "('De acuerdo',)":
                     valores_num.append(4)
                 if vall == "('Ni en acuerdo ni en desacuerdo',)":
                     valores_num.append(3)
-                if vall == "('Poco en desacuerdo',)":
+                if vall == "('En desacuerdo|',)":
                     valores_num.append(2)
                 if vall == "('Totalmente en desacuerdo',)":
                     valores_num.append(1)
@@ -1017,3 +1016,4 @@ def upload_string(request):
             return JsonResponse({"error": f"Ha ocurrido un error: {str(e)}"}, status=400)
     else:
         return HttpResponse("Error en el método de request")
+
