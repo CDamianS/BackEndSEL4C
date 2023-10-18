@@ -974,12 +974,12 @@ def revisar_progreso(request):
 def upload_string(request):
     if request.method == "POST":
         try:
-            data = json.loads(request.body)
+            data = request.POST
 
-            nombre = data.get("nombre")
-            estatus = data.get("estatus")
-            usuarioID = data.get("usuarioID")
-            entregable_data = data.get("entregable")  # Datos del archivo como cadena base64
+            nombre = data["nombre"]
+            estatus = data["estatus"]
+            usuarioID = data["usuarioID"]
+            entregable_data = data["entregable"]  # Datos del archivo como cadena base64
 
             elUsuario = Usuario.objects.get(usuarioID=usuarioID)
             elUsuario.avance += 1
