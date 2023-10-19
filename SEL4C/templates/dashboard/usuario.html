@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block graphs %}
+<h2 style="margin-left: 290px;">Encuesta inicial</h2>
 <div class="stats">
     <div>
         <h2 style="margin-left: 20px">Resultados de Perfil de Emprendedor Social</h2>
@@ -75,6 +76,35 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+<h2 style="margin-left: 290px;">Encuesta Final</h2>
+<div class="stats">
+    <div>
+        <h2 style="margin-left: 20px">Resultados de Perfil de Emprendedor Social</h2>
+        <div class="general-graph">
+            <div class="graph">
+                <canvas id="usuariofinal"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <div id="datos" data-id="{{ ID }}"></div>
+                {% block third %}
+                <script src="{% static 'js/usuariofinal.js' %}"></script>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2 style="margin-left: 20px">Resultados de Pensamiento Complejo</h2>
+        <div class="general-graph">
+            <div class="graph">
+                <canvas id="usuariopcfinal"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <div id="datos" data-id="{{ ID }}"></div>
+                {% block fourth %}
+                <script src="{% static 'js/usuariopcfinal.js' %}"></script>
+                {% endblock %}
+            </div>
         </div>
     </div>
 </div>

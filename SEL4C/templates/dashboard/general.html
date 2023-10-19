@@ -42,6 +42,7 @@
 </div>
 
 
+<h1>Resultados encuesta inicial</h1>
 <div class = "stats">
     <div>
         <h2 style="margin-left: 20px"> Perfil de Emprendedor Social </h2>
@@ -63,6 +64,33 @@
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 {% block fifth %}
                 <script src="{% static 'js/pensamiento.js' %}"></script>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<h1>Resultados encuesta final</h1>
+<div class = "stats">
+    <div>
+        <h2 style="margin-left: 20px"> Perfil de Emprendedor Social </h2>
+        <div class="general-graph">
+            <div class = "graph">
+                <canvas id="generalfinal"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                {% block sixth %}
+                <script src="{% static 'js/generalfinal.js' %}"></script>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2 style="margin-left: 20px"> Pensamiento Complejo </h2>
+        <div class="general-graph">
+            <div class = "graph">
+                <canvas id="pensamientofinal"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                {% block seventh %}
+                <script src="{% static 'js/pensamientofinal.js' %}"></script>
                 {% endblock %}
             </div>
         </div>

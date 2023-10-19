@@ -73,6 +73,8 @@ urlpatterns = [
     ),
     path("calculo", views.calculo, name="calculo"),
     path("calculo2", views.calculo2, name="calculo2"),
+    path("calculo3", views.calculo3, name="calculo3"),
+    path("calculo4", views.calculo3, name="calculo4"),
     path("revisar_progreso", views.revisar_progreso, name="revisar_progreso"),
     path("upload_string", views.upload_string, name="upload_string"),
 

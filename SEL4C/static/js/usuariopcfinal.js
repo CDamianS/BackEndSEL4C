@@ -1,23 +1,23 @@
-const usuario = document.getElementById('usuario'); // Utiliza 'usuario' para el segundo gráfico
-const element = document.getElementById('data'); // Utiliza 'data' para el segundo gráfico
-const usuarioID = element.getAttribute('data-id');
+const usuariopcfinal = document.getElementById('usuariopcfinal');
+const userpcfinal = document.getElementById('datos');
+const idpcfinal = userpcfinal.getAttribute('data-id');
 
-const apiUrl = '/api/calculo';
+const apiUrl3 = '/api/calculo4';
 
-const data = {
-  usuarioID_id: usuarioID,
+const datospcfinales = {
+  usuarioID_id: idpcfinal,
 };
 
-fetch(apiUrl, {
+fetch(apiUrl3, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify(data),
+  body: JSON.stringify(datospcfinales),
 })
-  .then((response) => response.json())
-  .then((responseData) => {
-    createRadarChart(usuario, responseData); // Utiliza 'usuario' para el segundo gráfico
+  .then((respuesta) => respuesta.json())
+  .then((responseDatos) => {
+    createRadarChart(usuariopcfinal, responseDatos);
   })
   .catch((error) => {
     console.error('Error al obtener los datos:', error);
