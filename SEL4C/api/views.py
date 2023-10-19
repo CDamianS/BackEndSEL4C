@@ -295,6 +295,10 @@ def repuestas_cuestionarioI(request):
                 numero=response_id, respuesta=answer, usuarioID=usuario
             )
 
+            usuario.avance += 1
+            usuario.respuestasI = True
+            usuario.save()
+
         return JsonResponse({"message": "Data processed successfully."}, status=200)
     return JsonResponse({"message": "Invalid request method."}, status=405)
 
@@ -390,6 +394,82 @@ def calculo(request):
                     "Liderazgo": Liderazgo_Promedio,
                     "Conciencia": Conciencia_Promedio,
                     "Innovacion": Innovacion_Promedio,
+                }
+            )
+        except Exception as e:
+            return JsonResponse({"message": str(e)})
+        
+
+@csrf_exempt
+def calculo2(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            usuarioID_id = data.get("usuarioID_id")
+            print(usuarioID_id)
+
+            respuestas = CuestionarioInicial.objects.filter(usuarioID=usuarioID_id).values_list("respuesta")
+            respuestas_lista = []
+
+            for respuesta in respuestas:
+                respuestas_lista.append(respuesta)     
+
+            
+
+            Sistémico: [25, 26, 27, 28, 29, 30]
+            Científico: [31, 32, 33, 34, 35, 36, 37, 38]
+            Crítico: [39, 40, 41, 42, 43, 44]
+            Inovador: [45, 46, 47, 48, 49]
+
+
+            Sistémico_Promedio = 0
+            Científico_Promedio = 0
+            Crítico_Promedio = 0
+            Inovador_Promedio = 0
+            
+            valores_str = []
+            valores_num = []
+        
+            for valor in respuestas_lista:
+                vall = str(valor)
+                valores_str.append(vall)
+
+            for vall in valores_str:
+                if vall == "('Totalmente de acuerdo',)":
+                    valores_num.append(5)
+                if vall == "('De acuerdo',)":
+                    valores_num.append(4)
+                if vall == "('Ni en acuerdo ni en desacuerdo',)":
+                    valores_num.append(3)
+                if vall == "('En desacuerdo',)":
+                    valores_num.append(2)
+                if vall == "('Totalmente en desacuerdo',)":
+                    valores_num.append(1)
+            
+            i = 1
+            for num in valores_num:
+                
+                if i in Sistémico:
+                    Sistémico_Promedio += num
+                if i in Científico:
+                    Científico_Promedio += num
+                if i in Crítico:
+                    Crítico_Promedio += num
+                if i in Inovador:
+                    Inovador_Promedio += num  
+
+                i += 1
+
+            Sistémico_Promedio = Sistémico_Promedio/len(Sistémico)
+            Científico_Promedio = Científico_Promedio/len(Científico)
+            Crítico_Promedio = Crítico_Promedio/len(Crítico)
+            Inovador_Promedio = Inovador_Promedio/len(Inovador)
+            return JsonResponse(
+                {
+                    "Sistémico": Sistémico_Promedio,
+                    "Científico": Científico_Promedio,
+                    "Crítico": Crítico_Promedio,
+                    "Inovador": Inovador_Promedio,
                 }
             )
         except Exception as e:
