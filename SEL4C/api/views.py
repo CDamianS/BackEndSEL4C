@@ -991,7 +991,7 @@ def cambiar_nombre(request, usuarioID_id, nombre, solicitudNID):
     solicitud.save()
 
     print("Exito")
-    return redirect("ver_solicitudes_nombres")
+    return redirect("cambios")
 
 @csrf_exempt
 def ver_solicitudes_contrasenia(request):
@@ -1027,7 +1027,7 @@ def cambiar_contrasenia(request, usuarioID_id, contrasenia, solicitudCID):
     solicitud.save()
 
     print("Exito")
-    return redirect("ver_solicitudes_contrasenia")
+    return redirect("cambios")
 
 @csrf_exempt
 def revisar_progreso(request):
