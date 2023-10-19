@@ -1,23 +1,23 @@
-const usuario = document.getElementById('usuario');
-const element = document.getElementById('data');
-const usuarioID = element.getAttribute('data-id');
+const usuariopc = document.getElementById('usuariopc');
+const user = document.getElementById('datos');
+const id = user.getAttribute('data-id');
 
-const apiUrl = '/api/calculo';
+const apiUrl2 = '/api/calculo2';
 
-const data = {
-  usuarioID_id: usuarioID,
+const datos = {
+  usuarioID_id: id,
 };
 
-fetch(apiUrl, {
+fetch(apiUrl2, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify(data),
+  body: JSON.stringify(datos),
 })
-  .then((response) => response.json())
-  .then((responseData) => {
-    createRadarChart(usuario, responseData);
+  .then((respuesta) => respuesta.json())
+  .then((responseDatos) => {
+    createRadarChart(usuariopc, responseDatos);
   })
   .catch((error) => {
     console.error('Error al obtener los datos:', error);
