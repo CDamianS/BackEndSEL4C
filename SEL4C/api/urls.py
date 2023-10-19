@@ -72,6 +72,7 @@ urlpatterns = [
         name="cambiar_contrasenia",
     ),
     path("calculo", views.calculo, name="calculo"),
+    path("calculo2", views.calculo2, name="calculo2"),
     path("revisar_progreso", views.revisar_progreso, name="revisar_progreso"),
     path("upload_string", views.upload_string, name="upload_string"),
 
