@@ -2,7 +2,7 @@ const usuariopc = document.getElementById('usuariopc');
 const user = document.getElementById('datos');
 const id = user.getAttribute('data-id');
 
-const apiUrl2 = '/api/calculo';
+const apiUrl2 = '/api/calculo2';
 
 const datos = {
   usuarioID_id: id,

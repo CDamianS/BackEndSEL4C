@@ -412,14 +412,14 @@ def calculo2(request):
             respuestas_lista = []
 
             for respuesta in respuestas:
-                respuestas_lista.append(respuesta)     
+                respuestas_lista.append(respuesta)
 
             
 
-            Sistémico: [25, 26, 27, 28, 29, 30]
-            Científico: [31, 32, 33, 34, 35, 36, 37, 38]
-            Crítico: [39, 40, 41, 42, 43, 44]
-            Inovador: [45, 46, 47, 48, 49]
+            Sistémico= [25, 26, 27, 28, 29, 30]
+            Científico= [31, 32, 33, 34, 35, 36, 37, 38]
+            Crítico= [39, 40, 41, 42, 43, 44]
+            Inovador= [45, 46, 47, 48, 49]
 
 
             Sistémico_Promedio = 0
@@ -445,7 +445,7 @@ def calculo2(request):
                     valores_num.append(2)
                 if vall == "('Totalmente en desacuerdo',)":
                     valores_num.append(1)
-            
+
             i = 1
             for num in valores_num:
                 
