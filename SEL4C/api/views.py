@@ -469,7 +469,7 @@ def calculo2(request):
                     "Sistémico": Sistémico_Promedio,
                     "Científico": Científico_Promedio,
                     "Crítico": Crítico_Promedio,
-                    "Inovador": Inovador_Promedio,
+                    "Innovador": Inovador_Promedio,
                 }
             )
         except Exception as e:

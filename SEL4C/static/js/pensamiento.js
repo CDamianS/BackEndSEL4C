@@ -15,7 +15,7 @@ fetch('/api/cuestionario_inicial/')
       'Sistémico': [25, 26, 27, 28, 29, 30],
       'Científico': [31, 32, 33, 34, 35, 36, 37, 38],
       'Crítico': [39, 40, 41, 42, 43, 44],
-      'Inovador': [45, 46, 47, 48, 49]
+      'Innovador': [45, 46, 47, 48, 49]
     };
 
     const promedios = {};
