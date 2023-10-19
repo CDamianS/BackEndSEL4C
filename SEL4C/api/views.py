@@ -295,9 +295,9 @@ def repuestas_cuestionarioI(request):
                 numero=response_id, respuesta=answer, usuarioID=usuario
             )
 
-            usuario.avance += 1
-            usuario.respuestasI = True
-            usuario.save()
+        usuario.avance += 1
+        usuario.respuestasI = True
+        usuario.save()
 
         return JsonResponse({"message": "Data processed successfully."}, status=200)
     return JsonResponse({"message": "Invalid request method."}, status=405)
