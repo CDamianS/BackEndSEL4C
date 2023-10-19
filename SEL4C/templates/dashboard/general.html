@@ -41,35 +41,46 @@
     </div>
 </div>
 
-<div class="subtitle">
-    <h2 > Encuesta Inicial </h2>
-</div>
 
 <div class = "stats">
-    <div class="general-graph">
-        <div class = "graph">
-            <canvas id="general"></canvas>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            {% block fourth %}
-            <script src="{% static 'js/general.js' %}"></script>
-            {% endblock %}
+    <div>
+        <h2 style="margin-left: 20px"> Encuesta Inicial </h2>
+        <div class="general-graph">
+            <div class = "graph">
+                <canvas id="general"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                {% block fourth %}
+                <script src="{% static 'js/general.js' %}"></script>
+                {% endblock %}
+            </div>
         </div>
     </div>
+    <div>
+        <h2 style="margin-left: 20px"> Pensamiento complejo </h2>
+        <div class="general-graph">
+            <div class = "graph">
+                <canvas id="pensamiento"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                {% block fifth %}
+                <script src="{% static 'js/pensamiento.js' %}"></script>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class= "general-data" style="margin-left: 260px">
+    <div class = "data-block-1">
+        <h2>Usuarios</h2>
+        <h3>Usuarios registrados: {{ num_usuarios }}</h3>
 
-    <div class= "general-data">
-        <div class = "data-block-1">
-            <h2>Usuarios</h2>
-            <h3>Usuarios registrados: {{ num_usuarios }}</h3>
-
-        </div>
-        <div class = "data-block-2">
-            <h2>Retroalimentación</h2>
-            <h3>{{ usuarios_done }} usuarios esperan retroalimentación</h3>
-        </div>
-        <div class = "data-block-3">
-            <h2>Cambios</h2>
-            <h3>Existen {{ cambios }} cambios por aprobar</h3>
-        </div>
+    </div>
+    <div class = "data-block-2">
+        <h2>Retroalimentación</h2>
+        <h3>{{ usuarios_done }} usuarios esperan retroalimentación</h3>
+    </div>
+    <div class = "data-block-3">
+        <h2>Cambios</h2>
+        <h3>Existen {{ cambios }} cambios por aprobar</h3>
     </div>
 </div>
 {% endblock %}

@@ -7,6 +7,34 @@
 
 {% block graphs %}
 <div class="stats">
+    <div>
+        <h2 style="margin-left: 20px">Resultados encuesta inicial</h2>
+        <div class="general-graph">
+            <div class="graph">
+                <canvas id="usuario"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <div id="data" data-id="{{ ID }}"></div>
+                {% block first %}
+                <script src="{% static 'js/usuario.js' %}"></script>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2 style="margin-left: 20px">Resultados pensamiento complejo</h2>
+        <div class="general-graph">
+            <div class="graph">
+                <canvas id="usuariopc"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <div id="datos" data-id="{{ ID }}"></div>
+                {% block second %}
+                <script src="{% static 'js/usuariopc.js' %}"></script>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="stats">
     <div class="titulosycont">
         <h2>Encuesta inicial</h2>
         <div class="fondo_tablas">
@@ -47,19 +75,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-    </div>
-    <div>
-        <h2 style="margin-left: 20px">Resultados encuesta inicial</h2>
-        <div class="general-graph">
-            <div class="graph">
-                <canvas id="usuario"></canvas>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                <div id="data" data-id="{{ ID }}"></div>
-                {% block first %}
-                <script src="{% static 'js/usuario.js' %}"></script>
-                {% endblock %}
-            </div>
         </div>
     </div>
 </div>
